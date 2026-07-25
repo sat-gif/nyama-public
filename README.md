@@ -6,14 +6,13 @@ Site public de l'application Nyama (Winstell), servi par GitHub Pages sur
 | Chemin              | Contenu                                    |
 |---------------------|--------------------------------------------|
 | `/`                 | Page de présentation — français            |
-| `/en/` `/de/` `/es/`| La même page en anglais, allemand, espagnol |
 | `/confidentialite/` | Politique de confidentialité (français)    |
 | `/conditions/`      | Redirige vers l'EULA standard d'Apple      |
 | `/assets/`          | Icône, captures d'écran                    |
 
 ## ⚠ Ne pas modifier `index.html` à la main
 
-Les quatre pages d'accueil sont **générées**. Elles seront écrasées.
+La page d'accueil est **générée**. Elle sera écrasée.
 
 ```
 _src/index.html     la page française — LA source
@@ -40,10 +39,24 @@ laisser passer en silence — il retombe alors sur le français.
 2. Ajouter `"une.cle"` dans les trois fichiers de `_i18n/`.
 3. `node _build.mjs`.
 
-### Ajouter une langue
+### Ouvrir une langue
+
+Anglais, allemand et espagnol sont **traduits et prêts**, mais pas publiés.
+Une seule ligne les ouvre, en tête de `_build.mjs` :
+
+```js
+const PUBLIEES = ['fr'];          // → ['fr', 'en'] pour ouvrir l'anglais
+```
+
+Puis `node _build.mjs` et committer. La page `/en/` est générée, son drapeau
+apparaît dans le sélecteur, les liens hreflang la déclarent. Tant qu'une seule
+langue est publiée, le sélecteur de drapeaux est retiré de la page : un drapeau
+seul n'offre aucun choix.
+
+### Ajouter une langue de plus
 
 1. Copier un fichier de `_i18n/` et le traduire.
-2. Ajouter le code dans `LANGUES` en tête de `_build.mjs`.
+2. Ajouter le code dans `LANGUES` **et** dans `PUBLIEES`.
 3. Ajouter un drapeau dans le sélecteur de `_src/index.html` (SVG en ligne,
    pas d'emoji : les drapeaux emoji ne s'affichent pas sous Windows).
 

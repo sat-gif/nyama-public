@@ -30,6 +30,23 @@ const FR = {
   },
 };
 
+/**
+ * ---- LE SEUL RÉGLAGE À TOUCHER POUR OUVRIR UNE LANGUE ----
+ *
+ * Les langues RÉELLEMENT publiées. Les traductions des autres dorment dans
+ * `_i18n/` : elles sont prêtes, simplement pas mises en ligne.
+ *
+ * Ajouter un code ici, relancer `node _build.mjs`, committer :
+ *   - la page de la langue est générée (/en/, /de/, /es/) ;
+ *   - son drapeau apparaît dans le sélecteur ;
+ *   - les liens hreflang la déclarent.
+ *
+ * Tant qu'il n'y a qu'une langue, le sélecteur de drapeaux est retiré de la
+ * page — un drapeau seul ne sert à rien — et les hreflang aussi.
+ */
+const PUBLIEES = ['fr'];
+
+/** Toutes les langues connues, publiées ou non. */
 const LANGUES = ['fr', 'en', 'de', 'es'];
 const dico = { fr: FR };
 for (const lg of LANGUES.filter((l) => l !== 'fr')) {
@@ -69,20 +86,54 @@ function remplaceContenu(html, cle, valeur) {
   return { html, trouve: false };
 }
 
-/** Liens hreflang : chaque version déclare toutes les autres. */
+/** Liens hreflang : chaque version publiée déclare les autres. */
 function liensAlternatifs() {
-  const l = LANGUES.map(
+  if (PUBLIEES.length < 2) return '';
+  const l = PUBLIEES.map(
     (lg) =>
       `<link rel="alternate" hreflang="${lg}" href="${ORIGINE}${dico[lg]._meta.dir}">`,
   );
   l.push(`<link rel="alternate" hreflang="x-default" href="${ORIGINE}/">`);
-  return l.join('\n');
+  return l.join('\n') + '\n';
+}
+
+/**
+ * Ne garde dans le sélecteur que les drapeaux des langues publiées, et retire
+ * le sélecteur entier s'il n'en reste qu'un — un drapeau seul n'offre aucun
+ * choix, il ferait juste croire à un site multilingue qui ne l'est pas encore.
+ */
+function filtreDrapeaux(html) {
+  const debut = html.indexOf('<div class="langs"');
+  if (debut === -1) return html;
+  // Bornes du conteneur : on repart de son ouverture et on compte les <div>.
+  let i = html.indexOf('>', debut) + 1;
+  let prof = 1;
+  while (prof > 0) {
+    const o = html.indexOf('<div', i);
+    const f = html.indexOf('</div>', i);
+    if (f === -1) break;
+    if (o !== -1 && o < f) { prof++; i = o + 4; } else { prof--; i = f + 6; }
+  }
+  const bloc = html.slice(debut, i);
+  const contenu = bloc.slice(bloc.indexOf('>') + 1, bloc.lastIndexOf('</div>'));
+
+  const gardes = [...contenu.matchAll(/<a\s[^>]*hreflang="([a-z]{2})"[\s\S]*?<\/a>/g)]
+    .filter((m) => PUBLIEES.includes(m[1]))
+    .map((m) => m[0]);
+
+  if (gardes.length < 2) return html.slice(0, debut) + html.slice(i);
+  return (
+    html.slice(0, debut) +
+    bloc.slice(0, bloc.indexOf('>') + 1) +
+    '\n        ' + gardes.join('\n        ') + '\n      </div>' +
+    html.slice(i)
+  );
 }
 
 const source = readFileSync(new URL('_src/index.html', import.meta.url), 'utf8');
 let total = 0;
 
-for (const lg of LANGUES) {
+for (const lg of PUBLIEES) {
   const t = dico[lg];
   const m = t._meta;
   let html = source;
@@ -139,8 +190,10 @@ for (const lg of LANGUES) {
   );
   html = html.replace('</head>', `${liensAlternatifs()}\n</head>`);
 
-  // 3. Le drapeau actif dans le sélecteur de langue.
+  // 3. Le sélecteur de langue : on ne garde que les langues publiées, puis on
+  //    marque celle de la page.
   html = html.replace(' aria-current="true"', '');
+  html = filtreDrapeaux(html);
   html = html.replace(
     `<a href="${m.dir}" hreflang="${m.lang}"`,
     `<a href="${m.dir}" hreflang="${m.lang}" aria-current="true"`,

@@ -183,9 +183,11 @@ header.nav.scrolled { border-bottom-color: var(--hairline); }
 .langs svg { display: block; width: 100%; height: 100%; }
 .nav-right { display: flex; align-items: center; gap: 18px; }
 /* À l'étroit, le bouton du menu s'efface au profit des drapeaux : celui du
-   héros est juste en dessous, il ne manque à personne. */
+   héros est juste en dessous, il ne manque à personne. Le `:has` est
+   volontaire — tant qu'une seule langue est publiée, le générateur retire le
+   sélecteur, la règle ne s'applique plus et le bouton reste. */
 @media (max-width: 620px) {
-  .nav-right .btn { display: none; }
+  .nav-right:has(.langs) .btn { display: none; }
   .langs a { width: 26px; height: 19px; }
 }
 
@@ -409,11 +411,7 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
   .btn:hover, .card:hover { transform: none; }
 }
 </style>
-<link rel="alternate" hreflang="fr" href="https://getnyama.app/">
-<link rel="alternate" hreflang="en" href="https://getnyama.app/en/">
-<link rel="alternate" hreflang="de" href="https://getnyama.app/de/">
-<link rel="alternate" hreflang="es" href="https://getnyama.app/es/">
-<link rel="alternate" hreflang="x-default" href="https://getnyama.app/">
+
 </head>
 <body>
 
@@ -432,29 +430,7 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
       <!-- Choix de la langue. `data-lang-switch` est réécrit par _build.mjs
            pour chaque version : les href pointent vers la page équivalente et
            le drapeau de la langue courante porte aria-current. -->
-      <div class="langs" data-lang-switch role="group" aria-label="Choisir la langue">
-        <a href="/" hreflang="fr" aria-current="true" title="Français" aria-label="Français">
-          <svg viewBox="0 0 9 6" aria-hidden="true"><rect width="3" height="6" fill="#002654"/><rect x="3" width="3" height="6" fill="#fff"/><rect x="6" width="3" height="6" fill="#CE1126"/></svg>
-        </a>
-        <a href="/en/" hreflang="en" title="English" aria-label="English">
-          <svg viewBox="0 0 60 30" aria-hidden="true">
-            <clipPath id="uk"><path d="M0 0h60v30H0z"/></clipPath>
-            <g clip-path="url(#uk)">
-              <path d="M0 0h60v30H0z" fill="#012169"/>
-              <path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/>
-              <path d="M0 0l60 30m0-30L0 30" stroke="#C8102E" stroke-width="4"/>
-              <path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/>
-              <path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/>
-            </g>
-          </svg>
-        </a>
-        <a href="/de/" hreflang="de" title="Deutsch" aria-label="Deutsch">
-          <svg viewBox="0 0 5 3" aria-hidden="true"><rect width="5" height="1" fill="#000"/><rect y="1" width="5" height="1" fill="#DD0000"/><rect y="2" width="5" height="1" fill="#FFCE00"/></svg>
-        </a>
-        <a href="/es/" hreflang="es" title="Español" aria-label="Español">
-          <svg viewBox="0 0 6 4" aria-hidden="true"><rect width="6" height="4" fill="#AA151B"/><rect y="1" width="6" height="2" fill="#F1BF00"/></svg>
-        </a>
-      </div>
+      
       <a class="btn btn-primary" href="#telecharger" data-appstore data-i18n="nav.cta">Télécharger</a>
     </div>
   </div>
