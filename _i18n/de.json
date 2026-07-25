@@ -8,34 +8,29 @@
     "ogTitle": "Nyama — alle deine Rezepte, endlich an einem Ort",
     "ogDescription": "Instagram, TikTok, YouTube, ein Blog, das Foto einer Kochbuchseite. Du teilst, Nyama sortiert. Deine Rezeptbibliothek, bereit zum Kochen."
   },
-
   "nav.probleme": "Das Problem",
   "nav.comment": "So funktioniert's",
   "nav.fonctions": "Funktionen",
   "nav.cta": "Laden",
-
   "hero.eyebrow": "Deine Rezeptbibliothek",
   "hero.h1": "Du hattest es gespeichert.<br>Gefunden hast du es <em>nie</em> wieder.",
   "hero.lead": "Deine besten Rezepte schlummern in deinen Instagram-Favoriten, deinen Screenshots und deinen offenen Tabs. Nyama bringt sie alle an einen Ort. Deinen.",
   "hero.cta2": "Ansehen, wie es geht",
   "hero.note": "Kostenlos starten. Für iPhone.",
+  "hero.tag": "Aus Instagram gespeichert",
   "cta.appstore": "Im App Store laden",
-
   "sources.label": "Woher deine Rezepte kommen",
   "sources.blogs": "Foodblogs und Kochseiten",
   "sources.livres": "Fotos aus Kochbüchern",
   "sources.notes": "Notizen und Nachrichten",
-
   "pb.h2": "Es ist 19 Uhr.",
   "pb.p1": "Letzten Dienstag ist dir das perfekte Rezept begegnet. Dreißig Sekunden Video, ein Gericht, das dich sofort hungrig gemacht hat. Du hast es gespeichert und gedacht: «das mache ich».",
   "pb.p2": "Heute Abend scrollst du acht Minuten durch deine Favoriten. Dann durch die Screenshots. Du öffnest drei Tabs. Irgendwo ist es, das weißt du. Du findest es nicht.",
   "pb.p3": "Du bestellst.",
   "pb.punch": "Das Problem war nie, Rezepte zu <b>finden</b>.<br>Das Problem ist, sie <b>wiederzufinden</b>.",
-
   "how.eyebrow": "So funktioniert's",
   "how.h2": "Drei Handgriffe, und nichts geht mehr verloren",
   "how.lead": "Sammeln, ordnen, kochen. Alles andere in Nyama ist dazu da, diesen dreien zu dienen.",
-
   "p1.h3": "Teilen. Schon abgelegt.",
   "p1.p1": "Ein TikTok-Video, ein Instagram-Post, ein endloser Blog, das Foto einer Kochbuchseite, eine Nachricht von deiner Mutter. Du teilst es mit Nyama, und heraus kommt ein sauberes Rezept: Zutaten auf der einen Seite, Schritte auf der anderen.",
   "p1.p2": "Du hast nichts abgetippt. Es dauert Sekunden.",
@@ -43,7 +38,6 @@
   "p1.li2": "Ein Foto aus einem Buch oder von einer Karte: der Text wird für dich gelesen",
   "p1.li3": "Ein eingefügter Link, eingefügter Text — oder von Hand, wenn dir das lieber ist",
   "p1.li4": "Du liest nach, korrigierst, was du willst, und speicherst",
-
   "p2.h3": "In drei Jahren ist es immer noch da.",
   "p2.p1": "Jedes Rezept landet in deiner Bibliothek, mit seinen Etiketten und Sammlungen. Du suchst «Zitronenhähnchen», du findest es. Kein Feed, kein Algorithmus, keine fremden Rezepte.",
   "p2.p2": "Nur deine. Geordnet, wie du ordnest.",
@@ -51,7 +45,6 @@
   "p2.li2": "Sammlungen: «die schnellen», «für Gäste», «was die Kinder wirklich essen»",
   "p2.li3": "Filter nach Tageszeit, nach Dauer, nach Lust",
   "p2.li4": "Deine Rezepte bleiben auf deinem Telefon, lesbar auch ohne Netz",
-
   "p3.h3": "Die Hände im Mehl, der Bildschirm bleibt dran.",
   "p3.p1": "Der Kochmodus zeigt einen Schritt nach dem anderen, groß, und der Bildschirm geht nicht im falschen Moment aus. Du hakst die Zutaten nach und nach ab. Du suchst nie wieder, wo du warst.",
   "p3.p2": "Kochen wird wieder der schöne Teil, kein Hindernislauf.",
@@ -59,7 +52,6 @@
   "p3.li2": "Die Zutaten des Schritts direkt vor Augen",
   "p3.li3": "Der Bildschirm bleibt während des ganzen Kochens an",
   "p3.li4": "Die Mengen passen sich der Personenzahl an",
-
   "feat.eyebrow": "Und dann",
   "feat.h2": "Was aus einer Bibliothek ein Essen macht",
   "feat.lead": "Ein gut abgelegtes Rezept ist schön. Eine bereits entschiedene Woche ist besser.",
@@ -75,7 +67,6 @@
   "feat.c5p": "Deine Rezepte leben auf deinem Telefon. In einer Küche ohne Netz, bei deinen Eltern, im Urlaub: sie sind da.",
   "feat.c6t": "Ehrlich bei Fehlern",
   "feat.c6p": "Wenn die automatische Erkennung sich nicht sicher ist, sagt Nyama es dir, statt so zu tun als ob. Zwei Tipper und es stimmt.",
-
   "not.eyebrow": "Damit es klar ist",
   "not.h2": "Was Nyama nicht ist",
   "not.1": "Noch ein soziales Netzwerk",
@@ -85,7 +76,6 @@
   "not.5": "Ein Ort, an dem man dir Zutaten verkauft",
   "not.6": "Eine App, die deine Daten weiterverkauft",
   "not.final": "Nyama ist eine <b>persönliche Bibliothek</b>.<br>Sie geht nur dich etwas an.",
-
   "faq.eyebrow": "Fragen",
   "faq.h2": "Was man uns fragt",
   "faq.q1": "Funktioniert das wirklich mit einem TikTok- oder Instagram-Video?",
@@ -100,10 +90,8 @@
   "faq.a5": "Noch nicht. Nyama beginnt auf dem iPhone. Android folgt, wenn genug Leute danach fragen.",
   "faq.q6": "Was passiert, wenn ich Nyama Plus beende?",
   "faq.a6": "Du behältst alle deine Rezepte. Für alles, was du danach hinzufügst, gelten wieder die Grenzen der kostenlosen Version. Nichts wird gelöscht.",
-
   "cta.h2": "Heute Abend weißt du, wo es ist.",
   "cta.lead": "Lege dein erstes Rezept in zwei Minuten ab. Das, das du beiseitegelegt und nie gekocht hast: fang damit an.",
-
   "foot.tagline": "Alle deine Rezepte, endlich an einem Ort.",
   "foot.privacy": "Datenschutz",
   "foot.terms": "Nutzungsbedingungen",

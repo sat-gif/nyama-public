@@ -34,10 +34,18 @@
   --saffron-pressed: #E39A00;
   --saffron-tint: #FDF0D3;
   --ink: #1B1A17;
-  --canvas: #F7F5F0;
+  /* Crème plus chaude et brun cacao : la page respire le même air que les
+     photos de plats, au lieu du gris-beige neutre du départ. */
+  --canvas: #FDF9F3;
   --surface: #FFFFFF;
-  --sand: #EFE9DF;
+  --sand: #F6EFE4;
+  --cocoa: #2B1A12;
   --stone: #6D6861;
+  /* Teintes des cartes : chaque carte prend la sienne, à tour de rôle. */
+  --tint-1: #FDF2E3;
+  --tint-2: #E8F2EA;
+  --tint-3: #FCEBEA;
+  --tint-4: #E9F0FA;
   --hairline: rgba(27, 26, 23, .09);
   --hairline-strong: rgba(27, 26, 23, .16);
   --on-tint: #7A5312;
@@ -57,6 +65,13 @@
        utilisent sand en fond et surface pour les cartes. Reprendre le
        surfaceSunken de l'app (#2C2820) rendrait les cartes invisibles. */
     --sand: #1A1711;
+    --cocoa: #120B07;
+    /* En sombre les teintes pastel deviennent des bruns/verts profonds :
+       même rotation, même lecture, sans éblouir. */
+    --tint-1: #2C2317;
+    --tint-2: #1E2A21;
+    --tint-3: #2E2020;
+    --tint-4: #1D2430;
     --stone: #ADA69C;
     --hairline: rgba(244, 241, 233, .10);
     --hairline-strong: rgba(244, 241, 233, .18);
@@ -84,7 +99,9 @@ a { color: inherit; }
 @media (max-width: 460px) { .wrap { padding: 0 18px; } }
 
 h1, h2, h3 {
-  font-family: var(--serif); font-weight: 600; letter-spacing: -.02em; line-height: 1.08; margin: 0;
+  /* Serif lourde, très contrastée : c'est elle qui donne le ton éditorial.
+     Le mot mis en valeur passe en ITALIQUE saffron — l'accent de la charte. */
+  font-family: var(--serif); font-weight: 700; letter-spacing: -.022em; line-height: 1.05; margin: 0;
   /* Les titres sont longs et le français a des mots longs : sans ça, « enregistrée »
      déborde du cadre sur un iPhone étroit et se fait rogner par overflow-x. */
   overflow-wrap: break-word;
@@ -95,16 +112,21 @@ h3 { font-size: clamp(21px, 2.4vw, 26px); line-height: 1.25; }
 p { margin: 0; }
 .lead { font-size: clamp(17px, 1.9vw, 21px); color: var(--stone); line-height: 1.6; }
 
+/* Le sur-titre devient une pastille cerclée, façon étiquette posée sur la page. */
 .eyebrow {
-  font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--saffron); margin: 0 0 18px;
+  display: inline-block; margin: 0 0 20px;
+  padding: 7px 16px; border-radius: 999px;
+  border: 1.5px solid var(--hairline-strong); background: var(--surface);
+  font-size: 12px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--on-tint);
 }
+.section-head.center .eyebrow { margin-inline: auto; }
 
 /* --- Boutons --- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  padding: 16px 28px; border-radius: 999px; font-size: 17px; font-weight: 600;
-  text-decoration: none; border: 1px solid transparent; cursor: pointer;
+  padding: 15px 28px; border-radius: 999px; font-size: 17px; font-weight: 600;
+  text-decoration: none; border: 2px solid transparent; cursor: pointer;
   transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease;
   white-space: nowrap; max-width: 100%;
 }
@@ -113,10 +135,20 @@ p { margin: 0; }
 @media (max-width: 460px) {
   .btn { white-space: normal; padding: 15px 22px; font-size: 16px; }
 }
-.btn-primary { background: var(--saffron); color: #1B1A17; box-shadow: 0 6px 20px rgba(252,174,11,.32); }
-.btn-primary:hover { background: var(--saffron-pressed); transform: translateY(-2px); }
-.btn-ghost { background: transparent; color: var(--ink); border-color: var(--hairline-strong); }
-.btn-ghost:hover { background: var(--sand); transform: translateY(-2px); }
+/* Bouton « posé » : aplat, contour net et ombre franche décalée. Au survol il
+   s'enfonce vers son ombre au lieu de léviter. */
+.btn-primary {
+  background: var(--saffron); color: #1B1A17;
+  border-color: var(--ink); box-shadow: 3px 4px 0 var(--ink);
+}
+.btn-primary:hover { background: var(--saffron-pressed); transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.btn-ghost { background: var(--surface); color: var(--ink); border-color: var(--ink); box-shadow: 3px 4px 0 var(--ink); }
+.btn-ghost:hover { background: var(--sand); transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+@media (prefers-color-scheme: dark) {
+  /* Sur fond sombre l'ombre noire ne se verrait pas : elle passe en crème. */
+  .btn-primary, .btn-ghost { box-shadow: 3px 4px 0 rgba(244,241,233,.85); border-color: rgba(244,241,233,.85); }
+  .btn-primary:hover, .btn-ghost:hover { box-shadow: 1px 1px 0 rgba(244,241,233,.85); }
+}
 .btn svg { flex: none; }
 
 /* --- Barre de navigation --- */
@@ -167,11 +199,32 @@ header.nav.scrolled { border-bottom-color: var(--hairline); }
   gap: 56px; align-items: center;
 }
 .hero h1 { margin-bottom: 24px; }
-.hero h1 em { font-style: normal; color: var(--saffron); }
+.hero h1 em { font-style: italic; color: var(--saffron); }
 .hero .lead { max-width: 30em; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
 .hero-note { margin-top: 18px; font-size: 14.5px; color: var(--stone); }
-.hero-phone { justify-self: center; }
+.hero-phone { justify-self: center; position: relative; }
+/* Étiquette qui « sort » du téléphone : le geste central de Nyama, dit en
+   trois mots, posé de travers pour donner du mouvement au héros. */
+.hero-tag {
+  position: absolute; top: 16%; right: -18px; z-index: 2;
+  background: var(--saffron); color: #1B1A17;
+  border: 2px solid var(--ink); border-radius: 999px;
+  box-shadow: 3px 4px 0 var(--ink);
+  padding: 9px 16px; font-size: 14px; font-weight: 700; white-space: nowrap;
+  transform: rotate(-6deg);
+  display: flex; align-items: center; gap: 7px;
+}
+.hero-tag svg { flex: none; }
+@media (prefers-color-scheme: dark) {
+  .hero-tag { border-color: rgba(244,241,233,.85); box-shadow: 3px 4px 0 rgba(244,241,233,.85); }
+}
+/* Sous 900 px le héros se centre : l'étiquette se recale sur le bord du
+   téléphone (en pourcentage) et non sur celui de la colonne, sinon elle
+   flotte toute seule au milieu du vide. */
+@media (max-width: 900px) { .hero-tag { right: 6%; top: 11%; font-size: 13px; padding: 8px 14px; } }
+@media (max-width: 430px) { .hero-tag { right: 2%; font-size: 12px; padding: 7px 12px; } }
+@media (max-width: 330px) { .hero-tag { display: none; } }
 @media (max-width: 900px) {
   .hero { padding-top: 44px; text-align: center; }
   .hero-grid { grid-template-columns: 1fr; gap: 44px; }
@@ -218,9 +271,10 @@ section { padding: 96px 0; }
 .section-head h2 { margin-bottom: 20px; }
 
 /* --- Le problème (bloc éditorial sombre) --- */
-.problem { background: #1B1A17; color: #F7F5F0; }
-@media (prefers-color-scheme: dark) { .problem { background: #0C0A07; } }
-.problem h2 { color: #F7F5F0; font-size: clamp(34px, 5vw, 56px); }
+/* Brun cacao plutôt que noir : on reste dans la famille chaude de la charte. */
+.problem { background: var(--cocoa); color: #FDF9F3; border-radius: 40px; margin: 0 16px; }
+.problem h2 { color: #FDF9F3; font-size: clamp(34px, 5vw, 56px); }
+@media (max-width: 600px) { .problem { border-radius: 28px; margin: 0 10px; } }
 .problem-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 60px; align-items: start; }
 .problem .story { max-width: 22ch; }
 .problem-body p { font-size: clamp(18px, 2vw, 21px); line-height: 1.62; color: rgba(247,245,240,.78); }
@@ -240,9 +294,13 @@ section { padding: 96px 0; }
 .pillar-media { display: flex; justify-content: center; }
 .pillar-num {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 42px; height: 42px; border-radius: 999px;
-  background: var(--saffron-tint); color: var(--on-tint);
-  font-family: var(--serif); font-size: 19px; font-weight: 700; margin-bottom: 22px;
+  width: 46px; height: 46px; border-radius: 999px;
+  background: var(--saffron); color: #1B1A17;
+  border: 2px solid var(--ink); box-shadow: 3px 4px 0 var(--ink);
+  font-family: var(--serif); font-size: 20px; font-weight: 700; margin-bottom: 26px;
+}
+@media (prefers-color-scheme: dark) {
+  .pillar-num { border-color: rgba(244,241,233,.85); box-shadow: 3px 4px 0 rgba(244,241,233,.85); }
 }
 .pillar h3 { font-size: clamp(28px, 3.6vw, 40px); margin-bottom: 18px; }
 .pillar p { color: var(--stone); font-size: 18px; }
@@ -259,17 +317,31 @@ section { padding: 96px 0; }
 }
 
 /* --- Grille de fonctions --- */
-.features { background: var(--sand); }
+/* Fond neutre : ce sont les teintes des cartes qui portent la couleur. Sur le
+   sable (#F6EFE4) la carte crème (#FDF2E3) disparaissait presque. */
+.features { background: var(--surface); }
+/* En sombre le blanc devient #232019, soit la luminosité de deux des quatre
+   teintes : on descend la section au fond de page pour que les quatre cartes
+   se détachent toujours vers le haut. */
+@media (prefers-color-scheme: dark) { .features { background: var(--canvas); } }
 .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+/* Chaque carte prend sa teinte à tour de rôle : crème, vert, rose, bleu.
+   Six cartes, quatre teintes — la rotation reprend, sans jamais mettre deux
+   fois la même côte à côte sur une grille de trois. */
 .card {
-  background: var(--surface); border: 1px solid var(--hairline); border-radius: 20px;
-  padding: 30px 28px; box-shadow: var(--shadow-soft);
+  border: 0; border-radius: 22px;
+  padding: 30px 28px; box-shadow: none;
   transition: transform .2s ease;
 }
+.card:nth-child(4n+1) { background: var(--tint-1); }
+.card:nth-child(4n+2) { background: var(--tint-2); }
+.card:nth-child(4n+3) { background: var(--tint-3); }
+.card:nth-child(4n+4) { background: var(--tint-4); }
 .card:hover { transform: translateY(-4px); }
 .card .ico {
-  width: 44px; height: 44px; border-radius: 12px; background: var(--saffron-tint);
-  display: grid; place-items: center; margin-bottom: 20px; color: var(--on-tint);
+  width: 44px; height: 44px; border-radius: 13px;
+  background: transparent; border: 2px solid var(--ink);
+  display: grid; place-items: center; margin-bottom: 20px; color: var(--ink);
 }
 .card h3 { font-size: 20px; margin-bottom: 10px; }
 .card p { color: var(--stone); font-size: 16px; }
@@ -293,12 +365,14 @@ summary {
   font-family: var(--serif); font-size: 20px; font-weight: 600; letter-spacing: -.01em;
 }
 summary::-webkit-details-marker { display: none; }
+/* Un « + » saffron qui pivote en « × » à l'ouverture. */
 summary::after {
-  content: ""; position: absolute; right: 8px; top: 50%; width: 11px; height: 11px;
-  border-right: 2px solid var(--stone); border-bottom: 2px solid var(--stone);
-  transform: translateY(-70%) rotate(45deg); transition: transform .2s ease;
+  content: "+"; position: absolute; right: 6px; top: 50%;
+  transform: translateY(-50%); transition: transform .25s ease;
+  font-family: var(--sans); font-size: 27px; font-weight: 400; line-height: 1;
+  color: var(--saffron);
 }
-details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+details[open] summary::after { transform: translateY(-50%) rotate(135deg); }
 details p { color: var(--stone); padding: 0 12px 24px 0; font-size: 16.5px; }
 details a { color: var(--saffron); text-underline-offset: 2px; }
 
@@ -401,6 +475,10 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
         <p class="hero-note" data-i18n="hero.note">Gratuit pour commencer. Sur iPhone.</p>
       </div>
       <div class="hero-phone">
+        <span class="hero-tag">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span data-i18n="hero.tag">Enregistré depuis Instagram</span>
+        </span>
         <div class="phone lg">
           <img src="/assets/ecran-accueil.png" width="1206" height="2622"
                alt="L'écran d'accueil de Nyama : des recettes venues d'Instagram, de TikTok, de YouTube et de sites de cuisine convergent vers l'application.">
