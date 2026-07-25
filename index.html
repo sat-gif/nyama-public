@@ -163,12 +163,26 @@ header.nav.scrolled { border-bottom-color: var(--hairline); }
 
 /* --- Cadre de téléphone --- */
 .phone {
-  position: relative; width: 300px; max-width: 76vw; aspect-ratio: 1179 / 2556;
+  position: relative; width: 300px; max-width: 76vw; aspect-ratio: 1206 / 2622;
   background: #0E0D0B; border-radius: 46px; padding: 9px;
   box-shadow: var(--shadow-phone), inset 0 0 0 1.5px rgba(255,255,255,.16);
 }
 .phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 38px; background: var(--sand); }
 .phone.lg { width: 322px; }
+
+/* Deux téléphones qui se chevauchent : « tu partages » (la feuille d'import)
+   puis « c'est rangé » (la fiche qui en sort). Le second est décoratif, il
+   passe derrière et se retire sur les écrans étroits. */
+.phone-pair { position: relative; display: flex; justify-content: center; padding-right: 90px; }
+.phone-pair .phone.back {
+  position: absolute; right: 0; top: 46px; width: 232px;
+  transform: rotate(5deg); z-index: 0; opacity: .96;
+}
+.phone-pair .phone.front { position: relative; z-index: 1; }
+@media (max-width: 1040px) and (min-width: 901px), (max-width: 560px) {
+  .phone-pair { padding-right: 0; }
+  .phone-pair .phone.back { display: none; }
+}
 
 /* --- Bandeau des sources --- */
 .sources { padding: 64px 0 8px; text-align: center; }
@@ -370,7 +384,7 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
       </div>
       <div class="hero-phone">
         <div class="phone lg">
-          <img src="/assets/ecran-accueil.png" width="1179" height="2556"
+          <img src="/assets/ecran-accueil.png" width="1206" height="2622"
                alt="L'écran d'accueil de Nyama : des recettes venues d'Instagram, de TikTok, de YouTube et de sites de cuisine convergent vers l'application.">
         </div>
       </div>
@@ -445,8 +459,14 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
             <li>Tu relis, tu corriges ce qui te chante, tu enregistres</li>
           </ul>
         </div>
-        <div class="pillar-media">
-          <div class="phone"><img src="/assets/ecran-import.svg" loading="lazy" alt="L'écran d'import de Nyama."></div>
+        <div class="pillar-media phone-pair">
+          <div class="phone front">
+            <img src="/assets/ecran-import.png" loading="lazy"
+                 alt="La feuille « Ajouter une recette » de Nyama : depuis les réseaux sociaux, depuis une photo, depuis un texte, ou à la main.">
+          </div>
+          <div class="phone back" aria-hidden="true">
+            <img src="/assets/ecran-recette.png" loading="lazy" alt="">
+          </div>
         </div>
       </div>
 
@@ -468,7 +488,10 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
           </ul>
         </div>
         <div class="pillar-media">
-          <div class="phone"><img src="/assets/ecran-bibliotheque.svg" loading="lazy" alt="La bibliothèque de recettes de Nyama."></div>
+          <div class="phone">
+            <img src="/assets/ecran-bibliotheque.png" loading="lazy"
+                 alt="La bibliothèque « Tes recettes » de Nyama : une grille de recettes avec leur provenance, Instagram ou TikTok, et une barre de recherche.">
+          </div>
         </div>
       </div>
 
@@ -490,7 +513,10 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
           </ul>
         </div>
         <div class="pillar-media">
-          <div class="phone"><img src="/assets/ecran-cuisson.svg" loading="lazy" alt="Le mode cuisson pas à pas de Nyama."></div>
+          <div class="phone">
+            <img src="/assets/ecran-cuisson.png" loading="lazy"
+                 alt="Le mode cuisson de Nyama : « étape 1 sur 4 », l'étape en cours en grand avec ses ingrédients, les suivantes en dessous.">
+          </div>
         </div>
       </div>
     </div>

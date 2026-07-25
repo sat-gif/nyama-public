@@ -24,5 +24,6 @@ jusqu'au bloc final au lieu de mener sur une page inexistante.
 ## Remplacer une capture d'écran
 
 Les captures vivent dans `assets/` et sont référencées par leur nom dans `index.html` :
-`ecran-accueil.png`, `ecran-import.png`, `ecran-bibliotheque.png`, `ecran-cuisson.png`.
-Déposer un fichier du même nom suffit — format portrait, idéalement 1179 × 2556.
+`ecran-accueil.png`, `ecran-import.png`, `ecran-bibliotheque.png`, `ecran-cuisson.png`,
+`ecran-recette.png`.
+Déposer un fichier du même nom suffit — format portrait, idéalement 1206 × 2622.
