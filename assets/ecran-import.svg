@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1179 2556" width="1179" height="2556" role="img" aria-label="L'import">
+  <rect width="1179" height="2556" fill="#F7F5F0"/>
+  <g fill="none" stroke="#EFE9DF" stroke-width="3">
+    <rect x="90" y="360" width="999" height="620" rx="40"/>
+    <rect x="90" y="1040" width="999" height="120" rx="34"/>
+    <rect x="90" y="1210" width="640" height="120" rx="34"/>
+    <rect x="90" y="1380" width="999" height="120" rx="34"/>
+    <rect x="90" y="1550" width="780" height="120" rx="34"/>
+  </g>
+  <circle cx="589" cy="670" r="96" fill="#FDF0D3"/>
+  <path d="M545 700 h88 a10 10 0 0 1 -10 34 h-68 a10 10 0 0 1 -10 -34 z M545 700 q44 -58 88 0" fill="none" stroke="#FCAE0B" stroke-width="11" stroke-linejoin="round"/>
+  <text x="589" y="1900" text-anchor="middle" font-family="-apple-system, Helvetica, Arial, sans-serif"
+        font-size="58" font-weight="600" fill="#6D6861">L'import</text>
+  <text x="589" y="1985" text-anchor="middle" font-family="-apple-system, Helvetica, Arial, sans-serif"
+        font-size="46" fill="#A9A29A">capture à venir</text>
+</svg>
