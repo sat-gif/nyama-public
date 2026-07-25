@@ -292,6 +292,8 @@ section { padding: 96px 0; }
 }
 .plan .btn { width: 100%; }
 .price-fine { text-align: center; color: var(--stone); font-size: 14px; margin-top: 28px; max-width: 64ch; margin-inline: auto; line-height: 1.55; }
+.price-fine a { color: var(--saffron); text-underline-offset: 2px; }
+.price-fine br { content: ""; display: block; margin-top: 10px; }
 @media (max-width: 800px) { .price-grid { grid-template-columns: 1fr; } }
 
 /* --- FAQ --- */
@@ -640,6 +642,10 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
         L'essai dure 7 jours et ne coûte rien. Un rappel t'est envoyé avant la fin. L'abonnement
         se renouvelle automatiquement sauf annulation au moins 24 h avant la fin de la période en
         cours, et se gère depuis les réglages de ton compte App Store.
+        <br>
+        <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+           target="_blank" rel="noopener">Conditions d'utilisation</a> ·
+        <a href="/confidentialite/">Politique de confidentialité</a>
       </p>
     </div>
   </section>
@@ -711,7 +717,10 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
       </div>
       <div class="foot-links">
         <a href="/confidentialite/">Confidentialité</a>
-        <a href="/conditions/">Conditions</a>
+        <!-- Nyama utilise l'EULA standard d'Apple : on renvoie au texte officiel,
+             qui fait foi. /conditions/ garde la même destination. -->
+        <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+           target="_blank" rel="noopener">Conditions d'utilisation</a>
         <a href="mailto:sat@winstell.com">Nous écrire</a>
       </div>
     </div>
