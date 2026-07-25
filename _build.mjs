@@ -11,7 +11,8 @@
  * il faut donc les committer. Jekyll ignore les dossiers commençant par « _ »,
  * `_src` et `_i18n` ne sont pas servis — c'est voulu.
  */
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'node:fs';
+import { markdown, frontmatter, extrait } from './_markdown.mjs';
 
 const ORIGINE = 'https://getnyama.app';
 
@@ -130,8 +131,214 @@ function filtreDrapeaux(html) {
   );
 }
 
+/* ------------------------------------------------------------------
+   BLOG
+   Les articles vivent en Markdown dans `_blog/`. Le nom du fichier donne
+   l'adresse : `_blog/ranger-ses-recettes.md` → `/blog/ranger-ses-recettes/`.
+   Un article avec `draft: true` dans son entête n'est pas publié.
+   ------------------------------------------------------------------ */
+
+const MOIS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const dateLisible = (iso) => {
+  const [a, m, j] = iso.split('-').map(Number);
+  return `${j} ${MOIS[m - 1]} ${a}`;
+};
+const attr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+
+function lisArticles() {
+  const dir = new URL('_blog/', import.meta.url);
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((f) => f.endsWith('.md'))
+    .map((f) => {
+      const brut = readFileSync(new URL(f, dir), 'utf8');
+      const { meta, corps } = frontmatter(brut);
+      const html = markdown(corps);
+      return {
+        slug: f.replace(/\.md$/, ''),
+        titre: meta.title || f.replace(/\.md$/, ''),
+        date: meta.date || '',
+        description: meta.description || extrait(html),
+        brouillon: meta.draft === 'true',
+        html,
+      };
+    })
+    .filter((a) => {
+      if (a.brouillon) return false;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(a.date)) {
+        console.log(`  ⚠ ${a.slug} : date manquante ou mal formée (attendu AAAA-MM-JJ) — non publié`);
+        return false;
+      }
+      return true;
+    })
+    .sort((x, y) => (x.date < y.date ? 1 : -1));
+}
+
+/**
+ * Coquille commune aux pages du blog : on RÉUTILISE la feuille de style, l'entête
+ * et le pied de page de la page d'accueil déjà générée, pour qu'il n'y ait jamais
+ * deux designs à tenir. Les ancres du menu (#comment…) sont repréfixées, sinon
+ * elles ne mènent nulle part depuis /blog/.
+ */
+function coquille({ accueil, titre, description, url, corps, ogImage }) {
+  const styles = accueil.match(/<style>[\s\S]*?<\/style>/)[0];
+  const entete = accueil.match(/<header class="nav"[\s\S]*?<\/header>/)[0]
+    .replace(/href="#/g, 'href="/#');
+  const pied = accueil.match(/<footer class="site">[\s\S]*?<\/footer>/)[0];
+  const image = ogImage || `${ORIGINE}/assets/ecran-accueil.png`;
+  return `<!DOCTYPE html>
+<!-- FICHIER GÉNÉRÉ — ne pas modifier à la main.
+     Source : _blog/*.md + _src/index.html, puis « node _build.mjs ». -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${attr(titre)}</title>
+<meta name="description" content="${attr(description)}">
+<link rel="canonical" href="${url}">
+<link rel="icon" href="/assets/icone.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/icone.png">
+<meta name="theme-color" content="#FCAE0B">
+<link rel="alternate" type="application/rss+xml" title="Le blog de Nyama" href="${ORIGINE}/blog/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nyama">
+<meta property="og:url" content="${url}">
+<meta property="og:title" content="${attr(titre)}">
+<meta property="og:description" content="${attr(description)}">
+<meta property="og:image" content="${image}">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+${styles}
+</head>
+<body>
+${entete}
+<main>
+${corps}
+</main>
+${pied}
+<script>
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), { passive: true });
+const an = document.getElementById('an');
+if (an) an.textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
+`;
+}
+
+function construisBlog(accueil, articles) {
+  mkdirSync(new URL('blog/', import.meta.url), { recursive: true });
+
+  // 1. La liste
+  const cartes = articles
+    .map(
+      (a) => `        <a class="post-card" href="/blog/${a.slug}/">
+          <span class="post-date">${dateLisible(a.date)}</span>
+          <h2>${attr(a.titre)}</h2>
+          <p>${attr(a.description)}</p>
+          <span class="post-more">Lire</span>
+        </a>`,
+    )
+    .join('\n');
+
+  const liste = `  <section class="blog-head">
+    <div class="wrap">
+      <p class="eyebrow">Le blog</p>
+      <h1>Bien manger sans y passer ses soirées</h1>
+      <p class="lead">Des idées pour retrouver, organiser et cuisiner ce qui te fait envie.</p>
+    </div>
+  </section>
+  <section style="padding-top:0">
+    <div class="wrap">
+${articles.length
+      ? `      <div class="blog-list">\n${cartes}\n      </div>`
+      : `      <p class="blog-vide">Les premiers articles arrivent bientôt.</p>`}
+    </div>
+  </section>`;
+
+  writeFileSync(
+    new URL('blog/index.html', import.meta.url),
+    coquille({
+      accueil,
+      titre: 'Le blog de Nyama',
+      description: 'Des idées pour retrouver, organiser et cuisiner les recettes qui te font envie.',
+      url: `${ORIGINE}/blog/`,
+      corps: liste,
+    }),
+  );
+
+  // 2. Un dossier par article
+  for (const a of articles) {
+    mkdirSync(new URL(`blog/${a.slug}/`, import.meta.url), { recursive: true });
+    const corps = `  <article class="article">
+    <div class="wrap article-inner">
+      <a class="retour" href="/blog/">Tous les articles</a>
+      <span class="post-date">${dateLisible(a.date)}</span>
+      <h1>${attr(a.titre)}</h1>
+      <p class="chapeau">${attr(a.description)}</p>
+      <div class="article-corps">
+${a.html}
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="article-cta">
+        <h2>Toutes tes recettes, au même endroit</h2>
+        <p>Nyama range ce que tu croises sur Instagram, TikTok ou un blog dans une seule bibliothèque. La tienne.</p>
+        <a class="btn btn-primary" href="/#telecharger">Découvrir Nyama</a>
+      </div>
+    </div>
+  </article>`;
+    writeFileSync(
+      new URL(`blog/${a.slug}/index.html`, import.meta.url),
+      coquille({
+        accueil,
+        titre: `${a.titre} — Nyama`,
+        description: a.description,
+        url: `${ORIGINE}/blog/${a.slug}/`,
+        corps,
+      }),
+    );
+  }
+
+  // 3. Le flux RSS
+  const items = articles
+    .map(
+      (a) => `    <item>
+      <title>${attr(a.titre)}</title>
+      <link>${ORIGINE}/blog/${a.slug}/</link>
+      <guid isPermaLink="true">${ORIGINE}/blog/${a.slug}/</guid>
+      <pubDate>${new Date(`${a.date}T09:00:00Z`).toUTCString()}</pubDate>
+      <description>${attr(a.description)}</description>
+    </item>`,
+    )
+    .join('\n');
+  writeFileSync(
+    new URL('blog/feed.xml', import.meta.url),
+    `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+    <title>Le blog de Nyama</title>
+    <link>${ORIGINE}/blog/</link>
+    <description>Des idées pour retrouver, organiser et cuisiner les recettes qui te font envie.</description>
+    <language>fr-FR</language>
+${items}
+  </channel>
+</rss>
+`,
+  );
+
+  console.log(
+    `blog/           ${articles.length} article${articles.length > 1 ? 's' : ''} + flux RSS`,
+  );
+}
+
+const articles = lisArticles();
 const source = readFileSync(new URL('_src/index.html', import.meta.url), 'utf8');
 let total = 0;
+let accueilFr = '';
 
 for (const lg of PUBLIEES) {
   const t = dico[lg];
@@ -199,7 +406,14 @@ for (const lg of PUBLIEES) {
     `<a href="${m.dir}" hreflang="${m.lang}" aria-current="true"`,
   );
 
-  // 4. Bandeau « fichier généré » pour qui ouvrirait la sortie par erreur.
+  // 4. Le lien « Blog » du menu ne sert que s'il y a quelque chose à lire.
+  if (!articles.length) {
+    html = html.replace(/\s*<a href="\/blog\/" data-lien-blog[^>]*>[^<]*<\/a>/, '');
+  } else {
+    html = html.replace(' data-lien-blog', '');
+  }
+
+  // 5. Bandeau « fichier généré » pour qui ouvrirait la sortie par erreur.
   html = html.replace(
     '<!DOCTYPE html>',
     `<!DOCTYPE html>\n<!-- FICHIER GÉNÉRÉ — ne pas modifier à la main.\n     Source : _src/index.html + _i18n/*.json, puis « node _build.mjs ». -->`,
@@ -208,6 +422,9 @@ for (const lg of PUBLIEES) {
   const chemin = lg === 'fr' ? 'index.html' : `${lg}/index.html`;
   if (lg !== 'fr') mkdirSync(new URL(`${lg}/`, import.meta.url), { recursive: true });
   writeFileSync(new URL(chemin, import.meta.url), html);
+  // Le blog emprunte à la page française sa feuille de style, son entête et
+  // son pied de page : un seul design à tenir.
+  if (lg === 'fr') accueilFr = html;
 
   const restantes = (html.match(/data-i18n="/g) || []).length;
   console.log(
@@ -216,5 +433,7 @@ for (const lg of PUBLIEES) {
   );
   total += manquantes.length;
 }
+
+construisBlog(accueilFr, articles);
 
 console.log(total === 0 ? '\nToutes les clés sont traduites.' : `\n${total} traductions manquantes.`);

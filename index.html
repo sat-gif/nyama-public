@@ -402,6 +402,78 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
 .foot-links a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 .foot-legal { margin-top: 40px; padding-top: 26px; border-top: 1px solid var(--hairline); color: var(--stone); font-size: 13.5px; }
 
+/* ==================================================================
+   BLOG — styles partagés avec /blog/ et /blog/<article>/.
+   Ils vivent ici pour qu'il n'y ait qu'UNE feuille de style à tenir :
+   _build.mjs extrait ce bloc <style> et le pose dans les pages du blog.
+   ================================================================== */
+
+/* --- Liste des articles --- */
+.blog-head { padding: 64px 0 8px; text-align: center; }
+.blog-head h1 { font-size: clamp(34px, 5.2vw, 56px); margin-bottom: 18px; }
+.blog-head .lead { max-width: 46ch; margin-inline: auto; }
+
+.blog-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; padding: 56px 0 0; }
+@media (max-width: 780px) { .blog-list { grid-template-columns: 1fr; } }
+
+.post-card {
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 30px 28px; border-radius: 22px; text-decoration: none;
+  transition: transform .2s ease;
+}
+.post-card:nth-child(4n+1) { background: var(--tint-1); }
+.post-card:nth-child(4n+2) { background: var(--tint-2); }
+.post-card:nth-child(4n+3) { background: var(--tint-3); }
+.post-card:nth-child(4n+4) { background: var(--tint-4); }
+.post-card:hover { transform: translateY(-4px); }
+.post-card h2 { font-size: clamp(21px, 2.4vw, 27px); }
+.post-card p { color: var(--stone); font-size: 16px; }
+.post-date { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--on-tint); }
+.post-more { margin-top: auto; padding-top: 6px; font-weight: 600; font-size: 15.5px; color: var(--ink); }
+.post-more::after { content: " →"; }
+
+.blog-vide { text-align: center; padding: 70px 0 20px; color: var(--stone); }
+
+/* --- Article --- */
+.article { padding: 56px 0 20px; }
+.article-inner { max-width: 700px; margin-inline: auto; }
+.retour { display: block; margin-bottom: 30px; font-size: 15.5px; color: var(--stone); text-decoration: none; }
+.article .post-date { display: block; }
+.retour:hover { color: var(--ink); }
+.retour::before { content: "← "; }
+.article h1 { font-size: clamp(32px, 4.8vw, 52px); margin: 12px 0 20px; }
+.article .chapeau { font-size: clamp(17px, 1.9vw, 20px); color: var(--stone); line-height: 1.6; }
+.article-corps { margin-top: 44px; font-size: 18px; line-height: 1.72; }
+.article-corps > * + * { margin-top: 22px; }
+.article-corps h2 { font-size: clamp(25px, 3vw, 32px); margin-top: 46px; }
+.article-corps h3 { font-size: clamp(20px, 2.2vw, 24px); margin-top: 34px; }
+.article-corps a { color: var(--saffron); text-underline-offset: 2px; }
+.article-corps ul, .article-corps ol { padding-left: 22px; }
+.article-corps li + li { margin-top: 8px; }
+.article-corps img { border-radius: 18px; margin-block: 30px; }
+.article-corps code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .88em;
+  background: var(--sand); padding: 2px 6px; border-radius: 6px;
+}
+.article-corps pre {
+  background: var(--cocoa); color: #FDF9F3; padding: 20px 22px;
+  border-radius: 16px; overflow-x: auto;
+}
+.article-corps pre code { background: none; padding: 0; color: inherit; }
+.article-corps blockquote {
+  margin: 30px 0; padding: 4px 0 4px 24px; border-left: 3px solid var(--saffron);
+  font-family: var(--serif); font-size: clamp(20px, 2.4vw, 25px); line-height: 1.4;
+}
+.article-corps hr { border: 0; border-top: 1px solid var(--hairline); margin: 40px 0; }
+
+/* Appel à l'action en fin d'article */
+.article-cta {
+  margin: 60px auto 0; max-width: 700px; text-align: center;
+  background: var(--tint-1); border-radius: 24px; padding: 40px 32px;
+}
+.article-cta h2 { font-size: clamp(24px, 3vw, 32px); margin-bottom: 12px; }
+.article-cta p { color: var(--stone); margin-bottom: 26px; }
+
 /* --- Apparition au défilement --- */
 .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.in { opacity: 1; transform: none; }
@@ -425,6 +497,8 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
       <a href="#probleme" data-i18n="nav.probleme">Le problème</a>
       <a href="#comment" data-i18n="nav.comment">Comment ça marche</a>
       <a href="#fonctions" data-i18n="nav.fonctions">Fonctions</a>
+      <!-- Retiré par _build.mjs tant qu'aucun article n'est publié : un lien
+           « Blog » vers une page vide vaut moins que pas de lien du tout. -->
     </nav>
     <div class="nav-right">
       <!-- Choix de la langue. `data-lang-switch` est réécrit par _build.mjs

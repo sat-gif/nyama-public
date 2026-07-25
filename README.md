@@ -6,6 +6,7 @@ Site public de l'application Nyama (Winstell), servi par GitHub Pages sur
 | Chemin              | Contenu                                    |
 |---------------------|--------------------------------------------|
 | `/`                 | Page de présentation — français            |
+| `/blog/`            | Le blog, et un dossier par article          |
 | `/confidentialite/` | Politique de confidentialité (français)    |
 | `/conditions/`      | Redirige vers l'EULA standard d'Apple      |
 | `/assets/`          | Icône, captures d'écran                    |
@@ -59,6 +60,48 @@ seul n'offre aucun choix.
 2. Ajouter le code dans `LANGUES` **et** dans `PUBLIEES`.
 3. Ajouter un drapeau dans le sélecteur de `_src/index.html` (SVG en ligne,
    pas d'emoji : les drapeaux emoji ne s'affichent pas sous Windows).
+
+## Écrire un article de blog
+
+Les articles sont des fichiers Markdown dans `_blog/`. Le nom du fichier donne
+l'adresse : `ranger-ses-recettes.md` → `getnyama.app/blog/ranger-ses-recettes/`
+(minuscules, tirets, pas d'accent).
+
+Chaque fichier commence par un entête :
+
+```markdown
+---
+title: Le titre de l'article
+date: 2026-08-12
+description: Une ou deux phrases, affichées sous le titre et données à Google.
+draft: true
+---
+```
+
+`draft: true` garde l'article hors ligne. `date` doit être au format
+`AAAA-MM-JJ` : c'est elle qui classe les articles, du plus récent au plus
+ancien. Un article sans date valable n'est pas publié et le générateur le dit.
+
+Voir `_blog/exemple-a-supprimer.md` pour la syntaxe reconnue — à supprimer une
+fois le premier vrai article écrit.
+
+Puis, comme toujours : `node _build.mjs`, committer, pousser. Sont générés
+`/blog/`, un dossier par article, et le flux RSS `/blog/feed.xml`.
+
+Le lien « Blog » n'apparaît dans le menu que s'il existe au moins un article
+publié — un lien vers une page vide vaut moins que pas de lien.
+
+### Le Markdown reconnu
+
+Titres `#` à `####`, `**gras**`, `*italique*`, `` `code` ``, `[liens](url)`,
+`![images](/assets/x.png)`, listes à puces et numérotées, `> citations`,
+`---` filets, blocs de code triples-accents. Les guillemets droits deviennent
+des guillemets français et les apostrophes se courbent toutes seules.
+
+Pas de tableaux ni de notes de bas de page : le convertisseur
+(`_markdown.mjs`) est volontairement minimal, pour que le dépôt reste sans
+aucune dépendance à installer. Un bloc qui commence par `<` est recopié tel
+quel si tu as besoin de glisser du HTML.
 
 ## Le jour de la publication sur l'App Store
 
