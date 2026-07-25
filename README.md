@@ -61,6 +61,41 @@ seul n'offre aucun choix.
 3. Ajouter un drapeau dans le sélecteur de `_src/index.html` (SVG en ligne,
    pas d'emoji : les drapeaux emoji ne s'affichent pas sous Windows).
 
+## ⏳ Reste à faire : brancher le domaine
+
+Le site est en ligne sur GitHub Pages et le domaine `getnyama.app` est déjà
+déclaré côté GitHub (fichier `CNAME` + réglage Pages). **Il manque uniquement
+le DNS**, chez Namecheap — tant qu'il n'est pas fait, le domaine affiche la
+page parquée du registrar et `sat-gif.github.io/nyama-public/` y redirige.
+
+Namecheap → Domain List → `getnyama.app` → Manage → onglet **Advanced DNS**.
+
+**Supprimer** : le `A Record` sur `@` valant `192.64.119.90`, le `CNAME Record`
+sur `www` valant `parkingpage.namecheap.com`, et tout `URL Redirect Record`.
+
+**Ajouter** :
+
+| Type         | Host  | Value                | TTL       |
+|--------------|-------|----------------------|-----------|
+| A Record     | `@`   | `185.199.108.153`    | Automatic |
+| A Record     | `@`   | `185.199.109.153`    | Automatic |
+| A Record     | `@`   | `185.199.110.153`    | Automatic |
+| A Record     | `@`   | `185.199.111.153`    | Automatic |
+| CNAME Record | `www` | `sat-gif.github.io.` | Automatic |
+
+Propagation : 30 minutes à quelques heures.
+
+⚠️ **Piège propre au `.app`** : ce TLD est sur la liste HSTS de Google, donc les
+navigateurs forcent HTTPS en permanence. Entre le moment où le DNS pointe sur
+GitHub et l'émission du certificat, le site affiche une **erreur de
+certificat**. C'est normal, ce n'est pas une erreur de ta part. GitHub émet le
+certificat tout seul ensuite ; il reste à cocher « Enforce HTTPS » dans les
+réglages Pages du dépôt.
+
+Non fait volontairement, pour ne pas ajouter de variables : enregistrements
+AAAA (IPv6) et vérification de domaine GitHub. À envisager une fois que ça
+tourne.
+
 ## Écrire un article de blog
 
 Les articles sont des fichiers Markdown dans `_blog/`. Le nom du fichier donne
