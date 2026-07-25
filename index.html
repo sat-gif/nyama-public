@@ -267,35 +267,6 @@ section { padding: 96px 0; }
 .not-final b { color: var(--saffron); font-weight: 600; }
 @media (max-width: 700px) { .not-list { grid-template-columns: 1fr; gap: 0; } }
 
-/* --- Prix --- */
-.price-grid { display: grid; grid-template-columns: 1fr 1.12fr; gap: 24px; align-items: stretch; max-width: 940px; margin-inline: auto; }
-.plan {
-  background: var(--surface); border: 1px solid var(--hairline); border-radius: 24px;
-  padding: 36px 32px; display: flex; flex-direction: column;
-}
-.plan.hi { border: 2px solid var(--saffron); box-shadow: 0 10px 40px rgba(252,174,11,.16); position: relative; }
-.plan .tag {
-  position: absolute; top: -14px; left: 32px; background: var(--saffron); color: #1B1A17;
-  font-size: 13px; font-weight: 700; padding: 5px 14px; border-radius: 999px;
-}
-.plan h3 { font-size: 24px; margin-bottom: 6px; }
-.plan .sub { color: var(--stone); font-size: 15.5px; margin-bottom: 24px; }
-.plan .amount { font-family: var(--serif); font-size: 44px; font-weight: 600; letter-spacing: -.02em; }
-.plan .amount small { font-family: var(--sans); font-size: 16px; font-weight: 500; color: var(--stone); letter-spacing: 0; }
-.plan .alt { font-size: 14.5px; color: var(--stone); margin-top: 8px; }
-.plan ul { list-style: none; margin: 26px 0 30px; padding: 0; flex: 1; }
-.plan li { position: relative; padding-left: 28px; margin-bottom: 13px; font-size: 16px; color: var(--stone); }
-.plan li::before {
-  content: ""; position: absolute; left: 2px; top: 7px; width: 11px; height: 6px;
-  border-left: 2px solid var(--saffron); border-bottom: 2px solid var(--saffron);
-  transform: rotate(-45deg);
-}
-.plan .btn { width: 100%; }
-.price-fine { text-align: center; color: var(--stone); font-size: 14px; margin-top: 28px; max-width: 64ch; margin-inline: auto; line-height: 1.55; }
-.price-fine a { color: var(--saffron); text-underline-offset: 2px; }
-.price-fine br { content: ""; display: block; margin-top: 10px; }
-@media (max-width: 800px) { .price-grid { grid-template-columns: 1fr; } }
-
 /* --- FAQ --- */
 .faq { max-width: 780px; margin-inline: auto; }
 details { border-bottom: 1px solid var(--hairline); padding: 6px 0; }
@@ -357,7 +328,6 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
       <a href="#probleme">Le problème</a>
       <a href="#comment">Comment ça marche</a>
       <a href="#fonctions">Fonctions</a>
-      <a href="#prix">Prix</a>
     </nav>
     <a class="btn btn-primary" href="#telecharger" data-appstore>Télécharger</a>
   </div>
@@ -596,62 +566,10 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
     </div>
   </section>
 
-  <!-- Prix ------------------------------------------------------------- -->
-  <section class="features" id="prix">
-    <div class="wrap">
-      <div class="section-head center reveal">
-        <p class="eyebrow">Prix</p>
-        <h2>Commence gratuitement</h2>
-        <p class="lead">Tu ranges tes premières recettes sans payer. Tu passes à Plus le jour où tu ne veux plus compter.</p>
-      </div>
-
-      <div class="price-grid reveal">
-        <div class="plan">
-          <h3>Gratuit</h3>
-          <p class="sub">Pour voir si Nyama est fait pour toi</p>
-          <div class="amount">0 €</div>
-          <p class="alt">Pour toujours</p>
-          <ul>
-            <li>20 recettes ajoutées par mois</li>
-            <li>2 collections</li>
-            <li>3 cuissons pas à pas par semaine</li>
-            <li>La liste de courses</li>
-            <li>Le planning de la semaine</li>
-          </ul>
-          <a class="btn btn-ghost" href="#telecharger" data-appstore>Télécharger</a>
-        </div>
-
-        <div class="plan hi">
-          <span class="tag">7 jours d'essai</span>
-          <h3>Nyama Plus</h3>
-          <p class="sub">Quand ta bibliothèque devient sérieuse</p>
-          <div class="amount">34,99 € <small>/ an</small></div>
-          <p class="alt">soit 0,67 € par semaine — ou 5,99 € par mois, sans engagement</p>
-          <ul>
-            <li>Recettes illimitées, par tous les moyens</li>
-            <li>Collections illimitées</li>
-            <li>Cuisine sans limite</li>
-            <li>Le calcul des calories</li>
-            <li>Adapter et améliorer une recette</li>
-          </ul>
-          <a class="btn btn-primary" href="#telecharger" data-appstore>Essayer 7 jours</a>
-        </div>
-      </div>
-
-      <p class="price-fine">
-        L'essai dure 7 jours et ne coûte rien. Un rappel t'est envoyé avant la fin. L'abonnement
-        se renouvelle automatiquement sauf annulation au moins 24 h avant la fin de la période en
-        cours, et se gère depuis les réglages de ton compte App Store.
-        <br>
-        <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
-           target="_blank" rel="noopener">Conditions d'utilisation</a> ·
-        <a href="/confidentialite/">Politique de confidentialité</a>
-      </p>
-    </div>
-  </section>
-
-  <!-- FAQ -------------------------------------------------------------- -->
-  <section>
+  <!-- FAQ --------------------------------------------------------------
+       Porte le fond `sand` depuis le retrait du bloc Prix : sans lui, trois
+       sections `canvas` s'enchaînaient et la page perdait son rythme. -->
+  <section class="features">
     <div class="wrap">
       <div class="section-head center reveal">
         <p class="eyebrow">Questions</p>
