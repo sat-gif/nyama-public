@@ -19,41 +19,39 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
-
 <style>
 /* ------------------------------------------------------------------
-   Nyama — jetons de design repris de constants/tokens.ts de l'app.
-   Une seule couleur d'accent (saffron) ; les photos de plats apportent
-   le reste. Clair et sombre, comme l'application.
+   Nyama — jetons de design repris de constants/tokens.ts de l'app,
+   habillage inspiré du fichier Claude Design « Nyama Site Web » (kit
+   Htlm site / Pages d'application Nyama.zip). Un seul système de police
+   (celle de l'app elle-même, SF Pro / système), fond clair partout — le
+   noir n'est plus qu'un accent ponctuel (bouton App Store), jamais un
+   aplat de section.
    ------------------------------------------------------------------ */
 :root {
   --saffron: #FCAE0B;
   --saffron-pressed: #E39A00;
   --saffron-tint: #FDF0D3;
   --ink: #1B1A17;
-  /* Crème plus chaude et brun cacao : la page respire le même air que les
-     photos de plats, au lieu du gris-beige neutre du départ. */
   --canvas: #FDF9F3;
   --surface: #FFFFFF;
   --sand: #F6EFE4;
-  --cocoa: #2B1A12;
   --stone: #6D6861;
-  /* Teintes des cartes : chaque carte prend la sienne, à tour de rôle. */
-  --tint-1: #FDF2E3;
-  --tint-2: #E8F2EA;
-  --tint-3: #FCEBEA;
-  --tint-4: #E9F0FA;
+  /* Ne bascule JAMAIS avec le thème : pour du texte posé sur un fond qui,
+     lui non plus, ne bascule pas (le bouton App Store, l'anneau du
+     téléphone). Values identiques à --ink en clair — mais figées. */
+  --ink-fixed: #1B1A17;
+  --cream-fixed: #FDF9F3;
   --hairline: rgba(27, 26, 23, .09);
   --hairline-strong: rgba(27, 26, 23, .16);
   --on-tint: #7A5312;
   --shadow-soft: 0 2px 8px rgba(27,26,23,.05), 0 12px 32px rgba(27,26,23,.07);
   --shadow-phone: 0 8px 24px rgba(27,26,23,.10), 0 40px 90px rgba(27,26,23,.18);
-  --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --wrap: 1140px;
+  /* Une seule famille : celle de l'app (SF Pro sur iOS, system-ui ailleurs).
+     Pas de police d'affichage à part — le poids (700) fait le travail. */
+  --font: -apple-system, "SF Pro Display", "SF Pro Text", BlinkMacSystemFont,
+          system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --wrap: 1160px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -61,17 +59,7 @@
     --ink: #F4F1E9;
     --canvas: #15130E;
     --surface: #232019;
-    /* Volontairement PLUS SOMBRE que --surface : les sections « features »
-       utilisent sand en fond et surface pour les cartes. Reprendre le
-       surfaceSunken de l'app (#2C2820) rendrait les cartes invisibles. */
-    --sand: #1A1711;
-    --cocoa: #120B07;
-    /* En sombre les teintes pastel deviennent des bruns/verts profonds :
-       même rotation, même lecture, sans éblouir. */
-    --tint-1: #2C2317;
-    --tint-2: #1E2A21;
-    --tint-3: #2E2020;
-    --tint-4: #1D2430;
+    --sand: #2C2820;
     --stone: #ADA69C;
     --hairline: rgba(244, 241, 233, .10);
     --hairline-strong: rgba(244, 241, 233, .18);
@@ -87,7 +75,7 @@ body {
   margin: 0;
   background: var(--canvas);
   color: var(--ink);
-  font-family: var(--sans);
+  font-family: var(--font);
   font-size: 17px;
   line-height: 1.6;
   overflow-x: hidden;
@@ -95,61 +83,69 @@ body {
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
-.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
-@media (max-width: 460px) { .wrap { padding: 0 18px; } }
+.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 32px; }
+@media (max-width: 460px) { .wrap { padding: 0 20px; } }
 
 h1, h2, h3 {
-  /* Serif lourde, très contrastée : c'est elle qui donne le ton éditorial.
-     Le mot mis en valeur passe en ITALIQUE saffron — l'accent de la charte. */
-  font-family: var(--serif); font-weight: 700; letter-spacing: -.022em; line-height: 1.05; margin: 0;
+  font-family: var(--font); font-weight: 700; letter-spacing: -.03em; line-height: 1.04; margin: 0;
   /* Les titres sont longs et le français a des mots longs : sans ça, « enregistrée »
      déborde du cadre sur un iPhone étroit et se fait rogner par overflow-x. */
   overflow-wrap: break-word;
 }
-h1 { font-size: clamp(31px, 7.4vw, 66px); }
-h2 { font-size: clamp(28px, 4.6vw, 48px); }
-h3 { font-size: clamp(21px, 2.4vw, 26px); line-height: 1.25; }
+h1 { font-size: clamp(33px, 6.6vw, 70px); }
+h2 { font-size: clamp(28px, 4.4vw, 46px); }
+h3 { font-size: clamp(20px, 2.3vw, 25px); line-height: 1.22; }
 p { margin: 0; }
-.lead { font-size: clamp(17px, 1.9vw, 21px); color: var(--stone); line-height: 1.6; }
+.lead { font-size: clamp(17px, 1.9vw, 20px); color: var(--stone); line-height: 1.6; }
 
-/* Le sur-titre devient une pastille cerclée, façon étiquette posée sur la page. */
+/* Sur-titre : pastille pleine (sable), point saffron — pas de contour,
+   plus chaleureux qu'un badge « outline ». */
 .eyebrow {
-  display: inline-block; margin: 0 0 20px;
-  padding: 7px 16px; border-radius: 999px;
-  border: 1.5px solid var(--hairline-strong); background: var(--surface);
-  font-size: 12px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
-  color: var(--on-tint);
+  display: inline-flex; align-items: center; gap: 9px; margin: 0 0 20px;
+  padding: 8px 16px 8px 12px; border-radius: 999px; background: var(--sand);
+  font-size: 12.5px; font-weight: 600; letter-spacing: .01em;
+  color: var(--ink);
 }
+.eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 999px; background: var(--saffron); flex: none; }
 .section-head.center .eyebrow { margin-inline: auto; }
 
 /* --- Boutons --- */
 .btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  padding: 15px 28px; border-radius: 999px; font-size: 17px; font-weight: 600;
-  text-decoration: none; border: 2px solid transparent; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 15px 26px; border-radius: 999px; font-size: 16px; font-weight: 600;
+  text-decoration: none; border: 0; cursor: pointer;
   transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease;
   white-space: nowrap; max-width: 100%;
 }
-/* « Télécharger sur l'App Store » ne tient pas sur une ligne à 390 px de large :
-   on laisse le libellé revenir à la ligne plutôt que de déborder. */
-@media (max-width: 460px) {
-  .btn { white-space: normal; padding: 15px 22px; font-size: 16px; }
-}
-/* Bouton « posé » : aplat, contour net et ombre franche décalée. Au survol il
-   s'enfonce vers son ombre au lieu de léviter. */
-.btn-primary {
-  background: var(--saffron); color: #1B1A17;
-  border-color: var(--ink); box-shadow: 3px 4px 0 var(--ink);
-}
-.btn-primary:hover { background: var(--saffron-pressed); transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
-.btn-ghost { background: var(--surface); color: var(--ink); border-color: var(--ink); box-shadow: 3px 4px 0 var(--ink); }
-.btn-ghost:hover { background: var(--sand); transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
-@media (prefers-color-scheme: dark) {
-  /* Sur fond sombre l'ombre noire ne se verrait pas : elle passe en crème. */
-  .btn-primary, .btn-ghost { box-shadow: 3px 4px 0 rgba(244,241,233,.85); border-color: rgba(244,241,233,.85); }
-  .btn-primary:hover, .btn-ghost:hover { box-shadow: 1px 1px 0 rgba(244,241,233,.85); }
-}
+.btn-primary { background: var(--saffron); color: #1B1A17; box-shadow: 0 6px 18px rgba(252,174,11,.34); }
+.btn-primary:hover { background: var(--saffron-pressed); transform: translateY(-1px); }
+.btn-ghost { background: var(--sand); color: var(--ink); }
+.btn-ghost:hover { background: var(--hairline-strong); transform: translateY(-1px); }
 .btn svg { flex: none; }
+
+/* Bouton « badge App Store » : rectangle sombre à deux lignes, comme un
+   vrai badge de téléchargement. Fond TOUJOURS sombre (--ink-fixed), même
+   en thème clair/sombre du site — sinon le bouton s'éclaircirait en même
+   temps que --ink en mode sombre et deviendrait illisible. */
+.btn-store {
+  display: inline-flex; align-items: center; gap: 12px;
+  height: 58px; padding: 0 22px; border-radius: 16px;
+  background: var(--ink-fixed); color: var(--cream-fixed); text-decoration: none;
+  box-shadow: 0 10px 26px rgba(27,26,23,.22);
+  transition: transform .15s ease, background-color .15s ease;
+}
+.btn-store:hover { background: #000; transform: translateY(-1px); }
+.btn-store svg { flex: none; }
+.btn-store-txt { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
+.btn-store-txt small { font-size: 11px; font-weight: 400; opacity: .72; }
+.btn-store-txt b { font-size: 16.5px; font-weight: 600; letter-spacing: -.01em; }
+@media (max-width: 460px) {
+  .btn { padding: 14px 22px; font-size: 15px; }
+  .btn-store { height: 52px; padding: 0 16px; gap: 9px; }
+  .btn-store svg { width: 22px; height: 22px; }
+  .btn-store-txt small { font-size: 10px; }
+  .btn-store-txt b { font-size: 14.5px; }
+}
 
 /* --- Barre de navigation --- */
 header.nav {
@@ -159,14 +155,14 @@ header.nav {
   border-bottom: 1px solid transparent; transition: border-color .2s ease;
 }
 header.nav.scrolled { border-bottom-color: var(--hairline); }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 72px; }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 74px; }
 .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
 .brand img.mark { width: 34px; height: 34px; border-radius: 9px; }
-.brand span { font-family: var(--serif); font-size: 25px; font-weight: 600; letter-spacing: -.01em; }
+.brand span { font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
 .nav-links { display: flex; align-items: center; gap: 30px; }
-.nav-links a { text-decoration: none; font-size: 15.5px; color: var(--stone); font-weight: 500; }
+.nav-links a { text-decoration: none; font-size: 15px; color: var(--stone); font-weight: 500; transition: color .15s ease; }
 .nav-links a:hover { color: var(--ink); }
-.nav .btn { padding: 11px 22px; font-size: 15.5px; }
+.nav .btn { padding: 11px 20px; font-size: 15px; }
 @media (max-width: 900px) { .nav-links { display: none; } }
 
 /* --- Choix de la langue (vignettes drapeaux) --- */
@@ -190,54 +186,68 @@ header.nav.scrolled { border-bottom-color: var(--hairline); }
 }
 
 /* --- Héros --- */
-.hero { position: relative; padding: 68px 0 0; overflow: hidden; }
-.hero::before {
-  content: ""; position: absolute; top: -240px; left: 50%; transform: translateX(-50%);
-  width: 900px; height: 900px; pointer-events: none;
-  background: radial-gradient(circle, rgba(252,174,11,.20), rgba(252,174,11,0) 62%);
+.hero { position: relative; padding: 64px 0 0; overflow: hidden; }
+/* Trame de points saffron, masquée en ellipse : la même texture que le
+   fichier de référence, en beaucoup plus discret qu'un aplat. */
+.hero-dots {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(252,174,11,.32) 1.6px, transparent 1.6px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 26%, #000 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse 70% 55% at 50% 26%, #000 30%, transparent 78%);
 }
+/* Petits ingrédients qui flottent — un clin d'œil « cuisine » sans photo,
+   juste des emoji, légers et universels. Retirés sur mobile : trop de
+   bruit dans un héros déjà serré. */
+.hero-deco { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.hero-deco span { position: absolute; font-size: 42px; line-height: 1; }
+@media (max-width: 860px) { .hero-deco { display: none; } }
 .hero-grid {
-  position: relative; display: grid; grid-template-columns: 1.06fr .94fr;
+  position: relative; z-index: 1; display: grid; grid-template-columns: 1.06fr .94fr;
   gap: 56px; align-items: center;
 }
-.hero h1 { margin-bottom: 24px; }
-.hero h1 em { font-style: italic; color: var(--saffron); }
+.hero h1 { margin-bottom: 22px; }
+.hero h1 em { font-style: normal; color: var(--saffron); }
 .hero .lead { max-width: 30em; }
-.hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+.hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 32px; }
 .hero-note { margin-top: 18px; font-size: 14.5px; color: var(--stone); }
 .hero-phone { justify-self: center; position: relative; }
-/* Étiquette qui « sort » du téléphone : le geste central de Nyama, dit en
-   trois mots, posé de travers pour donner du mouvement au héros. */
-.hero-tag {
-  position: absolute; top: 16%; right: -18px; z-index: 2;
-  background: var(--saffron); color: #1B1A17;
-  border: 2px solid var(--ink); border-radius: 999px;
-  box-shadow: 3px 4px 0 var(--ink);
-  padding: 9px 16px; font-size: 14px; font-weight: 700; white-space: nowrap;
-  transform: rotate(-6deg);
-  display: flex; align-items: center; gap: 7px;
-}
-.hero-tag svg { flex: none; }
-@media (prefers-color-scheme: dark) {
-  .hero-tag { border-color: rgba(244,241,233,.85); box-shadow: 3px 4px 0 rgba(244,241,233,.85); }
-}
-/* Sous 900 px le héros se centre : l'étiquette se recale sur le bord du
-   téléphone (en pourcentage) et non sur celui de la colonne, sinon elle
-   flotte toute seule au milieu du vide. */
-@media (max-width: 900px) { .hero-tag { right: 6%; top: 11%; font-size: 13px; padding: 8px 14px; } }
-@media (max-width: 430px) { .hero-tag { right: 2%; font-size: 12px; padding: 7px 12px; } }
-@media (max-width: 330px) { .hero-tag { display: none; } }
 @media (max-width: 900px) {
-  .hero { padding-top: 44px; text-align: center; }
+  .hero { padding-top: 40px; text-align: center; }
   .hero-grid { grid-template-columns: 1fr; gap: 44px; }
   .hero .lead { margin-inline: auto; }
   .hero-cta { justify-content: center; }
 }
 
+/* Petites étiquettes blanches accrochées au téléphone — la « preuve »
+   du produit qui vient se poser sur l'image, comme un post-it. */
+.toast {
+  position: absolute; z-index: 3; display: flex; align-items: center; gap: 10px;
+  background: var(--surface); border-radius: 16px; padding: 10px 15px 10px 10px;
+  box-shadow: 0 14px 34px rgba(27,26,23,.16); white-space: nowrap;
+}
+.toast-ico { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; flex: none; }
+.toast-ico svg { width: 17px; height: 17px; }
+.toast-ico.on-brand { background: var(--saffron); color: var(--ink-fixed); }
+.toast-ico.on-sand { background: var(--sand); color: var(--ink); }
+.toast-txt { line-height: 1.25; font-size: 11px; color: var(--stone); }
+.toast-txt b { display: block; font-size: 13px; font-weight: 600; color: var(--ink); }
+.toast-a { right: -4%; top: 11%; }
+.toast-b { left: -4%; bottom: 13%; }
+@media (max-width: 900px) { .toast-a { right: 1%; top: 6%; } .toast-b { left: 1%; bottom: 8%; } }
+@media (max-width: 460px) {
+  .toast { padding: 8px 12px 8px 8px; gap: 8px; }
+  .toast-ico { width: 28px; height: 28px; }
+  .toast-ico svg { width: 14px; height: 14px; }
+  .toast-txt { font-size: 10px; }
+  .toast-txt b { font-size: 12px; }
+}
+@media (max-width: 380px) { .toast-b { display: none; } }
+
 /* --- Cadre de téléphone --- */
 .phone {
   position: relative; width: 300px; max-width: 76vw; aspect-ratio: 1206 / 2622;
-  background: #0E0D0B; border-radius: 46px; padding: 9px;
+  background: var(--ink-fixed); border-radius: 46px; padding: 9px;
   box-shadow: var(--shadow-phone), inset 0 0 0 1.5px rgba(255,255,255,.16);
 }
 .phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 38px; background: var(--sand); }
@@ -258,95 +268,79 @@ header.nav.scrolled { border-bottom-color: var(--hairline); }
 }
 
 /* --- Bandeau des sources --- */
-.sources { padding: 64px 0 8px; text-align: center; }
-.sources p { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--stone); font-weight: 700; margin-bottom: 26px; }
-.sources ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.sources { padding: 60px 0 8px; text-align: center; }
+.sources p { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--stone); font-weight: 700; margin-bottom: 24px; }
+.sources ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
 .sources li {
-  background: var(--surface); border: 1px solid var(--hairline);
-  padding: 9px 20px; border-radius: 999px; font-size: 15.5px; font-weight: 500; color: var(--stone);
+  background: var(--surface); box-shadow: 0 3px 12px rgba(27,26,23,.05);
+  padding: 9px 18px; border-radius: 999px; font-size: 15px; font-weight: 500; color: var(--stone);
 }
 
 /* --- Sections --- */
-section { padding: 96px 0; }
-.section-head { max-width: 44ch; margin-bottom: 58px; }
+section { padding: 92px 0; }
+.section-head { max-width: 44ch; margin-bottom: 56px; }
 .section-head.center { margin-inline: auto; text-align: center; }
-.section-head h2 { margin-bottom: 20px; }
+.section-head h2 { margin-bottom: 18px; }
 
-/* --- Le problème (bloc éditorial sombre) --- */
-/* Brun cacao plutôt que noir : on reste dans la famille chaude de la charte. */
-.problem { background: var(--cocoa); color: #FDF9F3; border-radius: 40px; margin: 0 16px; }
-.problem h2 { color: #FDF9F3; font-size: clamp(34px, 5vw, 56px); }
-@media (max-width: 600px) { .problem { border-radius: 28px; margin: 0 10px; } }
+/* --- Le problème (récit) --- */
+/* Plus de bloc sombre : le contraste vient du poids typographique et du
+   saffron, pas d'un aplat noir. La page reste claire d'un bout à l'autre. */
 .problem-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 60px; align-items: start; }
-.problem .story { max-width: 22ch; }
-.problem-body p { font-size: clamp(18px, 2vw, 21px); line-height: 1.62; color: rgba(247,245,240,.78); }
+.problem-grid .story h2 { font-size: clamp(32px, 4.6vw, 52px); }
+.problem-grid .story { max-width: 22ch; }
+.problem-body p { font-size: clamp(18px, 2vw, 21px); line-height: 1.62; color: var(--stone); }
 .problem-body p + p { margin-top: 22px; }
 .problem-punch {
-  margin-top: 36px; padding-top: 32px; border-top: 1px solid rgba(247,245,240,.18);
-  font-family: var(--serif); font-size: clamp(23px, 2.8vw, 32px); line-height: 1.32;
-  color: #F7F5F0 !important;
+  margin-top: 34px; padding-top: 30px; border-top: 2px solid var(--hairline-strong);
+  font-size: clamp(22px, 2.6vw, 30px); line-height: 1.32; font-weight: 700; color: var(--ink);
 }
-.problem-punch b { color: var(--saffron); font-weight: 600; }
-@media (max-width: 880px) { .problem-grid { grid-template-columns: 1fr; gap: 28px; } .problem .story { max-width: none; } }
+.problem-punch b { color: var(--saffron); }
+@media (max-width: 880px) { .problem-grid { grid-template-columns: 1fr; gap: 26px; } .problem-grid .story { max-width: none; } }
 
 /* --- Piliers --- */
 .pillar { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-.pillar + .pillar { margin-top: 120px; }
+.pillar + .pillar { margin-top: 112px; }
 .pillar.flip .pillar-media { order: -1; }
 .pillar-media { display: flex; justify-content: center; }
 .pillar-num {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 46px; height: 46px; border-radius: 999px;
-  background: var(--saffron); color: #1B1A17;
-  border: 2px solid var(--ink); box-shadow: 3px 4px 0 var(--ink);
-  font-family: var(--serif); font-size: 20px; font-weight: 700; margin-bottom: 26px;
+  width: 44px; height: 44px; border-radius: 999px;
+  background: var(--saffron); color: var(--ink-fixed);
+  box-shadow: 0 6px 16px rgba(252,174,11,.35);
+  font-size: 18px; font-weight: 700; margin-bottom: 24px;
 }
-@media (prefers-color-scheme: dark) {
-  .pillar-num { border-color: rgba(244,241,233,.85); box-shadow: 3px 4px 0 rgba(244,241,233,.85); }
-}
-.pillar h3 { font-size: clamp(28px, 3.6vw, 40px); margin-bottom: 18px; }
-.pillar p { color: var(--stone); font-size: 18px; }
-.pillar ul { list-style: none; margin: 28px 0 0; padding: 0; }
-.pillar li { position: relative; padding-left: 30px; margin-bottom: 12px; color: var(--stone); font-size: 16.5px; }
+.pillar h3 { font-size: clamp(27px, 3.4vw, 38px); margin-bottom: 16px; }
+.pillar p { color: var(--stone); font-size: 17.5px; }
+.pillar ul { list-style: none; margin: 26px 0 0; padding: 0; }
+.pillar li { position: relative; padding-left: 30px; margin-bottom: 12px; color: var(--stone); font-size: 16px; }
 .pillar li::before {
-  content: ""; position: absolute; left: 0; top: 10px;
+  content: ""; position: absolute; left: 0; top: 9px;
   width: 8px; height: 8px; border-radius: 999px; background: var(--saffron);
 }
 @media (max-width: 900px) {
   .pillar, .pillar.flip { grid-template-columns: 1fr; gap: 40px; }
   .pillar.flip .pillar-media { order: 0; }
-  .pillar + .pillar { margin-top: 88px; }
+  .pillar + .pillar { margin-top: 84px; }
 }
 
 /* --- Grille de fonctions --- */
-/* Fond neutre : ce sont les teintes des cartes qui portent la couleur. Sur le
-   sable (#F6EFE4) la carte crème (#FDF2E3) disparaissait presque. */
-.features { background: var(--surface); }
-/* En sombre le blanc devient #232019, soit la luminosité de deux des quatre
-   teintes : on descend la section au fond de page pour que les quatre cartes
-   se détachent toujours vers le haut. */
-@media (prefers-color-scheme: dark) { .features { background: var(--canvas); } }
-.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-/* Chaque carte prend sa teinte à tour de rôle : crème, vert, rose, bleu.
-   Six cartes, quatre teintes — la rotation reprend, sans jamais mettre deux
-   fois la même côte à côte sur une grille de trois. */
+/* Cartes blanches uniformes, la couleur ne vit que dans la pastille
+   d'icône : plus calme qu'une mosaïque de couleurs par carte. */
+.features { background: var(--sand); }
+.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .card {
-  border: 0; border-radius: 22px;
-  padding: 30px 28px; box-shadow: none;
-  transition: transform .2s ease;
+  background: var(--surface); border: 0; border-radius: 24px;
+  padding: 30px 28px; box-shadow: 0 6px 22px rgba(27,26,23,.05);
+  transition: transform .2s ease, box-shadow .2s ease;
 }
-.card:nth-child(4n+1) { background: var(--tint-1); }
-.card:nth-child(4n+2) { background: var(--tint-2); }
-.card:nth-child(4n+3) { background: var(--tint-3); }
-.card:nth-child(4n+4) { background: var(--tint-4); }
-.card:hover { transform: translateY(-4px); }
+.card:hover { transform: translateY(-4px); box-shadow: 0 10px 26px rgba(27,26,23,.08); }
 .card .ico {
   width: 44px; height: 44px; border-radius: 13px;
-  background: transparent; border: 2px solid var(--ink);
-  display: grid; place-items: center; margin-bottom: 20px; color: var(--ink);
+  background: var(--saffron-tint); color: var(--on-tint);
+  display: grid; place-items: center; margin-bottom: 20px;
 }
-.card h3 { font-size: 20px; margin-bottom: 10px; }
-.card p { color: var(--stone); font-size: 16px; }
+.card h3 { font-size: 19px; margin-bottom: 8px; }
+.card p { color: var(--stone); font-size: 15.5px; }
 @media (max-width: 940px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 620px) { .feature-grid { grid-template-columns: 1fr; } }
 
@@ -354,51 +348,78 @@ section { padding: 96px 0; }
 .not-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 56px; max-width: 800px; margin-inline: auto; }
 .not-list div { display: flex; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--hairline); align-items: baseline; }
 .not-list span.x { color: var(--stone); font-size: 17px; line-height: 1; flex: none; }
-.not-list p { font-size: 17.5px; }
-.not-final { text-align: center; margin-top: 48px; font-family: var(--serif); font-size: clamp(24px, 3.2vw, 34px); line-height: 1.3; }
-.not-final b { color: var(--saffron); font-weight: 600; }
+.not-list p { font-size: 17px; }
+.not-final { text-align: center; margin-top: 46px; font-size: clamp(23px, 3vw, 32px); font-weight: 700; line-height: 1.3; }
+.not-final b { color: var(--saffron); }
 @media (max-width: 700px) { .not-list { grid-template-columns: 1fr; gap: 0; } }
 
 /* --- FAQ --- */
-.faq { max-width: 780px; margin-inline: auto; }
-details { border-bottom: 1px solid var(--hairline); padding: 6px 0; }
+/* Cartes blanches, chevron classique — plus calme que l'accordéon
+   « + qui pivote » d'une précédente version, plus proche du fichier de
+   référence. */
+.faq { max-width: 780px; margin-inline: auto; display: flex; flex-direction: column; gap: 10px; }
+details {
+  background: var(--surface); border-radius: 20px; padding: 4px 26px;
+  box-shadow: 0 4px 16px rgba(27,26,23,.04);
+}
 summary {
-  list-style: none; cursor: pointer; padding: 22px 44px 22px 0; position: relative;
-  font-family: var(--serif); font-size: 20px; font-weight: 600; letter-spacing: -.01em;
+  list-style: none; cursor: pointer; padding: 20px 40px 20px 0; position: relative;
+  font-size: 18px; font-weight: 600; letter-spacing: -.01em;
 }
 summary::-webkit-details-marker { display: none; }
-/* Un « + » saffron qui pivote en « × » à l'ouverture. */
 summary::after {
-  content: "+"; position: absolute; right: 6px; top: 50%;
-  transform: translateY(-50%); transition: transform .25s ease;
-  font-family: var(--sans); font-size: 27px; font-weight: 400; line-height: 1;
-  color: var(--saffron);
+  content: ""; position: absolute; right: 4px; top: 50%; width: 10px; height: 10px;
+  border-right: 2px solid var(--stone); border-bottom: 2px solid var(--stone);
+  transform: translateY(-70%) rotate(45deg); transition: transform .2s ease;
 }
-details[open] summary::after { transform: translateY(-50%) rotate(135deg); }
-details p { color: var(--stone); padding: 0 12px 24px 0; font-size: 16.5px; }
+details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+details p { color: var(--stone); padding: 0 0 22px; font-size: 16px; }
 details a { color: var(--saffron); text-underline-offset: 2px; }
 
 /* --- Appel final --- */
-.final { text-align: center; padding: 110px 0 120px; position: relative; overflow: hidden; }
-.final::before {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(252,174,11,.20), rgba(252,174,11,0) 70%);
+/* Panneau saffron CONTENU (pas un aplat plein écran), texturé de points,
+   avec deux ingrédients qui débordent aux coins — reprend le traitement
+   du fichier de référence pour son bloc de clôture. */
+.final { padding: 30px 0 96px; }
+.final-panel {
+  position: relative; overflow: hidden; text-align: center;
+  background: var(--saffron); border-radius: 40px; padding: 76px 32px;
 }
-.final .inner { position: relative; }
-.final h2 { max-width: 16ch; margin: 0 auto 22px; }
-.final .lead { max-width: 46ch; margin: 0 auto 36px; }
+.final-panel::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(27,26,23,.12) 1.6px, transparent 1.6px);
+  background-size: 24px 24px;
+}
+.final-deco { position: absolute; font-size: 42px; line-height: 1; opacity: .8; pointer-events: none; }
+.final-deco.a { left: 6%; top: 12%; transform: rotate(-16deg); }
+.final-deco.b { right: 7%; bottom: 14%; transform: rotate(14deg); }
+.final-logo {
+  position: relative; width: 64px; height: 64px; border-radius: 18px;
+  margin: 0 auto 22px; box-shadow: 0 12px 28px rgba(27,26,23,.18);
+}
+.final-panel h2 { position: relative; max-width: 16ch; margin: 0 auto 16px; color: var(--ink-fixed); }
+.final-panel .lead { position: relative; max-width: 44ch; margin: 0 auto 32px; color: rgba(27,26,23,.72); }
+.final-panel .btn-store { position: relative; margin-inline: auto; }
+@media (max-width: 600px) { .final-panel { padding: 54px 22px; border-radius: 28px; } .final-deco { font-size: 30px; } }
 
 /* --- Pied de page --- */
-footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
-.foot-grid { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; }
+/* Sable, pas noir : trois colonnes façon fichier de référence, sans en
+   reprendre le fond sombre — un site clair d'un bout à l'autre. */
+footer.site { background: var(--sand); padding: 60px 0 40px; }
+.foot-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; align-items: start; }
 .foot-brand { display: flex; align-items: center; gap: 12px; }
 .foot-brand img { width: 40px; height: 40px; border-radius: 11px; }
-.foot-brand strong { font-family: var(--serif); font-size: 22px; font-weight: 600; display: block; }
-.foot-brand em { font-style: normal; font-size: 14.5px; color: var(--stone); }
-.foot-links { display: flex; gap: 28px; flex-wrap: wrap; }
-.foot-links a { color: var(--stone); text-decoration: none; font-size: 15.5px; }
-.foot-links a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
-.foot-legal { margin-top: 40px; padding-top: 26px; border-top: 1px solid var(--hairline); color: var(--stone); font-size: 13.5px; }
+.foot-brand strong { font-size: 21px; font-weight: 700; display: block; }
+.foot-brand em { font-style: normal; font-size: 14.5px; color: var(--stone); display: block; margin-top: 4px; max-width: 28ch; }
+.foot-head { font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--stone); margin: 0 0 14px; }
+.foot-col { display: flex; flex-direction: column; gap: 11px; }
+.foot-col a { color: var(--ink); text-decoration: none; font-size: 15px; }
+.foot-col a:hover { color: var(--saffron-pressed); text-decoration: underline; text-underline-offset: 3px; }
+.foot-legal { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--hairline-strong); color: var(--stone); font-size: 13.5px; }
+@media (max-width: 700px) {
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+  .foot-brand { grid-column: 1 / -1; margin-bottom: 6px; }
+}
 
 /* ==================================================================
    BLOG — styles partagés avec /blog/ et /blog/<article>/.
@@ -416,14 +437,11 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
 
 .post-card {
   display: flex; flex-direction: column; gap: 12px;
-  padding: 30px 28px; border-radius: 22px; text-decoration: none;
-  transition: transform .2s ease;
+  background: var(--surface); box-shadow: 0 6px 22px rgba(27,26,23,.05);
+  padding: 30px 28px; border-radius: 24px; text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease;
 }
-.post-card:nth-child(4n+1) { background: var(--tint-1); }
-.post-card:nth-child(4n+2) { background: var(--tint-2); }
-.post-card:nth-child(4n+3) { background: var(--tint-3); }
-.post-card:nth-child(4n+4) { background: var(--tint-4); }
-.post-card:hover { transform: translateY(-4px); }
+.post-card:hover { transform: translateY(-4px); box-shadow: 0 10px 26px rgba(27,26,23,.08); }
 .post-card h2 { font-size: clamp(21px, 2.4vw, 27px); }
 .post-card p { color: var(--stone); font-size: 16px; }
 .post-date { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--on-tint); }
@@ -454,20 +472,20 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
   background: var(--sand); padding: 2px 6px; border-radius: 6px;
 }
 .article-corps pre {
-  background: var(--cocoa); color: #FDF9F3; padding: 20px 22px;
+  background: var(--ink-fixed); color: var(--cream-fixed); padding: 20px 22px;
   border-radius: 16px; overflow-x: auto;
 }
 .article-corps pre code { background: none; padding: 0; color: inherit; }
 .article-corps blockquote {
   margin: 30px 0; padding: 4px 0 4px 24px; border-left: 3px solid var(--saffron);
-  font-family: var(--serif); font-size: clamp(20px, 2.4vw, 25px); line-height: 1.4;
+  font-size: clamp(20px, 2.4vw, 25px); font-weight: 600; line-height: 1.4;
 }
 .article-corps hr { border: 0; border-top: 1px solid var(--hairline); margin: 40px 0; }
 
 /* Appel à l'action en fin d'article */
 .article-cta {
   margin: 60px auto 0; max-width: 700px; text-align: center;
-  background: var(--tint-1); border-radius: 24px; padding: 40px 32px;
+  background: var(--saffron-tint); border-radius: 24px; padding: 40px 32px;
 }
 .article-cta h2 { font-size: clamp(24px, 3vw, 32px); margin-bottom: 12px; }
 .article-cta p { color: var(--stone); margin-bottom: 26px; }
@@ -534,6 +552,13 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
 
   <!-- ATTENTION -------------------------------------------------------- -->
   <section class="hero">
+    <div class="hero-dots" aria-hidden="true"></div>
+    <div class="hero-deco" aria-hidden="true">
+      <span style="left:4%; top:130px; transform:rotate(-16deg)">🌿</span>
+      <span style="left:8%; top:380px; transform:rotate(10deg)">🍅</span>
+      <span style="right:5%; top:100px; transform:rotate(14deg)">🧄</span>
+      <span style="right:4%; top:400px; transform:rotate(-12deg)">🍋</span>
+    </div>
     <div class="wrap hero-grid">
       <div class="hero-copy">
         <p class="eyebrow" data-i18n="hero.eyebrow">Ta bibliothèque de recettes</p>
@@ -543,19 +568,27 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
           tes onglets ouverts. Nyama les réunit toutes au même endroit. Le tien.
         </p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="#telecharger" data-appstore>
-            <svg width="18" height="21" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-            <span data-i18n="cta.appstore">Télécharger sur l'App Store</span>
+          <a class="btn-store" href="#telecharger" data-appstore>
+            <svg width="24" height="28" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+            <span class="btn-store-txt" data-i18n="cta.appstore"><small>Télécharger sur</small><b>l'App Store</b></span>
           </a>
           <a class="btn btn-ghost" href="#comment" data-i18n="hero.cta2">Voir comment ça marche</a>
         </div>
         <p class="hero-note" data-i18n="hero.note">Gratuit pour commencer. Sur iPhone.</p>
       </div>
       <div class="hero-phone">
-        <span class="hero-tag">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          <span data-i18n="hero.tag">Enregistré depuis Instagram</span>
-        </span>
+        <div class="toast toast-a">
+          <span class="toast-ico on-brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <span class="toast-txt" data-i18n="hero.tag"><b>Recette importée</b>depuis Instagram</span>
+        </div>
+        <div class="toast toast-b">
+          <span class="toast-ico on-sand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2"/><path d="M9 2h6"/></svg>
+          </span>
+          <span class="toast-txt" data-i18n="hero.tag2"><b>Étape 2 sur 4</b>mains libres</span>
+        </div>
         <div class="phone lg">
           <img src="/assets/ecran-accueil.png" width="1206" height="2622"
                alt="L'écran d'accueil de Nyama : des recettes venues d'Instagram, de TikTok, de YouTube et de sites de cuisine convergent vers l'application.">
@@ -581,9 +614,10 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
   </div>
 
   <!-- INTÉRÊT ---------------------------------------------------------- -->
-  <section class="problem" id="probleme">
+  <section id="probleme">
     <div class="wrap problem-grid">
       <div class="story reveal">
+        <p class="eyebrow" data-i18n="pb.eyebrow">Le vrai problème</p>
         <h2 data-i18n="pb.h2">Il est 19 h.</h2>
       </div>
       <div class="problem-body reveal">
@@ -807,16 +841,19 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
 
   <!-- ACTION ----------------------------------------------------------- -->
   <section class="final" id="telecharger">
-    <div class="wrap inner">
-      <div class="reveal">
+    <div class="wrap">
+      <div class="final-panel reveal">
+        <span class="final-deco a" aria-hidden="true">🌿</span>
+        <span class="final-deco b" aria-hidden="true">🍋</span>
+        <img class="final-logo" src="/assets/icone.png" alt="">
         <h2 data-i18n="cta.h2">Ce soir, tu sais où elle est.</h2>
         <p class="lead" data-i18n="cta.lead">
           Range ta première recette en deux minutes. Celle que tu avais mise de côté et jamais
           refaite : commence par elle.
         </p>
-        <a class="btn btn-primary" href="#telecharger" data-appstore>
-          <svg width="18" height="21" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-          <span data-i18n="cta.appstore">Télécharger sur l'App Store</span>
+        <a class="btn-store" href="#telecharger" data-appstore>
+          <svg width="24" height="28" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+          <span class="btn-store-txt" data-i18n="cta.appstore"><small>Télécharger sur</small><b>l'App Store</b></span>
         </a>
       </div>
     </div>
@@ -834,7 +871,17 @@ footer.site { border-top: 1px solid var(--hairline); padding: 54px 0 46px; }
           <em data-i18n="foot.tagline">Toutes tes recettes, enfin réunies au même endroit.</em>
         </div>
       </div>
-      <div class="foot-links">
+      <div class="foot-col">
+        <p class="foot-head" data-i18n="foot.head.nyama">Nyama</p>
+        <a href="/#probleme" data-i18n="nav.probleme">Le problème</a>
+        <a href="/#comment" data-i18n="nav.comment">Comment ça marche</a>
+        <a href="/#fonctions" data-i18n="nav.fonctions">Fonctions</a>
+        <!-- Retiré par _build.mjs tant qu'aucun article n'est publié, comme
+             le lien du menu principal. -->
+        <a href="/blog/" data-lien-blog data-i18n="nav.blog">Blog</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-head" data-i18n="foot.head.legal">Légal</p>
         <a href="/confidentialite/" data-i18n="foot.privacy">Confidentialité</a>
         <!-- Nyama utilise l'EULA standard d'Apple : on renvoie au texte officiel,
              qui fait foi. /conditions/ garde la même destination. -->

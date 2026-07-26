@@ -252,7 +252,7 @@ function construisBlog(accueil, articles) {
       <p class="lead">Des idées pour retrouver, organiser et cuisiner ce qui te fait envie.</p>
     </div>
   </section>
-  <section style="padding-top:0">
+  <section class="features" style="padding-top:0">
     <div class="wrap">
 ${articles.length
       ? `      <div class="blog-list">\n${cartes}\n      </div>`
@@ -406,11 +406,14 @@ for (const lg of PUBLIEES) {
     `<a href="${m.dir}" hreflang="${m.lang}" aria-current="true"`,
   );
 
-  // 4. Le lien « Blog » du menu ne sert que s'il y a quelque chose à lire.
+  // 4. Le lien « Blog » (menu ET pied de page) ne sert que s'il y a quelque
+  //    chose à lire. `/g` : il y a DEUX occurrences depuis que le pied de
+  //    page a sa propre colonne de liens — sans le drapeau global, seule la
+  //    première (le menu) aurait été retirée et l'autre serait restée.
   if (!articles.length) {
-    html = html.replace(/\s*<a href="\/blog\/" data-lien-blog[^>]*>[^<]*<\/a>/, '');
+    html = html.replace(/\s*<a href="\/blog\/" data-lien-blog[^>]*>[^<]*<\/a>/g, '');
   } else {
-    html = html.replace(' data-lien-blog', '');
+    html = html.replace(/ data-lien-blog/g, '');
   }
 
   // 5. Bandeau « fichier généré » pour qui ouvrirait la sortie par erreur.
