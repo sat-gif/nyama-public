@@ -149,6 +149,31 @@ const APPSTORE_URL = null;   // ← remplacer par l'URL App Store
 Tant qu'elle vaut `null`, les boutons « Télécharger » font simplement défiler la page
 jusqu'au bloc final au lieu de mener sur une page inexistante.
 
+## Pixels publicitaires (Meta, Google)
+
+Le bandeau de consentement en bas de page est déjà en place, RGPD-compliant
+(rien ne se charge avant un clic sur « Accepter », refuser ne charge rien,
+« Gérer les cookies » dans le pied de page rouvre le choix). Il ne manque que
+les identifiants, dans le `<script>` du bandeau à la fin de `_src/index.html` :
+
+```js
+const FB_PIXEL_ID = null;   // ← Gestionnaire d'événements Meta : ton Pixel ID
+const GOOGLE_TAG_ID = null; // ← G-XXXXXXX (GA4) ou AW-XXXXXXXXX (Google Ads)
+```
+
+Tant qu'ils valent `null`, un « Accepter » ne charge rien — aucun risque
+d'envoyer des données à un identifiant invalide entre-temps. Renseigne l'un,
+l'autre, ou les deux, puis `node _build.mjs`, committer, pousser.
+
+**`/confidentialite/` n'a volontairement pas été touchée** : c'est la politique
+de confidentialité de l'application, un document distinct du site vitrine —
+elle ne doit pas mélanger les deux. Toute disclosure sur les cookies du site
+vit uniquement dans le bandeau lui-même (`_src/index.html`) et, si besoin, dans
+la FAQ du site (`faq.a3`) — jamais dans ce fichier.
+
+⚠️ Le texte du bandeau n'a pas été relu par un juriste — à faire vérifier
+avant un vrai lancement de campagnes, comme pour tout texte à portée RGPD.
+
 ## Remplacer une capture d'écran
 
 Les captures vivent dans `assets/` et sont référencées par leur nom :

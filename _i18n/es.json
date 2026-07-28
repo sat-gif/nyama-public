@@ -100,6 +100,10 @@
   "foot.head.legal": "Legal",
   "foot.privacy": "Privacidad",
   "foot.terms": "Condiciones de uso",
+  "foot.cookies": "Gestionar cookies",
   "foot.contact": "Escríbenos",
-  "foot.legal": "© <span id=\"an\">2026</span> Winstell. Nyama es una aplicación para iPhone. App Store es una marca de Apple Inc."
+  "foot.legal": "© <span id=\"an\">2026</span> Winstell. Nyama es una aplicación para iPhone. App Store es una marca de Apple Inc.",
+  "cookies.text": "Usamos cookies de medición de audiencia y publicitarias (Meta, Google) para entender de dónde vienen nuestras visitas. No se activa nada sin tu consentimiento.",
+  "cookies.refuse": "Rechazar",
+  "cookies.accept": "Aceptar"
 }

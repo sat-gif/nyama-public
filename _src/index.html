@@ -421,6 +421,27 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
   .foot-brand { grid-column: 1 / -1; margin-bottom: 6px; }
 }
 
+/* --- Bandeau de consentement --- */
+.cookies {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  background: var(--surface); border-top: 1px solid var(--hairline-strong);
+  box-shadow: 0 -8px 28px rgba(27,26,23,.10);
+}
+.cookies-inner {
+  padding: 20px 32px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+}
+.cookies-inner p { flex: 1 1 380px; font-size: 14.5px; color: var(--stone); line-height: 1.5; }
+.cookies-inner a { color: var(--saffron); text-underline-offset: 2px; }
+/* Refuser/Accepter au même gabarit : un bouton géant à côté d'un lien
+   minuscule est un dark pattern que la CNIL sanctionne. */
+.cookies-actions { display: flex; gap: 10px; flex: 0 0 auto; }
+.cookies-actions .btn { padding: 12px 22px; font-size: 15px; }
+@media (max-width: 460px) {
+  .cookies-inner { padding: 16px 20px; }
+  .cookies-actions { width: 100%; }
+  .cookies-actions .btn { flex: 1; }
+}
+
 /* ==================================================================
    BLOG — styles partagés avec /blog/ et /blog/<article>/.
    Ils vivent ici pour qu'il n'y ait qu'UNE feuille de style à tenir :
@@ -821,7 +842,7 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
         </details>
         <details>
           <summary data-i18n="faq.q3">Mes recettes partent-elles sur un serveur ?</summary>
-          <p data-i18n="faq.a3">Tes recettes vivent sur ton téléphone. Ce qui part vers un serveur, et seulement dans ces cas-là, est décrit noir sur blanc dans la <a href="/confidentialite/">politique de confidentialité</a>. Pas de revente de données, pas de publicité.</p>
+          <p data-i18n="faq.a3">Tes recettes vivent sur ton téléphone. Ce qui part vers un serveur, et seulement dans ces cas-là, est décrit noir sur blanc dans la <a href="/confidentialite/">politique de confidentialité</a>. Pas de revente de données.</p>
         </details>
         <details>
           <summary data-i18n="faq.q4">Faut-il créer un compte ?</summary>
@@ -888,6 +909,7 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
         <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
            target="_blank" rel="noopener" data-i18n="foot.terms">Conditions d'utilisation</a>
         <a href="mailto:support@getnyama.app" data-i18n="foot.contact">Nous écrire</a>
+        <a href="#" data-cookies-manage data-i18n="foot.cookies">Gérer les cookies</a>
       </div>
     </div>
     <p class="foot-legal" data-i18n="foot.legal">
@@ -895,6 +917,86 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
       App Store est une marque déposée d'Apple Inc.
     </p>
   </div>
+
+  <!-- Bandeau de consentement (Meta Pixel + Google Ads/Analytics).
+       Vit ici, DANS le pied de page, pour que _build.mjs — qui réutilise le
+       pied de page généré tel quel sur les pages du blog — l'embarque
+       automatiquement, sans plomberie supplémentaire. Marche + script
+       vivent ensemble : un seul bloc à extraire, partout le même comportement.
+
+       RGPD : les traceurs ne se chargent QU'après un clic sur « Accepter ».
+       Un refus (ou l'absence de réponse) ne charge rien. Les deux boutons
+       ont le même poids visuel — un bouton « Accepter » énorme à côté d'un
+       lien « refuser » minuscule est un dark pattern que la CNIL sanctionne. -->
+  <div id="cookies" class="cookies" hidden role="region" aria-label="Cookies">
+    <div class="wrap cookies-inner">
+      <p data-i18n="cookies.text">
+        On utilise des cookies de mesure d'audience et publicitaires (Meta, Google) pour
+        comprendre d'où viennent nos visiteurs. Rien n'est déposé sans ton accord.
+      </p>
+      <div class="cookies-actions">
+        <button type="button" class="btn btn-ghost" data-cookies="refuse" data-i18n="cookies.refuse">Refuser</button>
+        <button type="button" class="btn btn-primary" data-cookies="accept" data-i18n="cookies.accept">Accepter</button>
+      </div>
+    </div>
+  </div>
+  <script>
+  (() => {
+    // Renseigne ici tes identifiants une fois créés. Tant qu'ils valent
+    // `null`, un « Accepter » ne charge rien — aucun risque d'envoyer des
+    // données à une IA vide ou à un ID invalide.
+    const FB_PIXEL_ID = null;   // ← Gestionnaire d'événements Meta : ton Pixel ID
+    const GOOGLE_TAG_ID = null; // ← G-XXXXXXX (GA4) ou AW-XXXXXXXXX (Google Ads)
+
+    const CLE = 'nyama.cookies.consent'; // 'accepted' | 'refused'
+    const bandeau = document.getElementById('cookies');
+
+    function chargerTraceurs() {
+      if (FB_PIXEL_ID) {
+        /* eslint-disable */
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+        document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        /* eslint-enable */
+        fbq('init', FB_PIXEL_ID);
+        fbq('track', 'PageView');
+      }
+      if (GOOGLE_TAG_ID) {
+        const s = document.createElement('script');
+        s.async = true;
+        s.src = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}`;
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { dataLayer.push(arguments); };
+        gtag('js', new Date());
+        gtag('config', GOOGLE_TAG_ID);
+      }
+    }
+
+    const choix = localStorage.getItem(CLE);
+    if (choix === 'accepted') chargerTraceurs();
+    else if (choix !== 'refused') bandeau.hidden = false;
+
+    bandeau.addEventListener('click', (e) => {
+      const bouton = e.target.closest('[data-cookies]');
+      if (!bouton) return;
+      const accepte = bouton.dataset.cookies === 'accept';
+      localStorage.setItem(CLE, accepte ? 'accepted' : 'refused');
+      bandeau.hidden = true;
+      if (accepte) chargerTraceurs();
+    });
+
+    // Rouvre le bandeau depuis le lien « Gérer les cookies » du pied de page.
+    document.querySelectorAll('[data-cookies-manage]').forEach((lien) => {
+      lien.addEventListener('click', (e) => {
+        e.preventDefault();
+        bandeau.hidden = false;
+      });
+    });
+  })();
+  </script>
 </footer>
 
 <script>
