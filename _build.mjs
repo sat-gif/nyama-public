@@ -25,7 +25,12 @@ const FR = {
     title: "Nyama — toutes tes recettes, enfin réunies au même endroit",
     description:
       "Les recettes que tu aimes dorment dans tes favoris Instagram, tes captures d'écran et tes onglets ouverts. Nyama les réunit toutes dans une seule bibliothèque : la tienne.",
-    ogTitle: "Nyama — toutes tes recettes, enfin réunies au même endroit",
+    // Majuscule après le tiret, contrairement à `title` : iMessage (et d'autres
+    // aperçus de lien) retirent le préfixe « Nyama — » de og:title quand un
+    // og:site_name existe déjà, pour ne pas le répéter. Ce qui reste doit donc
+    // se lire seul, seule sa propre lettre de tête décide s'il a l'air fini
+    // ou coupé au milieu — vu chez Sat le 28/07 (capture iMessage).
+    ogTitle: "Nyama — Toutes tes recettes, enfin réunies au même endroit",
     ogDescription:
       "Instagram, TikTok, YouTube, un blog, une photo de livre. Tu partages, Nyama range. Ta bibliothèque de recettes, prête à cuisiner.",
   },
@@ -185,7 +190,10 @@ function coquille({ accueil, titre, description, url, corps, ogImage }) {
   const entete = accueil.match(/<header class="nav"[\s\S]*?<\/header>/)[0]
     .replace(/href="#/g, 'href="/#');
   const pied = accueil.match(/<footer class="site">[\s\S]*?<\/footer>/)[0];
-  const image = ogImage || `${ORIGINE}/assets/ecran-accueil.png`;
+  // Image dédiée au partage (1200×630) : la même que la page d'accueil, pas
+  // la capture verticale du héros — voir le commentaire sur og:image dans
+  // _src/index.html.
+  const image = ogImage || `${ORIGINE}/assets/og-image.png`;
   return `<!DOCTYPE html>
 <!-- FICHIER GÉNÉRÉ — ne pas modifier à la main.
      Source : _blog/*.md + _src/index.html, puis « node _build.mjs ». -->
@@ -206,11 +214,11 @@ function coquille({ accueil, titre, description, url, corps, ogImage }) {
 <meta property="og:title" content="${attr(titre)}">
 <meta property="og:description" content="${attr(description)}">
 <meta property="og:image" content="${image}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<meta name="twitter:image" content="${image}">
 ${styles}
 </head>
 <body>
