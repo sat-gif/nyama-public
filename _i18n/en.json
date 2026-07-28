@@ -103,7 +103,7 @@
   "foot.cookies": "Manage cookies",
   "foot.contact": "Email us",
   "foot.legal": "© <span id=\"an\">2026</span> Winstell. Nyama is an iPhone app. App Store is a trademark of Apple Inc.",
-  "cookies.text": "We use audience-measurement and advertising cookies (Meta, Google) to understand where our visitors come from. Nothing is set without your consent.",
+  "cookies.text": "We use audience-measurement and advertising cookies, only with your consent.",
   "cookies.refuse": "Decline",
   "cookies.accept": "Accept"
 }
