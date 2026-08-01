@@ -259,19 +259,11 @@ header.nav.scrolled { border-bottom-color: var(--hairline); }
 .phone img, .phone video { width: 100%; height: 100%; object-fit: cover; border-radius: 38px; background: var(--sand); display: block; }
 .phone.lg { width: 322px; }
 
-/* Deux téléphones qui se chevauchent : « tu partages » (la feuille d'import)
-   puis « c'est rangé » (la fiche qui en sort). Le second est décoratif, il
-   passe derrière et se retire sur les écrans étroits. */
-.phone-pair { position: relative; display: flex; justify-content: center; padding-right: 90px; }
-.phone-pair .phone.back {
-  position: absolute; right: 0; top: 46px; width: 232px;
-  transform: rotate(5deg); z-index: 0; opacity: .96;
-}
-.phone-pair .phone.front { position: relative; z-index: 1; }
-@media (max-width: 1040px) and (min-width: 901px), (max-width: 560px) {
-  .phone-pair { padding-right: 0; }
-  .phone-pair .phone.back { display: none; }
-}
+/* Le premier pilier montrait DEUX téléphones qui se chevauchaient : la feuille
+   d'import, puis la fiche qui en sortait. La vidéo raconte désormais les deux
+   temps à elle seule — le second téléphone est devenu redondant, et il montrait
+   une AUTRE recette que celle de la vidéo, ce qui brouillait le récit.
+   Les règles `.phone-pair` ne servaient qu'à ce pilier : elles partent avec. */
 
 /* --- Bandeau des sources --- */
 .sources { padding: 60px 0 8px; text-align: center; }
