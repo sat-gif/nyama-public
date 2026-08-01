@@ -1,0 +1,9 @@
+# Fichiers de service macOS, créés dès qu'on ouvre un dossier dans le Finder.
+.DS_Store
+
+# Réglages du serveur local de prévisualisation : propres à une machine.
+.claude/
+
+# Rushes et essais de montage vidéo. Les fichiers RETENUS vivent dans assets/ ;
+# ce dossier n'est qu'un plan de travail, et il pèse plusieurs mégaoctets.
+_candidats-video/

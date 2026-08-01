@@ -140,14 +140,49 @@ quel si tu as besoin de glisser du HTML.
 
 ## Le jour de la publication sur l'App Store
 
-Une seule ligne à modifier, tout en bas de `_src/index.html` :
+Deux valeurs à renseigner, dans le `<script id="appstore">` tout en bas de
+`_src/index.html` — puis `node _build.mjs` et on committe :
 
 ```js
-const APPSTORE_URL = null;   // ← remplacer par l'URL App Store
+const APPSTORE_ID = null;   // ← l'Apple ID numérique de l'app
+const APPSTORE_PT = null;   // ← le jeton de fournisseur « pt »
 ```
 
-Tant qu'elle vaut `null`, les boutons « Télécharger » font simplement défiler la page
-jusqu'au bloc final au lieu de mener sur une page inexistante.
+Où les trouver dans App Store Connect :
+
+| Valeur | Chemin |
+| --- | --- |
+| `APPSTORE_ID` | Mes apps › Nyama › Informations sur l'app › **Apple ID** |
+| `APPSTORE_PT` | Analyses › Acquisition › Campagnes › **Créer un lien de campagne** |
+
+Tant qu'`APPSTORE_ID` vaut `null`, les boutons « Télécharger » font simplement
+défiler la page jusqu'au bloc final, au lieu de mener sur une page inexistante.
+
+### Les jetons de campagne
+
+Chaque bouton App Store emporte un jeton `ct` qui remonte dans **Analyses ›
+Acquisition › Campagnes** : c'est ce qui dit d'où viennent les installations.
+Un bouton prend le jeton de sa page (l'attribut `data-ct` du `<body>`) ou le
+sien propre s'il porte `data-appstore="mon_jeton"`.
+
+Les jetons posés automatiquement :
+
+| Page | Jeton |
+| --- | --- |
+| Accueil | `site_accueil` |
+| Liste du blog | `blog_liste` |
+| Chaque article | `blog_<slug de l'article>` |
+
+Pour les liens qui ne vivent pas sur le site (bio Instagram, TikTok, newsletter,
+signature d'e-mail), il faut composer l'adresse à la main sur le même modèle —
+un jeton par endroit, sinon tout retombe dans le même sac :
+
+```
+https://apps.apple.com/app/id<APPSTORE_ID>?pt=<APPSTORE_PT>&ct=bio_instagram&mt=8
+```
+
+Le jeton doit rester court, sans accent ni espace (Apple tronque à 40 caractères).
+`_build.mjs` normalise ceux qu'il génère ; ceux écrits à la main, c'est à toi.
 
 ## Pixels publicitaires (Meta, Google)
 

@@ -261,7 +261,9 @@ header.nav.scrolled { border-bottom-color: var(--hairline); }
   background: var(--ink-fixed); border-radius: 46px; padding: 9px;
   box-shadow: var(--shadow-phone), inset 0 0 0 1.5px rgba(255,255,255,.16);
 }
-.phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 38px; background: var(--sand); }
+/* `display:block` sur la vidéo : sans lui, elle est traitée comme du texte et
+   laisse quelques pixels sous elle, qui laissent voir le cadre ink en bas. */
+.phone img, .phone video { width: 100%; height: 100%; object-fit: cover; border-radius: 38px; background: var(--sand); display: block; }
 .phone.lg { width: 322px; }
 
 /* Deux téléphones qui se chevauchent : « tu partages » (la feuille d'import)
@@ -533,7 +535,7 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
 </style>
 
 </head>
-<body>
+<body data-ct="site_accueil">
 
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
@@ -678,8 +680,16 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
         </div>
         <div class="pillar-media phone-pair">
           <div class="phone front">
-            <img src="/assets/ecran-import.png" loading="lazy"
-                 alt="La feuille « Ajouter une recette » de Nyama : depuis les réseaux sociaux, depuis une photo, depuis un texte, ou à la main.">
+            <!-- Un VRAI partage, filmé sur un iPhone : la feuille iOS avec Nyama
+                 dedans, puis la recette qui en ressort rangée. Une image fixe ne
+                 pouvait pas montrer le geste, qui est justement l'argument.
+                 `muted` est obligatoire pour que `autoplay` soit autorisé par les
+                 navigateurs ; `playsinline` empêche iOS de passer en plein écran.
+                 Le fichier n'a de toute façon aucune piste audio. -->
+            <video src="/assets/partage-import.mp4"
+                   poster="/assets/partage-import-poster.png"
+                   autoplay muted loop playsinline preload="metadata"
+                   aria-label="Un partage depuis une vidéo de recette vers Nyama : la feuille de partage d'iOS s'ouvre, Nyama y figure, puis la recette apparaît rangée — titre, temps, ingrédients et étapes numérotées."></video>
           </div>
           <div class="phone back" aria-hidden="true">
             <img src="/assets/ecran-recette.png" loading="lazy" alt="">
@@ -998,11 +1008,41 @@ const io = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 document.getElementById('an').textContent = new Date().getFullYear();
+</script>
 
-// Lien App Store — LE SEUL ENDROIT À MODIFIER le jour de la publication.
-// Tant qu'il vaut null, les boutons font défiler jusqu'au bloc final.
-const APPSTORE_URL = null;
-if (APPSTORE_URL) document.querySelectorAll('[data-appstore]').forEach(a => { a.href = APPSTORE_URL; });
+<!-- Lien App Store et attribution de campagne. Bloc repris TEL QUEL par les pages
+     du blog (voir « coquille » dans _build.mjs) : il ne doit dépendre de rien. -->
+<script id="appstore">
+// LES DEUX SEULES VALEURS À RENSEIGNER le jour de la publication :
+//   APPSTORE_ID  l'identifiant numérique de l'app
+//                App Store Connect › Informations sur l'app › Apple ID
+//   APPSTORE_PT  le jeton de fournisseur, commun à tout le compte
+//                App Store Connect › Analyses › Acquisition › Campagnes
+// Tant qu'APPSTORE_ID vaut null, les boutons font défiler jusqu'au bloc final
+// au lieu de mener sur une page qui n'existe pas encore.
+const APPSTORE_ID = null;
+const APPSTORE_PT = null;
+
+// Chaque bouton emporte un jeton de campagne « ct » qui remonte dans App
+// Analytics : c'est lui qui dira si les installations viennent de l'accueil,
+// d'un article du blog ou de la bio Instagram. Un bouton prend le sien via
+// data-appstore="…", sinon celui de sa page (l'attribut data-ct du body).
+(() => {
+  const boutons = document.querySelectorAll('[data-appstore]');
+  if (!APPSTORE_ID || !boutons.length) return;
+  const defaut = document.body.dataset.ct || 'site';
+  for (const bouton of boutons) {
+    const url = new URL('https://apps.apple.com/app/id' + APPSTORE_ID);
+    // Sans jeton de fournisseur, le « ct » serait ignoré : on n'envoie alors
+    // qu'un lien propre, plutôt qu'un paramètre qui ne mesure rien.
+    if (APPSTORE_PT) {
+      url.searchParams.set('pt', APPSTORE_PT);
+      url.searchParams.set('ct', bouton.dataset.appstore || defaut);
+    }
+    url.searchParams.set('mt', '8');
+    bouton.href = url.toString();
+  }
+})();
 </script>
 
 </body>

@@ -150,6 +150,21 @@ const dateLisible = (iso) => {
 };
 const attr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
+/**
+ * Jeton de campagne « ct » d'un lien App Store : c'est lui qui apparaît dans
+ * App Store Connect › Analyses › Acquisition. Apple n'y accepte ni accent, ni
+ * espace, ni ponctuation, et tronque au-delà de 40 caractères — on normalise
+ * donc ici plutôt que de découvrir des lignes vides dans le rapport.
+ */
+const jetonCampagne = (s) =>
+  String(s)
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .replace(/[^a-z0-9]+/g, '_')
+    .slice(0, 40)
+    .replace(/^_|_$/g, '');
+
 function lisArticles() {
   const dir = new URL('_blog/', import.meta.url);
   if (!existsSync(dir)) return [];
@@ -185,11 +200,14 @@ function lisArticles() {
  * deux designs à tenir. Les ancres du menu (#comment…) sont repréfixées, sinon
  * elles ne mènent nulle part depuis /blog/.
  */
-function coquille({ accueil, titre, description, url, corps, ogImage }) {
+function coquille({ accueil, titre, description, url, corps, ogImage, ct = 'site' }) {
   const styles = accueil.match(/<style>[\s\S]*?<\/style>/)[0];
   const entete = accueil.match(/<header class="nav"[\s\S]*?<\/header>/)[0]
     .replace(/href="#/g, 'href="/#');
   const pied = accueil.match(/<footer class="site">[\s\S]*?<\/footer>/)[0];
+  // Le bloc App Store voyage tel quel : l'Apple ID et le jeton de fournisseur
+  // ne vivent qu'à un seul endroit, `_src/index.html`, accueil comme blog.
+  const appstore = accueil.match(/<script id="appstore">[\s\S]*?<\/script>/)?.[0] ?? '';
   // Image dédiée au partage (1200×630) : la même que la page d'accueil, pas
   // la capture verticale du héros — voir le commentaire sur og:image dans
   // _src/index.html.
@@ -221,7 +239,7 @@ function coquille({ accueil, titre, description, url, corps, ogImage }) {
 <meta name="twitter:image" content="${image}">
 ${styles}
 </head>
-<body>
+<body data-ct="${attr(ct)}">
 ${entete}
 <main>
 ${corps}
@@ -233,6 +251,7 @@ addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), 
 const an = document.getElementById('an');
 if (an) an.textContent = new Date().getFullYear();
 </script>
+${appstore}
 </body>
 </html>
 `;
@@ -276,6 +295,7 @@ ${articles.length
       description: 'Des idées pour retrouver, organiser et cuisiner les recettes qui te font envie.',
       url: `${ORIGINE}/blog/`,
       corps: liste,
+      ct: 'blog_liste',
     }),
   );
 
@@ -296,7 +316,7 @@ ${a.html}
       <div class="article-cta">
         <h2>Toutes tes recettes, au même endroit</h2>
         <p>Nyama range ce que tu croises sur Instagram, TikTok ou un blog dans une seule bibliothèque. La tienne.</p>
-        <a class="btn btn-primary" href="/#telecharger">Découvrir Nyama</a>
+        <a class="btn btn-primary" href="/#telecharger" data-appstore>Découvrir Nyama</a>
       </div>
     </div>
   </article>`;
@@ -308,6 +328,8 @@ ${a.html}
         description: a.description,
         url: `${ORIGINE}/blog/${a.slug}/`,
         corps,
+        // Un jeton par article : le rapport d'Apple dira lequel fait installer.
+        ct: jetonCampagne(`blog_${a.slug}`),
       }),
     );
   }
