@@ -60,12 +60,12 @@
 <header>
   <p class="marque">Nyama</p>
   <h1>Politique de confidentialité</h1>
-  <p class="doux">Dernière mise à jour : 25 juillet 2026 · Version 1.0</p>
+  <p class="doux">Dernière mise à jour : 1<sup>er</sup> août 2026 · Version 1.1</p>
 </header>
 
-<p>Nyama est une application de recettes pour iPhone et iPad, éditée par <strong>Winstell</strong>. Elle sert à importer des recettes, les ranger, planifier ses repas et cuisiner.</p>
+<p>Nyama est une application de recettes pour iPhone, éditée par <strong>Winstell</strong>. Elle sert à importer des recettes, les ranger, planifier ses repas et cuisiner.</p>
 
-<p>Cette page explique, sans détour, <strong>quelles données Nyama utilise, pourquoi, et où elles vont</strong>. Le principe qui gouverne tout le reste est simple : <strong>vos recettes et vos listes restent sur votre téléphone</strong>. Rien ne part vers un serveur, sauf quand vous demandez explicitement une action qui a besoin d'aide (importer une recette depuis une vidéo, lire une photo, estimer les calories, adapter une recette).</p>
+<p>Cette page explique, sans détour, <strong>quelles données Nyama utilise, pourquoi, et où elles vont</strong>. Le principe qui gouverne tout le reste est simple : <strong>vos recettes et vos listes vivent sur votre téléphone</strong>. Rien ne part vers un serveur, sauf quand vous demandez explicitement une action qui a besoin d'aide (importer une recette depuis une vidéo, lire une photo, estimer les calories, adapter une recette, signaler un problème) — ou quand vous créez un compte pour faire sauvegarder votre carnet.</p>
 
 <div class="carte">
   <h3>Ce que Nyama ne fait pas</h3>
@@ -74,7 +74,7 @@
     <li>Aucun outil de mesure d'audience ni d'analyse de comportement (pas de Google Analytics, pas de Firebase, pas d'outil équivalent — il n'y en a aucun dans l'application).</li>
     <li>Aucune vente, location ou échange de vos données.</li>
     <li>Aucune géolocalisation, aucun accès à vos contacts, à votre agenda ou à votre micro.</li>
-    <li>Aucune sauvegarde de vos recettes sur nos serveurs : elles ne quittent pas votre appareil.</li>
+    <li>Aucune sauvegarde de vos recettes sans compte : sans connexion, elles ne quittent jamais votre appareil.</li>
   </ul>
 </div>
 
@@ -83,7 +83,7 @@
 <p>Contact pour toute question ou demande : <a href="mailto:support@getnyama.app">support@getnyama.app</a></p>
 
 <h2>2. Le compte</h2>
-<p><strong>Un compte est nécessaire pour utiliser Nyama.</strong> Il se crée uniquement par <em>Se connecter avec Apple</em> ou <em>Se connecter avec Google</em> : Nyama ne vous demande jamais de créer un mot de passe et n'en gère aucun.</p>
+<p><strong>Le compte est facultatif.</strong> Nyama s'utilise entièrement sans : importer, ranger, planifier et cuisiner ne demandent aucune inscription. Un compte sert à une seule chose — <strong>sauvegarder votre carnet</strong> pour le retrouver si vous perdez ou changez de téléphone. Il se crée uniquement par <em>Se connecter avec Apple</em> ou <em>Se connecter avec Google</em> : Nyama ne vous demande jamais de créer un mot de passe et n'en gère aucun.</p>
 
 <h3>Ce qui est enregistré</h3>
 <ul>
@@ -92,15 +92,19 @@
   <li>Votre <strong>nom</strong>, uniquement si Apple le transmet à la toute première connexion.</li>
 </ul>
 <p>Ces informations sont conservées chez notre hébergeur <strong>Supabase</strong>, sur des serveurs situés dans l'Union européenne (Stockholm, Suède). Votre session est également gardée sur votre téléphone pour vous éviter de vous reconnecter à chaque ouverture.</p>
-<p>Le compte sert à vous identifier et à ouvrir l'accès à l'application. <strong>Il n'est relié à aucune de vos recettes</strong> : celles-ci vivent sur votre appareil et ne sont associées à aucun profil chez nous.</p>
+<h3>La sauvegarde de votre carnet</h3>
+<p>Tant que vous n'avez pas de compte, vos recettes ne sont <strong>reliées à rien chez nous</strong> et ne quittent pas votre téléphone.</p>
+<p>Dès que vous vous connectez, l'application <strong>envoie une copie de votre carnet</strong> chez notre hébergeur Supabase (UE, Stockholm), rattachée à votre identifiant de compte : vos recettes (titre, temps, portions, ingrédients, étapes, étiquettes), vos livres de recettes et vos étiquettes personnalisées. Cette copie est mise à jour quand vous modifiez une recette, et sert à restaurer votre carnet sur un nouveau téléphone.</p>
+<p><strong>Ce qui n'est PAS envoyé :</strong> les photos que vous prenez ou choisissez vous-même (seul leur nom de fichier accompagne la recette ; le fichier reste sur votre appareil), votre planning, votre liste de courses, vos préférences alimentaires et vos réglages.</p>
+<p>Chaque carnet n'est accessible qu'à son propre compte : une règle de sécurité au niveau de la base l'impose, et personne d'autre — pas même une autre personne utilisant l'application — ne peut le lire. La suppression du compte efface cette copie, sans exception.</p>
 
 <h3>Supprimer votre compte</h3>
 <p>Vous pouvez le supprimer vous-même, depuis l'application : <strong>Réglages → Mon compte → Supprimer mon compte</strong>. La suppression est immédiate et définitive côté serveur — nous ne gardons pas de copie. Pour effacer aussi ce qui est sur votre téléphone, utilisez <strong>Réglages → Tout réinitialiser</strong>, ou désinstallez l'application.</p>
 
 <h2>3. Ce qui reste sur votre téléphone</h2>
-<p>Tout ce qui suit est enregistré <strong>uniquement dans la mémoire de l'application, sur votre appareil</strong>. Nous n'y avons pas accès, et rien de tout cela n'est envoyé à un serveur :</p>
+<p>Tout ce qui suit est enregistré <strong>dans la mémoire de l'application, sur votre appareil</strong>. Les trois derniers points ne quittent jamais le téléphone, quoi qu'il arrive ; les deux premiers ne partent que si vous créez un compte, et uniquement pour la sauvegarde décrite au point 2 :</p>
 <ul>
-  <li>vos <strong>recettes</strong>, leurs ingrédients, leurs étapes et leurs photos ;</li>
+  <li>vos <strong>recettes</strong>, leurs ingrédients et leurs étapes (les <strong>photos</strong> que vous ajoutez, elles, restent toujours sur l'appareil) ;</li>
   <li>vos <strong>collections</strong> et vos <strong>étiquettes</strong> ;</li>
   <li>votre <strong>planning de la semaine</strong> et votre <strong>liste de courses</strong> ;</li>
   <li>vos <strong>préférences alimentaires</strong> : régime, allergies, objectifs ;</li>
@@ -117,7 +121,7 @@
 <p>Les rappels (minuteurs de cuisson, rappels de repas) sont <strong>entièrement locaux</strong> : c'est votre téléphone qui se les programme à lui-même. Aucun jeton de notification n'existe, aucun serveur n'est contacté, et nous ne pouvons pas vous envoyer de notification.</p>
 
 <h2>4. Ce qui part vers un serveur, et seulement dans ces cas</h2>
-<p>Quatre fonctions ont besoin d'un serveur, parce qu'elles font appel à une intelligence artificielle. Elles ne se déclenchent <strong>jamais toutes seules</strong> : uniquement quand vous appuyez sur le bouton correspondant.</p>
+<p>Les fonctions ci-dessous ont besoin d'un serveur. Elles ne se déclenchent <strong>jamais toutes seules</strong> : uniquement quand vous appuyez sur le bouton correspondant.</p>
 
 <div class="defilant">
 <table>
@@ -150,6 +154,11 @@
       <td>La recette, et — si vous les avez renseignés — votre <strong>régime, vos allergies et vos objectifs</strong>.</td>
       <td>Proposer des substitutions sûres. Les allergies sont transmises précisément pour éviter de vous proposer un ingrédient dangereux pour vous.</td>
     </tr>
+    <tr>
+      <td><strong>Signaler un problème</strong> sur une recette</td>
+      <td>Le message que vous écrivez, la recette telle que l'application l'a lue (titre, temps, portions, ingrédients, étapes, étiquettes), le lien d'origine, la plateforme, la version de l'application, votre système et la langue de l'interface. S'y ajoute une <strong>empreinte non réversible</strong> de votre adresse IP, servant uniquement à empêcher les envois massifs : l'adresse elle-même n'est jamais enregistrée. Aucun nom, aucune adresse e-mail, aucun identifiant de compte, aucune photo de votre téléphone, aucune autre recette de votre carnet.</td>
+      <td>Comprendre et corriger le défaut. Sans la recette et son lien, un signalement du type « les étapes sont mal découpées » n'est pas exploitable : il faut pouvoir refaire l'import pour voir ce que vous aviez sous les yeux.</td>
+    </tr>
   </tbody>
 </table>
 </div>
@@ -158,7 +167,7 @@
   <h3>Trois précisions importantes</h3>
   <ul>
     <li><strong>Ces envois ne sont pas rattachés à votre compte.</strong> L'application appelle le serveur avec sa clé publique d'application, sans transmettre votre identifiant : le serveur reçoit une recette ou un lien à traiter, pas le nom de la personne qui le demande.</li>
-    <li><strong>Rien n'est conservé.</strong> Ces fonctions serveur n'ont pas de base de données : elles traitent la demande, renvoient le résultat, et n'en gardent aucune trace. Seuls des journaux techniques de courte durée (erreurs, temps de réponse) sont produits automatiquement par notre hébergeur.</li>
+    <li><strong>Rien n'est conservé, à une exception près.</strong> L'import, les calories et l'adaptation traitent la demande, renvoient le résultat et n'en gardent aucune trace. Le <strong>signalement</strong>, lui, est forcément enregistré — c'est tout son objet : il est conservé douze mois au maximum, puis supprimé. Seuls des journaux techniques de courte durée (erreurs, temps de réponse) sont produits automatiquement par notre hébergeur.</li>
     <li><strong>Si vous ne les utilisez pas, rien ne part.</strong> Une recette écrite à la main, une liste de courses, un planning : tout cela reste sur l'appareil, y compris hors connexion.</li>
   </ul>
 </div>
@@ -218,9 +227,9 @@
 
 <h2>6. Pourquoi nous avons le droit de traiter ces données</h2>
 <ul>
-  <li><strong>Exécuter le service que vous demandez</strong> (article 6.1.b du RGPD) : le compte, l'import de recettes, l'estimation des calories, l'adaptation d'une recette, la gestion de l'abonnement.</li>
+  <li><strong>Exécuter le service que vous demandez</strong> (article 6.1.b du RGPD) : le compte, la sauvegarde de votre carnet, l'import de recettes, l'estimation des calories, l'adaptation d'une recette, la gestion de l'abonnement.</li>
   <li><strong>Votre consentement</strong> (article 6.1.a) pour ce qui passe par une autorisation du téléphone : accès aux photos, à l'appareil photo, aux notifications. Vous pouvez le retirer à tout moment dans les réglages iOS.</li>
-  <li><strong>Notre intérêt légitime</strong> (article 6.1.f) à garder des journaux techniques courts, pour détecter les pannes et les abus.</li>
+  <li><strong>Notre intérêt légitime</strong> (article 6.1.f) à garder des journaux techniques courts pour détecter les pannes et les abus, et à conserver les signalements que vous nous envoyez le temps de corriger ce qu'ils décrivent.</li>
 </ul>
 <p>Les <strong>allergies et le régime alimentaire</strong> que vous renseignez peuvent révéler des informations sur votre santé. Ils restent sur votre téléphone et ne sont transmis que lorsque vous demandez une adaptation de recette, dans le seul but de rendre cette adaptation sûre. Vous n'êtes jamais obligé de les renseigner : l'application fonctionne sans.</p>
 
@@ -233,7 +242,9 @@
   <tbody>
     <tr><td>Compte (identifiant, e-mail, nom)</td><td>Jusqu'à ce que vous supprimiez votre compte. La suppression est alors définitive et sans copie de sauvegarde.</td></tr>
     <tr><td>Recettes, collections, planning, courses, préférences, réglages</td><td>Sur votre téléphone, aussi longtemps que vous les gardez. Effacés par « Tout réinitialiser » ou par la désinstallation de l'application.</td></tr>
+    <tr><td>Copie de sauvegarde du carnet (avec un compte)</td><td>Jusqu'à la suppression de votre compte, qui l'efface entièrement.</td></tr>
     <tr><td>Contenus envoyés pour un import, une estimation ou une adaptation</td><td>Le temps du traitement seulement. Ils ne sont pas enregistrés chez nous.</td></tr>
+    <tr><td>Signalements de problème</td><td>Douze mois au maximum, puis suppression. Ils ne sont rattachés à aucun compte.</td></tr>
     <tr><td>Journaux techniques du serveur</td><td>Quelques jours au maximum, selon la conservation appliquée par notre hébergeur.</td></tr>
     <tr><td>Abonnement</td><td>Conservé par Apple et RevenueCat le temps requis par leur propre gestion et par les obligations comptables.</td></tr>
   </tbody>
@@ -259,7 +270,7 @@
 <p>Une question, une demande, un doute sur vos données : <a href="mailto:support@getnyama.app">support@getnyama.app</a></p>
 
 <footer>
-  <p class="doux">Nyama — édité par Winstell.<br>Politique de confidentialité, version 1.0 du 25 juillet 2026.</p>
+  <p class="doux">Nyama — édité par Winstell.<br>Politique de confidentialité, version 1.1 du 1<sup>er</sup> août 2026.</p>
 </footer>
 
 </main>
