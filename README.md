@@ -9,7 +9,12 @@ Site public de l'application Nyama (Winstell), servi par GitHub Pages sur
 | `/blog/`            | Le blog, et un dossier par article          |
 | `/confidentialite/` | Politique de confidentialité (français)    |
 | `/conditions/`      | Redirige vers l'EULA standard d'Apple      |
+| `/assistance/`      | Page d'assistance — l'URL donnée à Apple   |
+| `/support/`         | Redirige vers `/assistance/`               |
 | `/assets/`          | Icône, captures d'écran                    |
+
+Ces quatre pages-là sont écrites **à la main** : `_build.mjs` ne génère que l'accueil
+et le blog, il n'entre jamais dans ces dossiers.
 
 ## ⚠ Ne pas modifier `index.html` à la main
 
