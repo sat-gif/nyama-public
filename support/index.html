@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assistance — Nyama</title>
+<link rel="canonical" href="https://getnyama.app/assistance/">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/icone.png" type="image/png">
+
+<!-- Le site est en français et ses chemins le sont aussi (/confidentialite/,
+     /conditions/) : la page d'assistance vit donc à /assistance/. Cette
+     redirection existe pour que le réflexe anglais « /support » ne tombe jamais
+     sur une page morte — sur le site, dans un e-mail, ou collé de mémoire dans
+     App Store Connect. Même procédé que /conditions/, une page qui ne fait que
+     conduire ailleurs. -->
+<meta http-equiv="refresh" content="0; url=/assistance/">
+
+<style>
+  :root { --safran: #FCAE0B; --fond: #FFFFFF; --texte: #1C1917; --doux: #57534E; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fond: #14110E; --texte: #F5F5F4; --doux: #A8A29E; }
+  }
+  body {
+    margin: 0; padding: 60px 20px;
+    background: var(--fond); color: var(--texte);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65; text-align: center;
+  }
+  a { color: var(--safran); text-decoration: underline; text-underline-offset: 2px; }
+</style>
+</head>
+<body>
+  <p class="doux">Vous allez être redirigé vers la page d'assistance de Nyama.</p>
+  <p>Si rien ne se passe : <a href="/assistance/">ouvrir la page d'assistance</a>.</p>
+</body>
+</html>

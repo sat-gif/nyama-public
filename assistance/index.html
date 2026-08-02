@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assistance — Nyama</title>
+<meta name="description" content="Une question, un souci, une idée pour Nyama ? Écrivez-nous à support@getnyama.app.">
+<link rel="canonical" href="https://getnyama.app/assistance/">
+<link rel="icon" href="/assets/icone.png" type="image/png">
+
+<!-- Page d'assistance publique. C'est l'adresse donnée à App Store Connect
+     (champ « URL d'assistance », obligatoire pour la soumission), et celle que
+     l'on peut donner à quiconque cherche à nous joindre sans avoir l'app sous
+     la main. Écrite à la main, comme /confidentialite/ et /conditions/ :
+     `_build.mjs` ne génère que l'accueil et le blog. -->
+
+<style>
+  :root { --safran: #FCAE0B; --fond: #FFFFFF; --texte: #1C1917; --doux: #57534E; --trait: #E7E5E4; --carte: #FAFAF9; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fond: #14110E; --texte: #F5F5F4; --doux: #A8A29E; --trait: #2E2A25; --carte: #1D1A16; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0 20px 80px;
+    background: var(--fond); color: var(--texte);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65; -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 720px; margin: 0 auto; }
+  header { padding: 48px 0 8px; border-bottom: 3px solid var(--safran); margin-bottom: 32px; }
+  .marque { font-size: 15px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--safran); margin: 0 0 8px; }
+  h1 { font-size: 30px; line-height: 1.25; margin: 0 0 12px; letter-spacing: -.01em; }
+  h2 { font-size: 21px; margin: 44px 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 17px; margin: 28px 0 8px; }
+  p, li { color: var(--texte); }
+  .doux { color: var(--doux); font-size: 15px; }
+  ul { padding-left: 22px; }
+  li { margin-bottom: 8px; }
+  a { color: var(--safran); text-decoration: underline; text-underline-offset: 2px; }
+  .carte { background: var(--carte); border: 1px solid var(--trait); border-radius: 14px; padding: 18px 20px; margin: 20px 0; }
+  .carte h3 { margin-top: 0; }
+  .carte p:last-child, .carte ul:last-child { margin-bottom: 0; }
+
+  /* Le bloc de contact : c'est la raison d'être de la page, il se voit. */
+  .contact { text-align: center; padding: 30px 20px; margin: 28px 0 12px; }
+  .contact h2 { margin: 0 0 8px; }
+  .bouton {
+    display: inline-block; margin-top: 16px;
+    background: var(--safran); color: #1C1917;
+    font-size: 17px; font-weight: 700; text-decoration: none;
+    padding: 14px 26px; border-radius: 12px;
+  }
+  .bouton:hover { filter: brightness(.94); }
+
+  /* Deux colonnes sur écran large, l'une sous l'autre sur téléphone. */
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .duo .carte { margin: 0; }
+  @media (max-width: 560px) { .duo { grid-template-columns: 1fr; } }
+
+  footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--trait); }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <p class="marque">Nyama</p>
+  <h1>Assistance</h1>
+  <p class="doux">Une question, un souci, une idée : on vous répond.</p>
+</header>
+
+<p>Nyama est une application de recettes pour iPhone, éditée par <strong>Winstell</strong>. Elle sert à importer des recettes, les ranger, planifier ses repas et cuisiner.</p>
+
+<p>Il n'y a pas de formulaire ni de numéro de dossier : une adresse e-mail, lue par la personne qui fait l'application.</p>
+
+<div class="carte contact">
+  <h2>Nous écrire</h2>
+  <p class="doux">Nous répondons à chaque message, en général sous deux jours ouvrés.</p>
+  <a class="bouton" href="mailto:support@getnyama.app">support@getnyama.app</a>
+</div>
+
+<div class="duo">
+  <div class="carte">
+    <h3>Un problème dans l'application</h3>
+    <p class="doux">Un écran qui bloque, une recette mal importée, un achat qui n'a pas abouti. Dites-nous votre modèle d'iPhone et ce que vous faisiez au moment du souci : ça suffit presque toujours.</p>
+  </div>
+  <div class="carte">
+    <h3>Une idée, une suggestion</h3>
+    <p class="doux">Il manque quelque chose, ou une chose vous agace ? Écrivez-le. Une bonne part de ce que fait Nyama aujourd'hui vient de messages comme celui-là.</p>
+  </div>
+</div>
+
+<h2>Les questions qui reviennent</h2>
+
+<h3>Comment résilier mon abonnement Nyama+ ?</h3>
+<p>L'abonnement est géré par Apple, pas par nous : <strong>Réglages de l'iPhone › votre nom › Abonnements › Nyama</strong>. La résiliation y est immédiate, et l'abonnement reste actif jusqu'à la fin de la période déjà payée.</p>
+
+<h3>Comment supprimer mon compte ?</h3>
+<p>Dans l'application : <strong>Réglages › Mon compte › Supprimer mon compte</strong>. La suppression efface le compte et la sauvegarde de votre carnet, sur le serveur comme sur le téléphone. Elle est définitive et sans copie de sauvegarde.</p>
+
+<h3>Je n'ai pas de compte, est-ce normal ?</h3>
+<p>Oui. Le compte est <strong>facultatif</strong> : tout Nyama s'utilise sans s'inscrire. Créer un compte ne sert qu'à faire sauvegarder votre carnet pour le retrouver sur un autre téléphone.</p>
+
+<h3>J'ai changé de téléphone, où sont mes recettes ?</h3>
+<p>Vos recettes vivent sur votre téléphone. Si vous aviez un compte, reconnectez-vous sur le nouvel appareil : le carnet se restaure tout seul au démarrage. Sans compte, elles sont restées sur l'ancien téléphone — c'est précisément ce à quoi sert la sauvegarde.</p>
+
+<h3>Une recette a été mal importée</h3>
+<p>Signalez-la depuis l'application, sur la recette concernée : <strong>menu « … » › Signaler un problème</strong>. Le signalement nous arrive avec la source, et c'est ce qui nous permet de corriger la lecture de ce site ou de ce compte.</p>
+
+<h2>Vos données</h2>
+<p>Ce que Nyama collecte, pourquoi et où ça va est décrit dans notre <a href="/confidentialite/">politique de confidentialité</a>. Pour toute demande relative à vos données (accès, rectification, effacement), la même adresse fonctionne : <a href="mailto:support@getnyama.app">support@getnyama.app</a>.</p>
+
+<footer>
+  <p class="doux">
+    <a href="/">Nyama</a> ·
+    <a href="/confidentialite/">Politique de confidentialité</a> ·
+    <a href="/conditions/">Conditions d'utilisation</a> ·
+    <a href="mailto:support@getnyama.app">support@getnyama.app</a>
+  </p>
+  <p class="doux">Nyama — édité par Winstell.</p>
+</footer>
+
+</main>
+</body>
+</html>
