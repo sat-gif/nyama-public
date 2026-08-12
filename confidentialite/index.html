@@ -71,7 +71,7 @@
   <h3>Ce que Nyama ne fait pas</h3>
   <ul>
     <li>Aucune publicité, aucun traceur publicitaire.</li>
-    <li>Aucun outil de mesure d'audience ni d'analyse de comportement (pas de Google Analytics, pas de Firebase, pas d'outil équivalent — il n'y en a aucun dans l'application).</li>
+    <li>Aucun suivi d'une application à l'autre, et aucun profilage publicitaire. Nyama mesure l'usage de ses propres écrans (voir le tableau du point 5) : des noms d'actions et des compteurs, jamais le contenu de vos recettes.</li>
     <li>Aucune vente, location ou échange de vos données.</li>
     <li>Aucune géolocalisation, aucun accès à vos contacts, à votre agenda ou à votre micro.</li>
     <li>Aucune sauvegarde de vos recettes sans compte : sans connexion, elles ne quittent jamais votre appareil.</li>
@@ -203,6 +203,11 @@
       <td><strong>RevenueCat</strong></td>
       <td>Gestion technique de l'abonnement Premium (savoir si l'abonnement est actif).</td>
       <td>Un identifiant anonyme généré par RevenueCat pour l'installation, et l'état de l'abonnement transmis par Apple. Cet identifiant n'est relié ni à votre nom, ni à votre e-mail, ni à votre compte Nyama.</td>
+    </tr>
+    <tr>
+      <td><strong>PostHog</strong> (UE)</td>
+      <td>Mesure d'usage de l'application : savoir quels écrans servent vraiment et à quel moment on abandonne, pour améliorer Nyama.</td>
+      <td>Un identifiant anonyme tiré par PostHog pour l'installation, des noms d'actions (« recette ajoutée », « écran d'abonnement affiché ») et des compteurs. Jamais le titre d'une recette, l'adresse d'une page, un texte que vous saisissez, votre nom ni votre e-mail. Cet identifiant n'est relié ni à votre compte Nyama ni à votre e-mail.</td>
     </tr>
     <tr>
       <td><strong>OpenRouter</strong></td>
