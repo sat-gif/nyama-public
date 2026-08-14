@@ -60,12 +60,12 @@
 <header>
   <p class="marque">Nyama</p>
   <h1>Politique de confidentialité</h1>
-  <p class="doux">Dernière mise à jour : 1<sup>er</sup> août 2026 · Version 1.1</p>
+  <p class="doux">Dernière mise à jour : 14 août 2026 · Version 1.2</p>
 </header>
 
 <p>Nyama est une application de recettes pour iPhone, éditée par <strong>Winstell</strong>. Elle sert à importer des recettes, les ranger, planifier ses repas et cuisiner.</p>
 
-<p>Cette page explique, sans détour, <strong>quelles données Nyama utilise, pourquoi, et où elles vont</strong>. Le principe qui gouverne tout le reste est simple : <strong>vos recettes et vos listes vivent sur votre téléphone</strong>. Rien ne part vers un serveur, sauf quand vous demandez explicitement une action qui a besoin d'aide (importer une recette depuis une vidéo, lire une photo, estimer les calories, adapter une recette, signaler un problème) — ou quand vous créez un compte pour faire sauvegarder votre carnet.</p>
+<p>Cette page explique, sans détour, <strong>quelles données Nyama utilise, pourquoi, et où elles vont</strong>. Le principe qui gouverne tout le reste est simple : <strong>vos recettes et vos listes vivent sur votre téléphone</strong>. Rien ne part vers un serveur, sauf quand vous demandez explicitement une action qui a besoin d'aide (importer une recette depuis une vidéo, lire une photo, estimer les calories, adapter une recette, signaler un problème), <strong>quand vous partagez une recette par lien</strong> — ou quand vous créez un compte pour faire sauvegarder votre carnet.</p>
 
 <div class="carte">
   <h3>Ce que Nyama ne fait pas</h3>
@@ -74,7 +74,8 @@
     <li>Aucun suivi d'une application à l'autre, et aucun profilage publicitaire. Nyama mesure l'usage de ses propres écrans (voir le tableau du point 5) : des noms d'actions et des compteurs, jamais le contenu de vos recettes.</li>
     <li>Aucune vente, location ou échange de vos données.</li>
     <li>Aucune géolocalisation, aucun accès à vos contacts, à votre agenda ou à votre micro.</li>
-    <li>Aucune sauvegarde de vos recettes sans compte : sans connexion, elles ne quittent jamais votre appareil.</li>
+    <li>Aucune sauvegarde de vos recettes sans compte. Sans connexion et sans partage, elles ne quittent jamais votre appareil.</li>
+    <li>Aucune publication de vos recettes à votre insu : une recette ne devient consultable par quelqu'un d'autre que si <strong>vous</strong> appuyez sur « Partager » (voir le point 4).</li>
   </ul>
 </div>
 
@@ -155,6 +156,11 @@
       <td>Proposer des substitutions sûres. Les allergies sont transmises précisément pour éviter de vous proposer un ingrédient dangereux pour vous.</td>
     </tr>
     <tr>
+      <td><strong>Partager une recette par lien</strong></td>
+      <td>La recette (titre, temps, portions, difficulté, ingrédients, étapes, étiquettes, source d'origine) et <strong>sa photo, uniquement si c'est vous qui l'avez prise</strong>. S'y ajoute une <strong>empreinte non réversible</strong> de votre adresse IP, servant uniquement à empêcher les envois massifs : l'adresse elle-même n'est jamais enregistrée. N'y figurent ni votre nom, ni votre adresse e-mail, ni votre identifiant de compte, ni aucune autre recette de votre carnet. Les valeurs nutritionnelles estimées ne sont pas transmises.</td>
+      <td>Fabriquer la page consultable par la personne à qui vous envoyez le lien, et l'aperçu qui s'affiche dans la conversation. C'est le <strong>seul</strong> cas où un contenu de votre carnet devient lisible par quelqu'un d'autre — voir l'encadré ci-dessous.</td>
+    </tr>
+    <tr>
       <td><strong>Signaler un problème</strong> sur une recette</td>
       <td>Le message que vous écrivez, la recette telle que l'application l'a lue (titre, temps, portions, ingrédients, étapes, étiquettes), le lien d'origine, la plateforme, la version de l'application, votre système et la langue de l'interface. S'y ajoute une <strong>empreinte non réversible</strong> de votre adresse IP, servant uniquement à empêcher les envois massifs : l'adresse elle-même n'est jamais enregistrée. Aucun nom, aucune adresse e-mail, aucun identifiant de compte, aucune photo de votre téléphone, aucune autre recette de votre carnet.</td>
       <td>Comprendre et corriger le défaut. Sans la recette et son lien, un signalement du type « les étapes sont mal découpées » n'est pas exploitable : il faut pouvoir refaire l'import pour voir ce que vous aviez sous les yeux.</td>
@@ -167,10 +173,24 @@
   <h3>Trois précisions importantes</h3>
   <ul>
     <li><strong>Ces envois ne sont pas rattachés à votre compte.</strong> L'application appelle le serveur avec sa clé publique d'application, sans transmettre votre identifiant : le serveur reçoit une recette ou un lien à traiter, pas le nom de la personne qui le demande.</li>
-    <li><strong>Rien n'est conservé, à une exception près.</strong> L'import, les calories et l'adaptation traitent la demande, renvoient le résultat et n'en gardent aucune trace. Le <strong>signalement</strong>, lui, est forcément enregistré — c'est tout son objet : il est conservé douze mois au maximum, puis supprimé. Seuls des journaux techniques de courte durée (erreurs, temps de réponse) sont produits automatiquement par notre hébergeur.</li>
+    <li><strong>Rien n'est conservé, à deux exceptions près.</strong> L'import, les calories et l'adaptation traitent la demande, renvoient le résultat et n'en gardent aucune trace. Le <strong>signalement</strong>, lui, est forcément enregistré — c'est tout son objet : il est conservé douze mois au maximum, puis supprimé. Une <strong>recette partagée</strong> est elle aussi enregistrée, le temps que son lien vive : trente jours. Seuls des journaux techniques de courte durée (erreurs, temps de réponse) sont produits automatiquement par notre hébergeur.</li>
     <li><strong>Si vous ne les utilisez pas, rien ne part.</strong> Une recette écrite à la main, une liste de courses, un planning : tout cela reste sur l'appareil, y compris hors connexion.</li>
   </ul>
 </div>
+
+<h3>Partager une recette par lien</h3>
+<p>C'est la <strong>seule</strong> fonction de Nyama qui rend un contenu de votre carnet lisible par une autre personne. Elle mérite donc d'être décrite en entier.</p>
+<p>Quand vous appuyez sur « Partager », l'application envoie la recette concernée sur nos serveurs et vous rend un lien de la forme <code>r.getnyama.app/p/…</code>, que vous transmettez à qui vous voulez. La personne qui reçoit ce lien voit une page présentant la recette, sans avoir besoin de l'application ni d'un compte.</p>
+<ul>
+  <li><strong>Qui peut la voir</strong> : toute personne qui possède le lien, et elle seule. L'adresse contient un identifiant tiré au hasard, impossible à deviner et impossible à énumérer — il n'existe aucune liste des recettes partagées, ni page d'accueil, ni moteur de recherche interne.</li>
+  <li><strong>Les moteurs de recherche en sont exclus</strong> : ces pages portent une consigne <em>noindex</em> et sont interdites dans notre fichier <code>robots.txt</code>. Elles n'ont pas vocation à apparaître dans Google.</li>
+  <li><strong>Trente jours</strong>, puis la page et la photo sont supprimées automatiquement. Le délai repart de zéro chaque fois que vous repartagez la même recette.</li>
+  <li><strong>Supprimer la recette de votre carnet éteint sa page</strong> immédiatement, sans autre geste. Supprimer votre compte éteint toutes celles que vous aviez partagées.</li>
+  <li><strong>La photo</strong> n'est envoyée que si c'est vous qui l'avez prise. Pour une recette importée, la page réutilise l'image publique du site ou du réseau d'origine : nous n'en gardons aucune copie.</li>
+  <li><strong>La source d'origine est citée</strong> sur la page, avec un lien vers elle quand nous la connaissons.</li>
+</ul>
+<p>Une limite que nous préférons énoncer plutôt que de la laisser découvrir : lorsque vous envoyez un lien dans une messagerie, celle-ci fabrique un <strong>aperçu</strong> (photo et titre) et le conserve dans la conversation. Cet aperçu appartient dès lors à la conversation. Si la page s'éteint ensuite — parce qu'elle a expiré ou que vous avez supprimé la recette —, le lien cesse de fonctionner, mais l'aperçu déjà affiché chez votre destinataire reste visible. Nous n'avons aucun moyen de le retirer.</p>
+<p>Le lien est hébergé chez <strong>Netlify</strong> pour l'affichage de la page, et la recette elle-même chez <strong>Supabase</strong> (Union européenne, Stockholm), comme le reste.</p>
 
 <h3>Les liens que vous importez</h3>
 <p>Pour certains liens (TikTok, Instagram, YouTube), l'application lit d'abord la publication <strong>directement depuis votre téléphone</strong>, sans passer par nous, comme le ferait un navigateur qui ouvre la page. Dans ce cas, c'est votre téléphone qui contacte la plateforme concernée : celle-ci voit donc votre adresse IP, comme pour toute visite d'une page web. Nyama ne se connecte jamais à votre compte TikTok, Instagram, Facebook ou YouTube et n'y a aucun accès — elle ne lit que ce qui est publié publiquement.</p>
@@ -196,8 +216,13 @@
     </tr>
     <tr>
       <td><strong>Supabase</strong> (UE, Stockholm)</td>
-      <td>Hébergement des comptes et des fonctions serveur décrites au point 4.</td>
-      <td>Les informations de compte, et les contenus que vous envoyez à traiter, le temps du traitement.</td>
+      <td>Hébergement des comptes et des fonctions serveur décrites au point 4, ainsi que des recettes que vous partagez par lien.</td>
+      <td>Les informations de compte, les contenus que vous envoyez à traiter le temps du traitement, et les recettes partagées pendant les trente jours de vie de leur lien.</td>
+    </tr>
+    <tr>
+      <td><strong>Netlify</strong></td>
+      <td>Affichage des pages de recettes partagées, sur <code>r.getnyama.app</code>. Uniquement si vous utilisez le partage par lien.</td>
+      <td>Rien qui vous concerne : il sert la page à la personne qui ouvre le lien, et voit l'adresse IP de cette personne — pas la vôtre. Il ne reçoit ni compte, ni e-mail, ni identifiant.</td>
     </tr>
     <tr>
       <td><strong>RevenueCat</strong></td>
@@ -249,6 +274,7 @@
     <tr><td>Recettes, collections, planning, courses, préférences, réglages</td><td>Sur votre téléphone, aussi longtemps que vous les gardez. Effacés par « Tout réinitialiser » ou par la désinstallation de l'application.</td></tr>
     <tr><td>Copie de sauvegarde du carnet (avec un compte)</td><td>Jusqu'à la suppression de votre compte, qui l'efface entièrement.</td></tr>
     <tr><td>Contenus envoyés pour un import, une estimation ou une adaptation</td><td>Le temps du traitement seulement. Ils ne sont pas enregistrés chez nous.</td></tr>
+    <tr><td>Recettes partagées par lien (et leur photo)</td><td>Trente jours après le dernier partage, puis suppression automatique. Supprimées immédiatement si vous effacez la recette ou votre compte.</td></tr>
     <tr><td>Signalements de problème</td><td>Douze mois au maximum, puis suppression. Ils ne sont rattachés à aucun compte.</td></tr>
     <tr><td>Journaux techniques du serveur</td><td>Quelques jours au maximum, selon la conservation appliquée par notre hébergeur.</td></tr>
     <tr><td>Abonnement</td><td>Conservé par Apple et RevenueCat le temps requis par leur propre gestion et par les obligations comptables.</td></tr>
