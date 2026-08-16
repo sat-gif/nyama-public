@@ -525,6 +525,9 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
   .btn:hover, .card:hover { transform: none; }
 }
 </style>
+<link rel="alternate" hreflang="fr" href="https://getnyama.app/">
+<link rel="alternate" hreflang="en" href="https://getnyama.app/en/">
+<link rel="alternate" hreflang="x-default" href="https://getnyama.app/">
 
 </head>
 <body data-ct="site_accueil">
@@ -546,7 +549,23 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
       <!-- Choix de la langue. `data-lang-switch` est réécrit par _build.mjs
            pour chaque version : les href pointent vers la page équivalente et
            le drapeau de la langue courante porte aria-current. -->
-      
+      <div class="langs" data-lang-switch role="group" aria-label="Choisir la langue">
+        <a href="/" hreflang="fr" aria-current="true" title="Français" aria-label="Français">
+          <svg viewBox="0 0 9 6" aria-hidden="true"><rect width="3" height="6" fill="#002654"/><rect x="3" width="3" height="6" fill="#fff"/><rect x="6" width="3" height="6" fill="#CE1126"/></svg>
+        </a>
+        <a href="/en/" hreflang="en" title="English" aria-label="English">
+          <svg viewBox="0 0 60 30" aria-hidden="true">
+            <clipPath id="uk"><path d="M0 0h60v30H0z"/></clipPath>
+            <g clip-path="url(#uk)">
+              <path d="M0 0h60v30H0z" fill="#012169"/>
+              <path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/>
+              <path d="M0 0l60 30m0-30L0 30" stroke="#C8102E" stroke-width="4"/>
+              <path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/>
+              <path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/>
+            </g>
+          </svg>
+        </a>
+      </div>
       <a class="btn btn-primary" href="#telecharger" data-appstore data-i18n="nav.cta">Télécharger</a>
     </div>
   </div>

@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <!-- FICHIER GÉNÉRÉ — ne pas modifier à la main.
-     Source : _blog/*.md + _src/index.html, puis « node _build.mjs ». -->
-<html lang="fr">
+     Source : _src/index.html + _i18n/*.json, puis « node _build.mjs ». -->
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Le blog de Nyama</title>
-<meta name="description" content="Des idées pour retrouver, organiser et cuisiner les recettes qui te font envie.">
-<link rel="canonical" href="https://getnyama.app/blog/">
+<title>Nyama — every recipe you love, finally in one place</title>
+<meta name="description" content="The recipes you love are asleep in your Instagram saves, your screenshots and your open tabs. Nyama brings them all into one library: yours.">
+<link rel="canonical" href="https://getnyama.app/en/">
 <link rel="icon" href="/assets/icone.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/icone.png">
 <meta name="theme-color" content="#FCAE0B">
-<link rel="alternate" type="application/rss+xml" title="Le blog de Nyama" href="https://getnyama.app/blog/feed.xml">
-<meta property="og:type" content="article">
+
+<meta property="og:type" content="website">
 <meta property="og:site_name" content="Nyama">
-<meta property="og:url" content="https://getnyama.app/blog/">
-<meta property="og:title" content="Le blog de Nyama">
-<meta property="og:description" content="Des idées pour retrouver, organiser et cuisiner les recettes qui te font envie.">
+<meta property="og:url" content="https://getnyama.app/en/">
+<meta property="og:title" content="Nyama — every recipe you love, finally in one place">
+<meta property="og:description" content="Instagram, TikTok, YouTube, a blog, a photo of a cookbook page. You share, Nyama files it. Your recipe library, ready to cook.">
+<!-- Image DÉDIÉE au partage (1200×630, le format standard des aperçus de
+     lien), pas la capture verticale du héros : celle-ci se faisait rogner
+     n'importe comment dans un aperçu iMessage/WhatsApp au format paysage.
+     Générée depuis le même habillage que le panneau saffron du CTA final,
+     voir le README. -->
 <meta property="og:image" content="https://getnyama.app/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:locale" content="fr_FR">
+<meta property="og:image:alt" content="Nyama — Toutes tes recettes, enfin réunies au même endroit.">
+<meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://getnyama.app/assets/og-image.png">
+
 <style>
 /* ------------------------------------------------------------------
    Nyama — jetons de design repris de constants/tokens.ts de l'app,
@@ -518,18 +525,23 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
   .btn:hover, .card:hover { transform: none; }
 }
 </style>
+<link rel="alternate" hreflang="fr" href="https://getnyama.app/">
+<link rel="alternate" hreflang="en" href="https://getnyama.app/en/">
+<link rel="alternate" hreflang="x-default" href="https://getnyama.app/">
+
 </head>
-<body data-ct="blog_liste">
+<body data-ct="site_accueil">
+
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="/#top">
+    <a class="brand" href="#top">
       <img class="mark" src="/assets/icone.png" alt="">
       <span>Nyama</span>
     </a>
     <nav class="nav-links">
-      <a href="/#probleme" data-i18n="nav.probleme">Le problème</a>
-      <a href="/#comment" data-i18n="nav.comment">Comment ça marche</a>
-      <a href="/#fonctions" data-i18n="nav.fonctions">Fonctions</a>
+      <a href="#probleme" data-i18n="nav.probleme">The problem</a>
+      <a href="#comment" data-i18n="nav.comment">How it works</a>
+      <a href="#fonctions" data-i18n="nav.fonctions">Features</a>
       <!-- Retiré par _build.mjs tant qu'aucun article n'est publié : un lien
            « Blog » vers une page vide vaut moins que pas de lien du tout. -->
     </nav>
@@ -538,10 +550,10 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
            pour chaque version : les href pointent vers la page équivalente et
            le drapeau de la langue courante porte aria-current. -->
       <div class="langs" data-lang-switch role="group" aria-label="Choisir la langue">
-        <a href="/" hreflang="fr" aria-current="true" title="Français" aria-label="Français">
+        <a href="/" hreflang="fr" title="Français" aria-label="Français">
           <svg viewBox="0 0 9 6" aria-hidden="true"><rect width="3" height="6" fill="#002654"/><rect x="3" width="3" height="6" fill="#fff"/><rect x="6" width="3" height="6" fill="#CE1126"/></svg>
         </a>
-        <a href="/en/" hreflang="en" title="English" aria-label="English">
+        <a href="/en/" hreflang="en" aria-current="true" title="English" aria-label="English">
           <svg viewBox="0 0 60 30" aria-hidden="true">
             <clipPath id="uk"><path d="M0 0h60v30H0z"/></clipPath>
             <g clip-path="url(#uk)">
@@ -554,24 +566,298 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
           </svg>
         </a>
       </div>
-      <a class="btn btn-primary" href="/#telecharger" data-appstore data-i18n="nav.cta">Télécharger</a>
+      <a class="btn btn-primary" href="#telecharger" data-appstore data-i18n="nav.cta">Download</a>
     </div>
   </div>
 </header>
-<main>
-  <section class="blog-head">
-    <div class="wrap">
-      <p class="eyebrow">Le blog</p>
-      <h1>Bien manger sans y passer ses soirées</h1>
-      <p class="lead">Des idées pour retrouver, organiser et cuisiner ce qui te fait envie.</p>
+
+<main id="top">
+
+  <!-- ATTENTION -------------------------------------------------------- -->
+  <section class="hero">
+    <div class="hero-dots" aria-hidden="true"></div>
+    <div class="hero-deco" aria-hidden="true">
+      <span style="left:4%; top:130px; transform:rotate(-16deg)">🌿</span>
+      <span style="left:8%; top:380px; transform:rotate(10deg)">🍅</span>
+      <span style="right:5%; top:100px; transform:rotate(14deg)">🧄</span>
+      <span style="right:4%; top:400px; transform:rotate(-12deg)">🍋</span>
+    </div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n="hero.eyebrow">Your recipe library</p>
+        <h1 data-i18n="hero.h1">You remember it so well.<br>You just don't know <em>where</em> it is.</h1>
+        <p class="lead" data-i18n="hero.lead">Your best recipes are asleep in your Instagram saves, your screenshots and your open tabs. Nyama brings them all into one place. Yours.</p>
+        <div class="hero-cta">
+          <a class="btn-store" href="#telecharger" data-appstore>
+            <svg width="24" height="28" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+            <span class="btn-store-txt" data-i18n="cta.appstore"><small>Download on</small><b>the App Store</b></span>
+          </a>
+          <a class="btn btn-ghost" href="#comment" data-i18n="hero.cta2">See how it works</a>
+        </div>
+        <p class="hero-note" data-i18n="hero.note">Try it free, starting today.</p>
+      </div>
+      <div class="hero-phone">
+        <div class="toast toast-a">
+          <span class="toast-ico on-brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <span class="toast-txt" data-i18n="hero.tag"><b>Recipe imported</b>from Instagram</span>
+        </div>
+        <div class="toast toast-b">
+          <span class="toast-ico on-sand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2"/><path d="M9 2h6"/></svg>
+          </span>
+          <span class="toast-txt" data-i18n="hero.tag2"><b>Step 2 of 4</b>hands-free</span>
+        </div>
+        <div class="phone lg">
+          <img src="/assets/ecran-accueil.png" width="1206" height="2622"
+               alt="L'écran d'accueil de Nyama : des recettes venues d'Instagram, de TikTok, de YouTube et de sites de cuisine convergent vers l'application.">
+        </div>
+      </div>
     </div>
   </section>
-  <section class="features" style="padding-top:0">
+
+  <div class="sources">
     <div class="wrap">
-      <p class="blog-vide">Les premiers articles arrivent bientôt.</p>
+      <p data-i18n="sources.label">Where your recipes come from</p>
+      <ul>
+        <li>Instagram</li>
+        <li>TikTok</li>
+        <li>YouTube</li>
+        <li>Pinterest</li>
+        <li>Facebook</li>
+        <li data-i18n="sources.blogs">Food blogs and websites</li>
+        <li data-i18n="sources.livres">Photos of cookbooks</li>
+        <li data-i18n="sources.notes">Notes and messages</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- INTÉRÊT ---------------------------------------------------------- -->
+  <section id="probleme">
+    <div class="wrap problem-grid">
+      <div class="story reveal">
+        <p class="eyebrow" data-i18n="pb.eyebrow">The real problem</p>
+        <h2 data-i18n="pb.h2">It's 7 p.m.</h2>
+      </div>
+      <div class="problem-body reveal">
+        <p data-i18n="pb.p1">Last Tuesday you came across the perfect recipe. Thirty seconds of video, a dish that made you hungry on the spot. You saved it, thinking «that one, I'm making it».</p>
+        <p data-i18n="pb.p2">Tonight you scroll your saved posts for eight minutes. You move on to your screenshots. You open three tabs. It's in there somewhere, you know it. You can't find it.</p>
+        <p data-i18n="pb.p3">You order in.</p>
+        <p class="problem-punch" data-i18n="pb.punch">The problem was never <b>finding</b> recipes.<br>The problem is <b>finding them again</b>.</p>
+      </div>
     </div>
   </section>
+
+  <!-- DÉSIR ------------------------------------------------------------ -->
+  <section id="comment">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <p class="eyebrow" data-i18n="how.eyebrow">How it works</p>
+        <h2 data-i18n="how.h2">Three moves, and nothing gets lost</h2>
+        <p class="lead" data-i18n="how.lead">Capture, organise, cook. Everything else in Nyama exists to serve those three.</p>
+      </div>
+
+      <div class="pillar reveal">
+        <div class="pillar-copy">
+          <span class="pillar-num">1</span>
+          <h3 data-i18n="p1.h3">Share it. It's filed.</h3>
+          <p data-i18n="p1.p1">A TikTok video, an Instagram post, a blog that never ends, a photo of a cookbook page, a message your mother sent you. You share it to Nyama, and the recipe comes out clean: ingredients on one side, steps on the other.</p>
+          <p style="margin-top:16px" data-i18n="p1.p2">You didn't retype a thing. It takes seconds.</p>
+          <ul>
+            <li data-i18n="p1.li1">From the «Share» button in any app</li>
+            <li data-i18n="p1.li2">A photo of a book or a card: the text is read for you</li>
+            <li data-i18n="p1.li3">A pasted link, pasted text, or by hand if you prefer</li>
+            <li data-i18n="p1.li4">You read it over, fix whatever you like, and save</li>
+          </ul>
+        </div>
+        <div class="pillar-media">
+          <div class="phone">
+            <!-- Un VRAI partage, filmé sur un iPhone : la vidéo de recette, la
+                 feuille iOS avec Nyama dedans, puis la recette qui en ressort
+                 rangée. Une image fixe ne pouvait pas montrer le geste, qui est
+                 justement l'argument.
+                 `muted` est obligatoire pour que `autoplay` soit autorisé par les
+                 navigateurs ; `playsinline` empêche iOS de passer en plein écran.
+                 Le fichier n'a de toute façon aucune piste audio. -->
+            <video src="/assets/partage-import.mp4"
+                   poster="/assets/partage-import-poster.png"
+                   autoplay muted loop playsinline preload="metadata"
+                   aria-label="Un partage depuis une vidéo de recette vers Nyama : la feuille de partage d'iOS s'ouvre, Nyama y figure, puis la recette apparaît rangée — titre, temps, ingrédients et étapes numérotées."></video>
+          </div>
+        </div>
+      </div>
+
+      <div class="pillar flip reveal">
+        <div class="pillar-copy">
+          <span class="pillar-num">2</span>
+          <h3 data-i18n="p2.h3">In three years, it'll still be there.</h3>
+          <p data-i18n="p2.p1">Every recipe joins your library, with its tags and its collections. You search «lemon chicken», you find it. No feed, no algorithm, none of other people's recipes.</p>
+          <p style="margin-top:16px" data-i18n="p2.p2">Only yours. Filed the way you file things.</p>
+          <ul>
+            <li data-i18n="p2.li1">A search that digs through titles and ingredients alike</li>
+            <li data-i18n="p2.li2">Recipe books: «quick ones», «for having people over», «what the kids will actually eat»</li>
+            <li data-i18n="p2.li3">Filters by mealtime, by time, by mood</li>
+            <li data-i18n="p2.li4">Your recipes stay on your phone, readable even with no signal</li>
+          </ul>
+        </div>
+        <div class="pillar-media">
+          <div class="phone">
+            <img src="/assets/ecran-bibliotheque.png" loading="lazy"
+                 alt="La bibliothèque « Tes recettes » de Nyama : une rangée de livres de recettes — « Le dimanche midi », « Ça prend 15 minutes », « Recettes de maman » — au-dessus d'une grille de recettes portant leur provenance, Instagram, TikTok ou site web, et une barre de recherche.">
+          </div>
+        </div>
+      </div>
+
+      <div class="pillar reveal">
+        <div class="pillar-copy">
+          <span class="pillar-num">3</span>
+          <h3 data-i18n="p3.h3">Hands covered in flour, the screen keeping up.</h3>
+          <p data-i18n="p3.p1">Cook mode shows one step at a time, large, and the screen doesn't go dark at the worst moment. You tick off ingredients as you go. You never lose your place again.</p>
+          <p style="margin-top:16px" data-i18n="p3.p2">Cooking goes back to being the good part, not an obstacle course.</p>
+          <ul>
+            <li data-i18n="p3.li1">One step per screen, in large type</li>
+            <li data-i18n="p3.li2">The ingredients for that step right in front of you</li>
+            <li data-i18n="p3.li3">The screen stays on for the whole cook</li>
+            <li data-i18n="p3.li4">Quantities adjust to how many you're feeding</li>
+          </ul>
+        </div>
+        <div class="pillar-media">
+          <div class="phone">
+            <img src="/assets/ecran-cuisson.png" loading="lazy"
+                 alt="Le mode cuisine de Nyama : « étape 1 sur 4 », l'étape en cours en grand avec ses ingrédients, les suivantes en dessous.">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fonctions secondaires -------------------------------------------- -->
+  <section class="features" id="fonctions">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <p class="eyebrow" data-i18n="feat.eyebrow">And then</p>
+        <h2 data-i18n="feat.h2">What turns a library into dinner</h2>
+        <p class="lead" data-i18n="feat.lead">A well-filed recipe is good. A week of meals already decided is better.</p>
+      </div>
+      <div class="feature-grid reveal">
+
+        <div class="card">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+          <h3 data-i18n="feat.c1t">Shopping list</h3>
+          <p data-i18n="feat.c1p">Your recipes become a list sorted by aisle, quantities added up. You tick items off one-handed at the shop.</p>
+        </div>
+
+        <div class="card">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+          <h3 data-i18n="feat.c2t">The week, decided</h3>
+          <p data-i18n="feat.c2p">You drop your meals onto the days ahead. On Tuesday evening you stop opening the fridge hoping for an idea.</p>
+        </div>
+
+        <div class="card">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.2"/></svg></div>
+          <h3 data-i18n="feat.c3t">Adapt a recipe</h3>
+          <p data-i18n="feat.c3p">Dairy-free, for six instead of four, a little lighter. The recipe rewrites itself and you keep the version that suits you. <b>With Nyama Plus.</b></p>
+        </div>
+
+        <div class="card">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2.5-7 5 14L17 12h4"/></svg></div>
+          <h3 data-i18n="feat.c4t">Calories</h3>
+          <p data-i18n="feat.c4p">What's actually on your plate, estimated for you. No calculator, nothing to retype. <b>With Nyama Plus.</b></p>
+        </div>
+
+        <div class="card">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M12 18h.01"/></svg></div>
+          <h3 data-i18n="feat.c5t">Offline</h3>
+          <p data-i18n="feat.c5p">Your recipes live on your phone. In a kitchen with no signal, at your parents', on holiday: they're there.</p>
+        </div>
+
+        <div class="card">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <h3 data-i18n="feat.c6t">Honest about its mistakes</h3>
+          <p data-i18n="feat.c6p">When the automatic reading isn't sure of itself, Nyama tells you instead of pretending. Two taps and it's fixed.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Positionnement --------------------------------------------------- -->
+  <section>
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <p class="eyebrow" data-i18n="not.eyebrow">To be clear</p>
+        <h2 data-i18n="not.h2">What Nyama is not</h2>
+      </div>
+      <div class="not-list reveal">
+        <div><span class="x">✕</span><p data-i18n="not.1">One more social network</p></div>
+        <div><span class="x">✕</span><p data-i18n="not.2">A recipe website</p></div>
+        <div><span class="x">✕</span><p data-i18n="not.3">An algorithm deciding your dinner</p></div>
+        <div><span class="x">✕</span><p data-i18n="not.4">A feed where people post their food</p></div>
+        <div><span class="x">✕</span><p data-i18n="not.5">A place that sells you ingredients</p></div>
+        <div><span class="x">✕</span><p data-i18n="not.6">An app that sells your data</p></div>
+      </div>
+      <p class="not-final reveal" data-i18n="not.final">Nyama is a <b>personal library</b>.<br>It's nobody's business but yours.</p>
+    </div>
+  </section>
+
+  <!-- FAQ --------------------------------------------------------------
+       Porte le fond `sand` depuis le retrait du bloc Prix : sans lui, trois
+       sections `canvas` s'enchaînaient et la page perdait son rythme. -->
+  <section class="features">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <p class="eyebrow" data-i18n="faq.eyebrow">Questions</p>
+        <h2 data-i18n="faq.h2">What people ask us</h2>
+      </div>
+      <div class="faq reveal">
+        <details>
+          <summary data-i18n="faq.q1">Does it work with all my sources?</summary>
+          <p data-i18n="faq.a1">Instagram, TikTok, YouTube and its Shorts, Facebook, Pinterest, cooking sites and blogs, a photo of a cookbook page, pasted text, a note or a message: Nyama reads what's written and files it away. And when the recipe is written nowhere — when it only exists spoken in the video — Nyama listens to it and reconstructs it. If it isn't sure, it tells you rather than inventing.</p>
+        </details>
+        <details>
+          <summary data-i18n="faq.q2">What if the recipe comes out wrong?</summary>
+          <p data-i18n="faq.a2">Nyama flags the parts it isn't sure about instead of acting as if nothing happened. You read it over, fix it in two taps, and save. A wrong recipe in your library is worse than a missing one.</p>
+        </details>
+        <details>
+          <summary data-i18n="faq.q3">Do my recipes go to a server?</summary>
+          <p data-i18n="faq.a3">Your recipes live on your phone. What does go to a server, and only in those cases, is spelled out in the <a href="/confidentialite/">privacy policy</a>. No selling your data, no advertising.</p>
+        </details>
+        <details>
+          <summary data-i18n="faq.q4">Do I have to create an account?</summary>
+          <p data-i18n="faq.a4">It does one thing: it keeps your recipes when a phone breaks or gets replaced. So yes, at the end of the walkthrough — with Apple or Google, in a few seconds, no password to remember. You can delete your account and everything in it from the app, without writing to us.</p>
+        </details>
+        <details>
+          <summary data-i18n="faq.q5">Is it available on Android?</summary>
+          <p data-i18n="faq.a5">Not yet. Nyama is starting on iPhone. Android will follow if enough people ask for it.</p>
+        </details>
+        <details>
+          <summary data-i18n="faq.q6">What happens if I stop Nyama Plus?</summary>
+          <p data-i18n="faq.a6">You keep every recipe. You simply go back to the free limits for whatever you add next. Nothing is deleted.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTION ----------------------------------------------------------- -->
+  <section class="final" id="telecharger">
+    <div class="wrap">
+      <div class="final-panel reveal">
+        <span class="final-deco a" aria-hidden="true">🌿</span>
+        <span class="final-deco b" aria-hidden="true">🍋</span>
+        <img class="final-logo" src="/assets/icone.png" alt="">
+        <h2 data-i18n="cta.h2">Tonight, you know where it is.</h2>
+        <p class="lead" data-i18n="cta.lead">File your first recipe in two minutes. The one you set aside and never made: start with that one.</p>
+        <a class="btn-store" href="#telecharger" data-appstore>
+          <svg width="24" height="28" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+          <span class="btn-store-txt" data-i18n="cta.appstore"><small>Download on</small><b>the App Store</b></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
 </main>
+
 <footer class="site">
   <div class="wrap">
     <div class="foot-grid">
@@ -579,37 +865,34 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
         <img src="/assets/icone.png" alt="">
         <div>
           <strong>Nyama</strong>
-          <em data-i18n="foot.tagline">Toutes tes recettes, enfin réunies au même endroit.</em>
+          <em data-i18n="foot.tagline">Every recipe you love, finally in one place.</em>
         </div>
       </div>
       <div class="foot-col">
         <p class="foot-head" data-i18n="foot.head.nyama">Nyama</p>
-        <a href="/#probleme" data-i18n="nav.probleme">Le problème</a>
-        <a href="/#comment" data-i18n="nav.comment">Comment ça marche</a>
-        <a href="/#fonctions" data-i18n="nav.fonctions">Fonctions</a>
+        <a href="/#probleme" data-i18n="nav.probleme">The problem</a>
+        <a href="/#comment" data-i18n="nav.comment">How it works</a>
+        <a href="/#fonctions" data-i18n="nav.fonctions">Features</a>
         <!-- Retiré par _build.mjs tant qu'aucun article n'est publié, comme
              le lien du menu principal. -->
       </div>
       <div class="foot-col">
-        <p class="foot-head" data-i18n="foot.head.legal">Légal</p>
-        <a href="/confidentialite/" data-i18n="foot.privacy">Confidentialité</a>
+        <p class="foot-head" data-i18n="foot.head.legal">Legal</p>
+        <a href="/confidentialite/" data-i18n="foot.privacy">Privacy</a>
         <!-- Nyama utilise l'EULA standard d'Apple : on renvoie au texte officiel,
              qui fait foi. /conditions/ garde la même destination. -->
         <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
-           target="_blank" rel="noopener" data-i18n="foot.terms">Conditions d'utilisation</a>
+           target="_blank" rel="noopener" data-i18n="foot.terms">Terms of Use</a>
         <!-- La page d'assistance : l'adresse donnée à App Store Connect. Elle
              garde son entrée à part du « Nous écrire » juste dessous, qui ouvre
              le client mail. Les deux ne servent pas au même moment — on lit la
              page quand on cherche une réponse, on écrit quand on l'a déjà. -->
-        <a href="/assistance/" data-i18n="foot.support">Assistance</a>
-        <a href="mailto:support@getnyama.app" data-i18n="foot.contact">Nous écrire</a>
-        <a href="#" data-cookies-manage data-i18n="foot.cookies">Gérer les cookies</a>
+        <a href="/assistance/" data-i18n="foot.support">Support</a>
+        <a href="mailto:support@getnyama.app" data-i18n="foot.contact">Email us</a>
+        <a href="#" data-cookies-manage data-i18n="foot.cookies">Manage cookies</a>
       </div>
     </div>
-    <p class="foot-legal" data-i18n="foot.legal">
-      © <span id="an">2026</span> Winstell. Nyama est une application iPhone.
-      App Store est une marque déposée d'Apple Inc.
-    </p>
+    <p class="foot-legal" data-i18n="foot.legal">© <span id="an">2026</span> Winstell. Nyama is an iPhone app. App Store is a trademark of Apple Inc.</p>
   </div>
 
   <!-- Bandeau de consentement (Meta Pixel + Google Ads/Analytics).
@@ -624,12 +907,10 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
        lien « refuser » minuscule est un dark pattern que la CNIL sanctionne. -->
   <div id="cookies" class="cookies" hidden role="region" aria-label="Cookies">
     <div class="wrap cookies-inner">
-      <p data-i18n="cookies.text">
-        On utilise des cookies de mesure d'audience et de publicité, uniquement avec ton accord.
-      </p>
+      <p data-i18n="cookies.text">We use audience-measurement and advertising cookies, only with your consent.</p>
       <div class="cookies-actions">
-        <button type="button" class="btn btn-ghost" data-cookies="refuse" data-i18n="cookies.refuse">Refuser</button>
-        <button type="button" class="btn btn-primary" data-cookies="accept" data-i18n="cookies.accept">Accepter</button>
+        <button type="button" class="btn btn-ghost" data-cookies="refuse" data-i18n="cookies.refuse">Decline</button>
+        <button type="button" class="btn btn-primary" data-cookies="accept" data-i18n="cookies.accept">Accept</button>
       </div>
     </div>
   </div>
@@ -691,12 +972,23 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
   })();
   </script>
 </footer>
+
 <script>
+// Filet de bordure sous la barre de navigation dès qu'on défile.
 const nav = document.getElementById('nav');
 addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), { passive: true });
-const an = document.getElementById('an');
-if (an) an.textContent = new Date().getFullYear();
+
+// Apparition progressive des blocs.
+const io = new IntersectionObserver((entries) => {
+  for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+}, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+document.getElementById('an').textContent = new Date().getFullYear();
 </script>
+
+<!-- Lien App Store et attribution de campagne. Bloc repris TEL QUEL par les pages
+     du blog (voir « coquille » dans _build.mjs) : il ne doit dépendre de rien. -->
 <script id="appstore">
 // LES DEUX SEULES VALEURS À RENSEIGNER le jour de la publication :
 //   APPSTORE_ID  l'identifiant numérique de l'app
@@ -729,5 +1021,6 @@ const APPSTORE_PT = null;
   }
 })();
 </script>
+
 </body>
 </html>

@@ -50,7 +50,7 @@ const FR = {
  * Tant qu'il n'y a qu'une langue, le sélecteur de drapeaux est retiré de la
  * page — un drapeau seul ne sert à rien — et les hreflang aussi.
  */
-const PUBLIEES = ['fr'];
+const PUBLIEES = ['fr', 'en'];
 
 /** Toutes les langues connues, publiées ou non. */
 const LANGUES = ['fr', 'en', 'de', 'es'];
