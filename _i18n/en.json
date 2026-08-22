@@ -4,7 +4,7 @@
     "locale": "en_GB",
     "dir": "/en/",
     "title": "Nyama — every recipe you love, finally in one place",
-    "description": "The recipes you love are asleep in your Instagram saves, your screenshots and your open tabs. Nyama brings them all into one library: yours.",
+    "description": "The recipes you find on Instagram, TikTok, YouTube or a blog, gathered in one library on your iPhone. You share, Nyama files it.",
     "ogTitle": "Nyama — every recipe you love, finally in one place",
     "ogDescription": "Instagram, TikTok, YouTube, a blog, a photo of a cookbook page. You share, Nyama files it. Your recipe library, ready to cook."
   },
@@ -17,7 +17,7 @@
   "hero.h1": "You remember it so well.<br>You just don't know <em>where</em> it is.",
   "hero.lead": "Your best recipes are asleep in your Instagram saves, your screenshots and your open tabs. Nyama brings them all into one place. Yours.",
   "hero.cta2": "See how it works",
-  "hero.note": "Try it free, starting today.",
+  "hero.note": "An iPhone app. Free to start, no card required.",
   "hero.tag": "<b>Recipe imported</b>from Instagram",
   "hero.tag2": "<b>Step 2 of 4</b>hands-free",
   "cta.appstore": "<small>Download on</small><b>the App Store</b>",
@@ -112,5 +112,19 @@
   "foot.legal": "© <span id=\"an\">2026</span> Winstell. Nyama is an iPhone app. App Store is a trademark of Apple Inc.",
   "cookies.text": "We use audience-measurement and advertising cookies, only with your consent.",
   "cookies.refuse": "Decline",
-  "cookies.accept": "Accept"
+  "cookies.accept": "Accept",
+  "brief.eyebrow": "In short",
+  "brief.h2": "Nyama, the fact sheet",
+  "brief.r1t": "What it is",
+  "brief.r1d": "An iPhone app that imports a recipe from a link, a video or a photo, and files it in your library: ingredients on one side, steps on the other.",
+  "brief.r2t": "The sources",
+  "brief.r2d": "Instagram, TikTok, YouTube and Shorts, Facebook, Pinterest, cooking blogs and websites, a photo of a cookbook page, pasted text, a note, a message.",
+  "brief.r3t": "The price",
+  "brief.r3d": "Free to start: 5 recipes added per week, refilled every Monday. Nyama Plus, to unlock everything: €5.99 a month or €34.99 a year (France pricing, adjusted per country).",
+  "brief.r4t": "Platform",
+  "brief.r4d": "iPhone (iOS). Not on Android yet.",
+  "brief.r5t": "Languages",
+  "brief.r5d": "French, English, Spanish, German, Portuguese.",
+  "brief.r6t": "Publisher",
+  "brief.r6d": "Winstell — support@getnyama.app."
 }

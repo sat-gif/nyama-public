@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nyama — every recipe you love, finally in one place</title>
-<meta name="description" content="The recipes you love are asleep in your Instagram saves, your screenshots and your open tabs. Nyama brings them all into one library: yours.">
+<meta name="description" content="The recipes you find on Instagram, TikTok, YouTube or a blog, gathered in one library on your iPhone. You share, Nyama files it.">
 <link rel="canonical" href="https://getnyama.app/en/">
 <link rel="icon" href="/assets/icone.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/icone.png">
@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://getnyama.app/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Nyama — Toutes tes recettes, enfin réunies au même endroit.">
+<meta property="og:image:alt" content="Nyama — every recipe you love, finally in one place.">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://getnyama.app/assets/og-image.png">
@@ -381,6 +381,22 @@ details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
 details p { color: var(--stone); padding: 0 0 22px; font-size: 16px; }
 details a { color: var(--saffron); text-underline-offset: 2px; }
 
+/* --- En bref --- */
+/* La fiche d'identité du produit, écrite noir sur blanc. Elle existe
+   d'abord pour les moteurs — classiques comme IA : tout le reste de la
+   page raconte, elle seule AFFIRME (plateforme, sources, prix). Même
+   registre visuel que la liste « Ce que Nyama n'est pas ». */
+.brief-list { max-width: 800px; margin-inline: auto; }
+.brief-list > div {
+  display: grid; grid-template-columns: 150px 1fr; gap: 20px;
+  padding: 18px 0; border-bottom: 1px solid var(--hairline); align-items: baseline;
+}
+.brief-list dt { font-size: 15px; font-weight: 700; color: var(--ink); margin: 0; }
+.brief-list dd { font-size: 16px; color: var(--stone); margin: 0; }
+@media (max-width: 560px) {
+  .brief-list > div { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; }
+}
+
 /* --- Appel final --- */
 /* Panneau saffron CONTENU (pas un aplat plein écran), texturé de points,
    avec deux ingrédients qui débordent aux coins — reprend le traitement
@@ -527,8 +543,12 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
 </style>
 <link rel="alternate" hreflang="fr" href="https://getnyama.app/">
 <link rel="alternate" hreflang="en" href="https://getnyama.app/en/">
+<link rel="alternate" hreflang="de" href="https://getnyama.app/de/">
+<link rel="alternate" hreflang="es" href="https://getnyama.app/es/">
 <link rel="alternate" hreflang="x-default" href="https://getnyama.app/">
-
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"MobileApplication","name":"Nyama","url":"https://getnyama.app/en/","description":"The recipes you find on Instagram, TikTok, YouTube or a blog, gathered in one library on your iPhone. You share, Nyama files it.","operatingSystem":"iOS","applicationCategory":"LifestyleApplication","image":"https://getnyama.app/assets/og-image.png","installUrl":"https://apps.apple.com/app/id6794365868","inLanguage":["fr","en","es","de","pt"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"author":{"@type":"Organization","name":"Winstell","url":"https://getnyama.app/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Winstell","url":"https://getnyama.app/","logo":"https://getnyama.app/assets/icone.png","email":"support@getnyama.app","sameAs":["https://apps.apple.com/app/id6794365868"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does it work with all my sources?","acceptedAnswer":{"@type":"Answer","text":"Instagram, TikTok, YouTube and its Shorts, Facebook, Pinterest, cooking sites and blogs, a photo of a cookbook page, pasted text, a note or a message: Nyama reads what's written and files it away. And when the recipe is written nowhere — when it only exists spoken in the video — Nyama listens to it and reconstructs it. If it isn't sure, it tells you rather than inventing."}},{"@type":"Question","name":"What if the recipe comes out wrong?","acceptedAnswer":{"@type":"Answer","text":"Nyama flags the parts it isn't sure about instead of acting as if nothing happened. You read it over, fix it in two taps, and save. A wrong recipe in your library is worse than a missing one."}},{"@type":"Question","name":"Do my recipes go to a server?","acceptedAnswer":{"@type":"Answer","text":"Your recipes live on your phone. What does go to a server, and only in those cases, is spelled out in the privacy policy. No selling your data, no advertising."}},{"@type":"Question","name":"Do I have to create an account?","acceptedAnswer":{"@type":"Answer","text":"It does one thing: it keeps your recipes when a phone breaks or gets replaced. So yes, at the end of the walkthrough — with Apple or Google, in a few seconds, no password to remember. You can delete your account and everything in it from the app, without writing to us."}},{"@type":"Question","name":"Is it available on Android?","acceptedAnswer":{"@type":"Answer","text":"Not yet. Nyama is starting on iPhone. Android will follow if enough people ask for it."}},{"@type":"Question","name":"What happens if I stop Nyama Plus?","acceptedAnswer":{"@type":"Answer","text":"You keep every recipe. You simply fall back on the free allowance for whatever you add next: 5 recipes a week, topped up every Monday. Nothing is deleted."}}]}</script>
 </head>
 <body data-ct="site_accueil">
 
@@ -565,8 +585,14 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
             </g>
           </svg>
         </a>
+        <a href="/de/" hreflang="de" title="Deutsch" aria-label="Deutsch">
+          <svg viewBox="0 0 5 3" aria-hidden="true"><rect width="5" height="1" fill="#000"/><rect y="1" width="5" height="1" fill="#DD0000"/><rect y="2" width="5" height="1" fill="#FFCE00"/></svg>
+        </a>
+        <a href="/es/" hreflang="es" title="Español" aria-label="Español">
+          <svg viewBox="0 0 6 4" aria-hidden="true"><rect width="6" height="4" fill="#AA151B"/><rect y="1" width="6" height="2" fill="#F1BF00"/></svg>
+        </a>
       </div>
-      <a class="btn btn-primary" href="#telecharger" data-appstore data-i18n="nav.cta">Download</a>
+      <a class="btn btn-primary" href="https://apps.apple.com/app/id6794365868" data-appstore data-i18n="nav.cta">Download</a>
     </div>
   </div>
 </header>
@@ -588,13 +614,13 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
         <h1 data-i18n="hero.h1">You remember it so well.<br>You just don't know <em>where</em> it is.</h1>
         <p class="lead" data-i18n="hero.lead">Your best recipes are asleep in your Instagram saves, your screenshots and your open tabs. Nyama brings them all into one place. Yours.</p>
         <div class="hero-cta">
-          <a class="btn-store" href="#telecharger" data-appstore>
+          <a class="btn-store" href="https://apps.apple.com/app/id6794365868" data-appstore>
             <svg width="24" height="28" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
             <span class="btn-store-txt" data-i18n="cta.appstore"><small>Download on</small><b>the App Store</b></span>
           </a>
           <a class="btn btn-ghost" href="#comment" data-i18n="hero.cta2">See how it works</a>
         </div>
-        <p class="hero-note" data-i18n="hero.note">Try it free, starting today.</p>
+        <p class="hero-note" data-i18n="hero.note">An iPhone app. Free to start, no card required.</p>
       </div>
       <div class="hero-phone">
         <div class="toast toast-a">
@@ -857,6 +883,45 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
     </div>
   </section>
 
+  <!-- EN BREF -----------------------------------------------------------
+       La fiche d'identité : la seule section qui affirme des faits nus
+       (plateforme, sources, prix) au lieu de les raconter. C'est elle que
+       les moteurs — Google comme les IA — peuvent citer sans se tromper. -->
+  <section id="en-bref">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <p class="eyebrow" data-i18n="brief.eyebrow">In short</p>
+        <h2 data-i18n="brief.h2">Nyama, the fact sheet</h2>
+      </div>
+      <dl class="brief-list reveal">
+        <div>
+          <dt data-i18n="brief.r1t">What it is</dt>
+          <dd data-i18n="brief.r1d">An iPhone app that imports a recipe from a link, a video or a photo, and files it in your library: ingredients on one side, steps on the other.</dd>
+        </div>
+        <div>
+          <dt data-i18n="brief.r2t">The sources</dt>
+          <dd data-i18n="brief.r2d">Instagram, TikTok, YouTube and Shorts, Facebook, Pinterest, cooking blogs and websites, a photo of a cookbook page, pasted text, a note, a message.</dd>
+        </div>
+        <div>
+          <dt data-i18n="brief.r3t">The price</dt>
+          <dd data-i18n="brief.r3d">Free to start: 5 recipes added per week, refilled every Monday. Nyama Plus, to unlock everything: €5.99 a month or €34.99 a year (France pricing, adjusted per country).</dd>
+        </div>
+        <div>
+          <dt data-i18n="brief.r4t">Platform</dt>
+          <dd data-i18n="brief.r4d">iPhone (iOS). Not on Android yet.</dd>
+        </div>
+        <div>
+          <dt data-i18n="brief.r5t">Languages</dt>
+          <dd data-i18n="brief.r5d">French, English, Spanish, German, Portuguese.</dd>
+        </div>
+        <div>
+          <dt data-i18n="brief.r6t">Publisher</dt>
+          <dd data-i18n="brief.r6d">Winstell — support@getnyama.app.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
   <!-- ACTION ----------------------------------------------------------- -->
   <section class="final" id="telecharger">
     <div class="wrap">
@@ -866,7 +931,7 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
         <img class="final-logo" src="/assets/icone.png" alt="">
         <h2 data-i18n="cta.h2">Tonight, you know where it is.</h2>
         <p class="lead" data-i18n="cta.lead">File your first recipe in two minutes. The one you set aside and never made: start with that one.</p>
-        <a class="btn-store" href="#telecharger" data-appstore>
+        <a class="btn-store" href="https://apps.apple.com/app/id6794365868" data-appstore>
           <svg width="24" height="28" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
           <span class="btn-store-txt" data-i18n="cta.appstore"><small>Download on</small><b>the App Store</b></span>
         </a>
@@ -1008,13 +1073,14 @@ document.getElementById('an').textContent = new Date().getFullYear();
 <!-- Lien App Store et attribution de campagne. Bloc repris TEL QUEL par les pages
      du blog (voir « coquille » dans _build.mjs) : il ne doit dépendre de rien. -->
 <script id="appstore">
-// LES DEUX SEULES VALEURS À RENSEIGNER le jour de la publication :
 //   APPSTORE_ID  l'identifiant numérique de l'app
 //                App Store Connect › Informations sur l'app › Apple ID
 //   APPSTORE_PT  le jeton de fournisseur, commun à tout le compte
 //                App Store Connect › Analyses › Acquisition › Campagnes
-// Tant qu'APPSTORE_ID vaut null, les boutons font défiler jusqu'au bloc final
-// au lieu de mener sur une page qui n'existe pas encore.
+// L'URL App Store vit maintenant EN DUR dans le href des boutons : les
+// robots (Google comme les moteurs IA) n'exécutent pas ce script, et un
+// href="#" les privait du seul lien qui compte. Ici on ne fait plus
+// qu'ajouter l'attribution pt/ct par-dessus.
 const APPSTORE_ID = '6794365868';
 const APPSTORE_PT = '129188793';
 

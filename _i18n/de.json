@@ -4,7 +4,7 @@
     "locale": "de_DE",
     "dir": "/de/",
     "title": "Nyama — alle deine Rezepte, endlich an einem Ort",
-    "description": "Deine Lieblingsrezepte schlummern in Instagram-Favoriten, Screenshots und offenen Tabs. Nyama bringt sie alle in eine Bibliothek: deine.",
+    "description": "Die Rezepte, die du auf Instagram, TikTok, YouTube oder einem Blog findest, gesammelt in einer Bibliothek auf deinem iPhone. Du teilst, Nyama sortiert.",
     "ogTitle": "Nyama — alle deine Rezepte, endlich an einem Ort",
     "ogDescription": "Instagram, TikTok, YouTube, ein Blog, das Foto einer Kochbuchseite. Du teilst, Nyama sortiert. Deine Rezeptbibliothek, bereit zum Kochen."
   },
@@ -17,7 +17,7 @@
   "hero.h1": "Du erinnerst dich genau daran.<br>Du weißt nur nicht mehr, <em>wo</em> es ist.",
   "hero.lead": "Deine besten Rezepte schlummern in deinen Instagram-Favoriten, deinen Screenshots und deinen offenen Tabs. Nyama bringt sie alle an einen Ort. Deinen.",
   "hero.cta2": "Ansehen, wie es geht",
-  "hero.note": "Jetzt kostenlos testen.",
+  "hero.note": "Eine iPhone-App. Kostenlos zum Einstieg, ohne Kreditkarte.",
   "hero.tag": "<b>Rezept importiert</b>aus Instagram",
   "hero.tag2": "<b>Schritt 2 von 4</b>Hände frei",
   "cta.appstore": "<small>Laden im</small><b>App Store</b>",
@@ -112,5 +112,19 @@
   "foot.legal": "© <span id=\"an\">2026</span> Winstell. Nyama ist eine iPhone-App. App Store ist eine Marke von Apple Inc.",
   "cookies.text": "Wir verwenden Reichweiten- und Werbecookies, nur mit deiner Zustimmung.",
   "cookies.refuse": "Ablehnen",
-  "cookies.accept": "Akzeptieren"
+  "cookies.accept": "Akzeptieren",
+  "brief.eyebrow": "Kurz gesagt",
+  "brief.h2": "Nyama, der Steckbrief",
+  "brief.r1t": "Was es ist",
+  "brief.r1d": "Eine iPhone-App, die ein Rezept aus einem Link, einem Video oder einem Foto importiert und in deiner Bibliothek ablegt: Zutaten auf der einen Seite, Schritte auf der anderen.",
+  "brief.r2t": "Die Quellen",
+  "brief.r2d": "Instagram, TikTok, YouTube und Shorts, Facebook, Pinterest, Kochblogs und -websites, das Foto einer Kochbuchseite, eingefügter Text, eine Notiz, eine Nachricht.",
+  "brief.r3t": "Der Preis",
+  "brief.r3d": "Kostenlos zum Einstieg: 5 Rezepte pro Woche, jeden Montag aufgefüllt. Nyama Plus, um alles freizuschalten: 5,99 € im Monat oder 34,99 € im Jahr (Preis Frankreich, je nach Land angepasst).",
+  "brief.r4t": "Plattform",
+  "brief.r4d": "iPhone (iOS). Noch nicht auf Android.",
+  "brief.r5t": "Sprachen",
+  "brief.r5d": "Französisch, Englisch, Spanisch, Deutsch, Portugiesisch.",
+  "brief.r6t": "Herausgeber",
+  "brief.r6d": "Winstell — support@getnyama.app."
 }

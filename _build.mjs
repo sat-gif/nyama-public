@@ -23,8 +23,10 @@ const FR = {
     locale: 'fr_FR',
     dir: '/',
     title: "Nyama — toutes tes recettes, enfin réunies au même endroit",
+    // ≤ 155 caractères : Google tronque au-delà (~160), et l'ancienne version
+    // à 175 se faisait couper au milieu d'une phrase dans les résultats.
     description:
-      "Les recettes que tu aimes dorment dans tes favoris Instagram, tes captures d'écran et tes onglets ouverts. Nyama les réunit toutes dans une seule bibliothèque : la tienne.",
+      "Les recettes que tu croises sur Instagram, TikTok, YouTube ou un blog, réunies dans une seule bibliothèque sur ton iPhone. Tu partages, Nyama range.",
     // Majuscule après le tiret, contrairement à `title` : iMessage (et d'autres
     // aperçus de lien) retirent le préfixe « Nyama — » de og:title quand un
     // og:site_name existe déjà, pour ne pas le répéter. Ce qui reste doit donc
@@ -50,7 +52,7 @@ const FR = {
  * Tant qu'il n'y a qu'une langue, le sélecteur de drapeaux est retiré de la
  * page — un drapeau seul ne sert à rien — et les hreflang aussi.
  */
-const PUBLIEES = ['fr', 'en'];
+const PUBLIEES = ['fr', 'en', 'de', 'es'];
 
 /** Toutes les langues connues, publiées ou non. */
 const LANGUES = ['fr', 'en', 'de', 'es'];
@@ -101,6 +103,112 @@ function liensAlternatifs() {
   );
   l.push(`<link rel="alternate" hreflang="x-default" href="${ORIGINE}/">`);
   return l.join('\n') + '\n';
+}
+
+/* ------------------------------------------------------------------
+   DONNÉES STRUCTURÉES (JSON-LD)
+   Le seul format que les moteurs — Google comme les moteurs IA (GPTBot,
+   ClaudeBot, PerplexityBot…) — lisent sans exécuter de JavaScript ni
+   interpréter le ton de la page. Trois blocs par langue :
+     - MobileApplication : ce qu'EST Nyama (plateforme, lien App Store,
+       gratuit au téléchargement) ;
+     - Organization : qui la publie ;
+     - FAQPage : les questions/réponses, extraites de la page GÉNÉRÉE pour
+       que chaque langue emporte les siennes sans doubler les textes.
+   ------------------------------------------------------------------ */
+
+const APPSTORE_URL = 'https://apps.apple.com/app/id6794365868';
+
+/** Retire les balises d'un fragment HTML et retasse les blancs. */
+const texteNu = (h) =>
+  h.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').replace(/ ([.,;:)])/g, '$1').trim();
+
+function donneesStructurees(html, m) {
+  const blocs = [];
+
+  blocs.push({
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: 'Nyama',
+    url: `${ORIGINE}${m.dir}`,
+    description: m.description,
+    operatingSystem: 'iOS',
+    applicationCategory: 'LifestyleApplication',
+    image: `${ORIGINE}/assets/og-image.png`,
+    installUrl: APPSTORE_URL,
+    inLanguage: ['fr', 'en', 'es', 'de', 'pt'],
+    // Le téléchargement est gratuit ; l'abonnement Nyama Plus est vendu DANS
+    // l'app et son prix varie par pays — on n'affirme ici que le certain.
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+    author: { '@type': 'Organization', name: 'Winstell', url: `${ORIGINE}/` },
+  });
+
+  blocs.push({
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Winstell',
+    url: `${ORIGINE}/`,
+    logo: `${ORIGINE}/assets/icone.png`,
+    email: 'support@getnyama.app',
+    sameAs: [APPSTORE_URL],
+  });
+
+  // Les paires question/réponse de l'accordéon, dans la langue de la page.
+  const paires = [...html.matchAll(
+    /<summary[^>]*>([\s\S]*?)<\/summary>\s*<p[^>]*>([\s\S]*?)<\/p>/g,
+  )].map(([, q, r]) => ({
+    '@type': 'Question',
+    name: texteNu(q),
+    acceptedAnswer: { '@type': 'Answer', text: texteNu(r) },
+  }));
+  if (paires.length) {
+    blocs.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: paires });
+  }
+
+  return blocs
+    .map((b) => `<script type="application/ld+json">${JSON.stringify(b)}</script>`)
+    .join('\n') + '\n';
+}
+
+/* ------------------------------------------------------------------
+   robots.txt + sitemap.xml
+   Le robots.txt est le premier fichier que demandent les robots — le nôtre
+   répondait 404. Le sitemap déclare les pages indexables et leurs versions
+   linguistiques ; les pages en noindex (support, conditions, confidentialité,
+   et le blog tant qu'il est vide) n'y figurent pas, ce serait contradictoire.
+   ------------------------------------------------------------------ */
+function construisRobotsEtSitemap(articles) {
+  writeFileSync(
+    new URL('robots.txt', import.meta.url),
+    `User-agent: *\nAllow: /\n\nSitemap: ${ORIGINE}/sitemap.xml\n`,
+  );
+
+  const jour = new Date().toISOString().slice(0, 10);
+  const alternates = PUBLIEES.map(
+    (lg) =>
+      `    <xhtml:link rel="alternate" hreflang="${lg}" href="${ORIGINE}${dico[lg]._meta.dir}"/>`,
+  )
+    .concat(`    <xhtml:link rel="alternate" hreflang="x-default" href="${ORIGINE}/"/>`)
+    .join('\n');
+
+  const urls = [];
+  for (const lg of PUBLIEES) {
+    urls.push(`  <url>\n    <loc>${ORIGINE}${dico[lg]._meta.dir}</loc>\n${alternates}\n    <lastmod>${jour}</lastmod>\n  </url>`);
+  }
+  urls.push(`  <url>\n    <loc>${ORIGINE}/assistance/</loc>\n  </url>`);
+  if (articles.length) {
+    urls.push(`  <url>\n    <loc>${ORIGINE}/blog/</loc>\n    <lastmod>${articles[0].date}</lastmod>\n  </url>`);
+    for (const a of articles) {
+      urls.push(`  <url>\n    <loc>${ORIGINE}/blog/${a.slug}/</loc>\n    <lastmod>${a.date}</lastmod>\n  </url>`);
+    }
+  }
+
+  writeFileSync(
+    new URL('sitemap.xml', import.meta.url),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n</urlset>\n`,
+  );
+
+  console.log(`robots.txt + sitemap.xml (${urls.length} adresses)`);
 }
 
 /**
@@ -200,7 +308,7 @@ function lisArticles() {
  * deux designs à tenir. Les ancres du menu (#comment…) sont repréfixées, sinon
  * elles ne mènent nulle part depuis /blog/.
  */
-function coquille({ accueil, titre, description, url, corps, ogImage, ct = 'site' }) {
+function coquille({ accueil, titre, description, url, corps, ogImage, ct = 'site', noindex = false, jsonld = '' }) {
   const styles = accueil.match(/<style>[\s\S]*?<\/style>/)[0];
   const entete = accueil.match(/<header class="nav"[\s\S]*?<\/header>/)[0]
     .replace(/href="#/g, 'href="/#');
@@ -237,7 +345,7 @@ function coquille({ accueil, titre, description, url, corps, ogImage, ct = 'site
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${image}">
-${styles}
+${noindex ? '<meta name="robots" content="noindex">\n' : ''}${jsonld}${styles}
 </head>
 <body data-ct="${attr(ct)}">
 ${entete}
@@ -296,6 +404,10 @@ ${articles.length
       url: `${ORIGINE}/blog/`,
       corps: liste,
       ct: 'blog_liste',
+      // Une liste vide est une page vide : on demande aux moteurs de
+      // l'ignorer tant qu'il n'y a rien à lire. Le drapeau tombe tout seul
+      // au premier article publié.
+      noindex: articles.length === 0,
     }),
   );
 
@@ -316,7 +428,7 @@ ${a.html}
       <div class="article-cta">
         <h2>Toutes tes recettes, au même endroit</h2>
         <p>Nyama range ce que tu croises sur Instagram, TikTok ou un blog dans une seule bibliothèque. La tienne.</p>
-        <a class="btn btn-primary" href="/#telecharger" data-appstore>Découvrir Nyama</a>
+        <a class="btn btn-primary" href="${APPSTORE_URL}" data-appstore>Découvrir Nyama</a>
       </div>
     </div>
   </article>`;
@@ -330,6 +442,17 @@ ${a.html}
         corps,
         // Un jeton par article : le rapport d'Apple dira lequel fait installer.
         ct: jetonCampagne(`blog_${a.slug}`),
+        jsonld: `<script type="application/ld+json">${JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: a.titre,
+          description: a.description,
+          datePublished: a.date,
+          inLanguage: 'fr',
+          mainEntityOfPage: `${ORIGINE}/blog/${a.slug}/`,
+          author: { '@type': 'Organization', name: 'Nyama (Winstell)', url: `${ORIGINE}/` },
+          publisher: { '@type': 'Organization', name: 'Winstell', url: `${ORIGINE}/`, logo: { '@type': 'ImageObject', url: `${ORIGINE}/assets/icone.png` } },
+        })}</script>\n`,
       }),
     );
   }
@@ -425,7 +548,14 @@ for (const lg of PUBLIEES) {
     /(<meta property="og:locale" content=")[^"]*(">)/,
     `$1${m.locale}$2`,
   );
-  html = html.replace('</head>', `${liensAlternatifs()}\n</head>`);
+  // L'alt de l'image de partage suit la langue de la page, pas le français.
+  html = html.replace(
+    /(<meta property="og:image:alt" content=")[^"]*(">)/,
+    `$1${m.ogTitle}.$2`,
+  );
+  // Après la traduction des textes : les données structurées (dont la FAQ)
+  // sont extraites de la page déjà dans sa langue.
+  html = html.replace('</head>', `${liensAlternatifs()}${donneesStructurees(html, m)}</head>`);
 
   // 3. Le sélecteur de langue : on ne garde que les langues publiées, puis on
   //    marque celle de la page.
@@ -468,5 +598,6 @@ for (const lg of PUBLIEES) {
 }
 
 construisBlog(accueilFr, articles);
+construisRobotsEtSitemap(articles);
 
 console.log(total === 0 ? '\nToutes les clés sont traduites.' : `\n${total} traductions manquantes.`);

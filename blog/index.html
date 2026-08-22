@@ -23,6 +23,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://getnyama.app/assets/og-image.png">
+<meta name="robots" content="noindex">
 <style>
 /* ------------------------------------------------------------------
    Nyama — jetons de design repris de constants/tokens.ts de l'app,
@@ -374,6 +375,22 @@ details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
 details p { color: var(--stone); padding: 0 0 22px; font-size: 16px; }
 details a { color: var(--saffron); text-underline-offset: 2px; }
 
+/* --- En bref --- */
+/* La fiche d'identité du produit, écrite noir sur blanc. Elle existe
+   d'abord pour les moteurs — classiques comme IA : tout le reste de la
+   page raconte, elle seule AFFIRME (plateforme, sources, prix). Même
+   registre visuel que la liste « Ce que Nyama n'est pas ». */
+.brief-list { max-width: 800px; margin-inline: auto; }
+.brief-list > div {
+  display: grid; grid-template-columns: 150px 1fr; gap: 20px;
+  padding: 18px 0; border-bottom: 1px solid var(--hairline); align-items: baseline;
+}
+.brief-list dt { font-size: 15px; font-weight: 700; color: var(--ink); margin: 0; }
+.brief-list dd { font-size: 16px; color: var(--stone); margin: 0; }
+@media (max-width: 560px) {
+  .brief-list > div { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; }
+}
+
 /* --- Appel final --- */
 /* Panneau saffron CONTENU (pas un aplat plein écran), texturé de points,
    avec deux ingrédients qui débordent aux coins — reprend le traitement
@@ -553,8 +570,14 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
             </g>
           </svg>
         </a>
+        <a href="/de/" hreflang="de" title="Deutsch" aria-label="Deutsch">
+          <svg viewBox="0 0 5 3" aria-hidden="true"><rect width="5" height="1" fill="#000"/><rect y="1" width="5" height="1" fill="#DD0000"/><rect y="2" width="5" height="1" fill="#FFCE00"/></svg>
+        </a>
+        <a href="/es/" hreflang="es" title="Español" aria-label="Español">
+          <svg viewBox="0 0 6 4" aria-hidden="true"><rect width="6" height="4" fill="#AA151B"/><rect y="1" width="6" height="2" fill="#F1BF00"/></svg>
+        </a>
       </div>
-      <a class="btn btn-primary" href="/#telecharger" data-appstore data-i18n="nav.cta">Télécharger</a>
+      <a class="btn btn-primary" href="https://apps.apple.com/app/id6794365868" data-appstore data-i18n="nav.cta">Télécharger</a>
     </div>
   </div>
 </header>
@@ -698,13 +721,14 @@ const an = document.getElementById('an');
 if (an) an.textContent = new Date().getFullYear();
 </script>
 <script id="appstore">
-// LES DEUX SEULES VALEURS À RENSEIGNER le jour de la publication :
 //   APPSTORE_ID  l'identifiant numérique de l'app
 //                App Store Connect › Informations sur l'app › Apple ID
 //   APPSTORE_PT  le jeton de fournisseur, commun à tout le compte
 //                App Store Connect › Analyses › Acquisition › Campagnes
-// Tant qu'APPSTORE_ID vaut null, les boutons font défiler jusqu'au bloc final
-// au lieu de mener sur une page qui n'existe pas encore.
+// L'URL App Store vit maintenant EN DUR dans le href des boutons : les
+// robots (Google comme les moteurs IA) n'exécutent pas ce script, et un
+// href="#" les privait du seul lien qui compte. Ici on ne fait plus
+// qu'ajouter l'attribution pt/ct par-dessus.
 const APPSTORE_ID = '6794365868';
 const APPSTORE_PT = '129188793';
 
