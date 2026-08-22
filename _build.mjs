@@ -598,7 +598,10 @@ for (const lg of PUBLIEES) {
   //    chose à lire. `/g` : il y a DEUX occurrences depuis que le pied de
   //    page a sa propre colonne de liens — sans le drapeau global, seule la
   //    première (le menu) aurait été retirée et l'autre serait restée.
-  if (!articles.length) {
+  //    Le blog n'existe qu'en français : les autres langues n'affichent pas
+  //    le lien du tout — déposer un anglophone sur du français vaut moins
+  //    que pas de lien. À revoir le jour où /en/blog/ existera.
+  if (!articles.length || lg !== 'fr') {
     html = html.replace(/\s*<a href="\/blog\/" data-lien-blog[^>]*>[^<]*<\/a>/g, '');
   } else {
     html = html.replace(/ data-lien-blog/g, '');
