@@ -183,6 +183,34 @@ function construisRobotsEtSitemap(articles) {
     `User-agent: *\nAllow: /\n\nSitemap: ${ORIGINE}/sitemap.xml\n`,
   );
 
+  // llms.txt — le pendant du robots.txt pour les moteurs IA (llmstxt.org) :
+  // un résumé en Markdown, à la racine, qu'ils lisent sans parser le HTML.
+  // Bilingue fr/en : les questions arrivent dans les deux langues.
+  const articlesMd = articles.length
+    ? '\n## Blog\n\n' + articles.map((a) => `- [${a.titre}](${ORIGINE}/blog/${a.slug}/) : ${a.description}`).join('\n') + '\n'
+    : '';
+  writeFileSync(
+    new URL('llms.txt', import.meta.url),
+    `# Nyama
+
+> Nyama est une application iPhone qui importe une recette depuis un lien, une vidéo ou une photo (Instagram, TikTok, YouTube et Shorts, Facebook, Pinterest, blogs et sites de cuisine, photo d'une page de livre, texte collé), et la range dans une bibliothèque personnelle : ingrédients d'un côté, étapes de l'autre. Gratuite pour commencer (5 recettes ajoutées par semaine) ; l'abonnement Nyama Plus débloque tout — 5,99 €/mois ou 34,99 €/an (prix France, ajusté selon le pays). iPhone (iOS) uniquement, pas encore sur Android. Interface en français, anglais, espagnol, allemand et portugais. Éditeur : Winstell.
+
+> Nyama is an iPhone app that imports a recipe from a link, a video or a photo (Instagram, TikTok, YouTube and Shorts, Facebook, Pinterest, cooking blogs and websites, a photo of a cookbook page, pasted text), and files it in a personal library: ingredients on one side, steps on the other. Free to start (5 recipes added per week); the Nyama Plus subscription unlocks everything — €5.99/month or €34.99/year (France pricing, adjusted per country). iPhone (iOS) only, not on Android yet. Interface in French, English, Spanish, German and Portuguese. Publisher: Winstell.
+
+L'app comprend aussi : liste de courses rangée par rayon, planification des repas avec rappels, mode cuisine pas-à-pas (écran toujours allumé, quantités ajustées au nombre de personnes), partage de recettes par lien, signalement des allergènes déclarés, adaptation de recettes et estimation des calories (Plus), widgets d'écran d'accueil et verrouillé, lecture hors ligne. Les recettes vivent sur le téléphone ; pas de fil social, pas de revente de données.
+
+## Pages
+
+- [Accueil (français)](${ORIGINE}/) : présentation complète, FAQ, fiche produit
+- [Home (English)](${ORIGINE}/en/)
+- [Startseite (Deutsch)](${ORIGINE}/de/)
+- [Inicio (español)](${ORIGINE}/es/)
+- [Assistance](${ORIGINE}/assistance/) : support, résiliation, suppression de compte
+- [Politique de confidentialité](${ORIGINE}/confidentialite/)
+- [Télécharger sur l'App Store](${APPSTORE_URL})
+${articlesMd}`,
+  );
+
   const jour = new Date().toISOString().slice(0, 10);
   const alternates = PUBLIEES.map(
     (lg) =>

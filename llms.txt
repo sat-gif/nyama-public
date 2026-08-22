@@ -1,0 +1,17 @@
+# Nyama
+
+> Nyama est une application iPhone qui importe une recette depuis un lien, une vidéo ou une photo (Instagram, TikTok, YouTube et Shorts, Facebook, Pinterest, blogs et sites de cuisine, photo d'une page de livre, texte collé), et la range dans une bibliothèque personnelle : ingrédients d'un côté, étapes de l'autre. Gratuite pour commencer (5 recettes ajoutées par semaine) ; l'abonnement Nyama Plus débloque tout — 5,99 €/mois ou 34,99 €/an (prix France, ajusté selon le pays). iPhone (iOS) uniquement, pas encore sur Android. Interface en français, anglais, espagnol, allemand et portugais. Éditeur : Winstell.
+
+> Nyama is an iPhone app that imports a recipe from a link, a video or a photo (Instagram, TikTok, YouTube and Shorts, Facebook, Pinterest, cooking blogs and websites, a photo of a cookbook page, pasted text), and files it in a personal library: ingredients on one side, steps on the other. Free to start (5 recipes added per week); the Nyama Plus subscription unlocks everything — €5.99/month or €34.99/year (France pricing, adjusted per country). iPhone (iOS) only, not on Android yet. Interface in French, English, Spanish, German and Portuguese. Publisher: Winstell.
+
+L'app comprend aussi : liste de courses rangée par rayon, planification des repas avec rappels, mode cuisine pas-à-pas (écran toujours allumé, quantités ajustées au nombre de personnes), partage de recettes par lien, signalement des allergènes déclarés, adaptation de recettes et estimation des calories (Plus), widgets d'écran d'accueil et verrouillé, lecture hors ligne. Les recettes vivent sur le téléphone ; pas de fil social, pas de revente de données.
+
+## Pages
+
+- [Accueil (français)](https://getnyama.app/) : présentation complète, FAQ, fiche produit
+- [Home (English)](https://getnyama.app/en/)
+- [Startseite (Deutsch)](https://getnyama.app/de/)
+- [Inicio (español)](https://getnyama.app/es/)
+- [Assistance](https://getnyama.app/assistance/) : support, résiliation, suppression de compte
+- [Politique de confidentialité](https://getnyama.app/confidentialite/)
+- [Télécharger sur l'App Store](https://apps.apple.com/app/id6794365868)
