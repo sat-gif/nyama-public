@@ -23,7 +23,6 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://getnyama.app/assets/og-image.png">
-<meta name="robots" content="noindex">
 <style>
 /* ------------------------------------------------------------------
    Nyama — jetons de design repris de constants/tokens.ts de l'app,
@@ -549,6 +548,7 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
       <a href="/#fonctions" data-i18n="nav.fonctions">Fonctions</a>
       <!-- Retiré par _build.mjs tant qu'aucun article n'est publié : un lien
            « Blog » vers une page vide vaut moins que pas de lien du tout. -->
+      <a href="/blog/" data-i18n="nav.blog">Blog</a>
     </nav>
     <div class="nav-right">
       <!-- Choix de la langue. `data-lang-switch` est réécrit par _build.mjs
@@ -591,7 +591,14 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
   </section>
   <section class="features" style="padding-top:0">
     <div class="wrap">
-      <p class="blog-vide">Les premiers articles arrivent bientôt.</p>
+      <div class="blog-list">
+        <a class="post-card" href="/blog/sauvegarder-recette-instagram/">
+          <span class="post-date">22 août 2026</span>
+          <h2>Comment sauvegarder une recette Instagram avant qu'elle disparaisse</h2>
+          <p>Les favoris Instagram ne sont pas une sauvegarde. Voici les quatre façons de garder une recette vue en reel — de la plus fragile à celle qui tient des années.</p>
+          <span class="post-more">Lire</span>
+        </a>
+      </div>
     </div>
   </section>
 </main>
@@ -612,6 +619,7 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
         <a href="/#fonctions" data-i18n="nav.fonctions">Fonctions</a>
         <!-- Retiré par _build.mjs tant qu'aucun article n'est publié, comme
              le lien du menu principal. -->
+        <a href="/blog/" data-i18n="nav.blog">Blog</a>
       </div>
       <div class="foot-col">
         <p class="foot-head" data-i18n="foot.head.legal">Légal</p>

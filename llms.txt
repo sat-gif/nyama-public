@@ -15,3 +15,7 @@ L'app comprend aussi : liste de courses rangée par rayon, planification des rep
 - [Assistance](https://getnyama.app/assistance/) : support, résiliation, suppression de compte
 - [Politique de confidentialité](https://getnyama.app/confidentialite/)
 - [Télécharger sur l'App Store](https://apps.apple.com/app/id6794365868)
+
+## Blog
+
+- [Comment sauvegarder une recette Instagram avant qu'elle disparaisse](https://getnyama.app/blog/sauvegarder-recette-instagram/) : Les favoris Instagram ne sont pas une sauvegarde. Voici les quatre façons de garder une recette vue en reel — de la plus fragile à celle qui tient des années.
