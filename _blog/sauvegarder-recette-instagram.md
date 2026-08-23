@@ -62,3 +62,17 @@ La version gratuite de Nyama permet d'ajouter 5 recettes par semaine, ce qui suf
 - Le **partage vers une application de recettes** survit, se retrouve, et prend quelques secondes.
 
 Le bon moment pour t'y mettre n'est pas « un jour, quand j'aurai le temps de trier mes 200 favoris ». C'est la prochaine fois qu'un reel te donne faim : au lieu du bouton Enregistrer, essaie le bouton Partager. Une recette sauvée vaut mieux que deux cents marquées.
+
+## Questions fréquentes
+
+### Est-ce que mes favoris Instagram peuvent disparaître ?
+
+Oui. Un favori n'est qu'un raccourci vers le contenu de quelqu'un d'autre : si le créateur supprime son reel, passe en privé ou perd son compte, ton favori pointe vers du vide, sans avertissement. Instagram ne garde aucune copie pour toi.
+
+### Comment récupérer une recette dite à l'oral dans une vidéo ?
+
+Trois options : la recopier toi-même en mettant pause (fiable mais long), la demander en commentaire (aléatoire), ou partager la vidéo vers une application qui la reconstitue depuis la bande-son — c'est ce que fait Nyama, en signalant les passages dont elle n'est pas sûre pour que tu les vérifies.
+
+### Peut-on sauvegarder une recette Instagram gratuitement ?
+
+Oui. La capture d'écran et la note recopiée ne coûtent rien. Côté applications, la version gratuite de Nyama permet d'ajouter 5 recettes par semaine, rechargées chaque lundi — de quoi vider ses favoris au fil de l'eau sans rien payer.

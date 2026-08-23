@@ -18,4 +18,5 @@ L'app comprend aussi : liste de courses rangée par rayon, planification des rep
 
 ## Blog
 
+- [Les meilleures applications de recettes sur iPhone, comparées honnêtement](https://getnyama.app/blog/meilleures-applications-recettes-iphone/) : Dix applications de recettes pour iPhone, classées par ce qu'elles font vraiment — importer, organiser, planifier, cuisiner. Avec leurs limites, et la nôtre en premier.
 - [Comment sauvegarder une recette Instagram avant qu'elle disparaisse](https://getnyama.app/blog/sauvegarder-recette-instagram/) : Les favoris Instagram ne sont pas une sauvegarde. Voici les quatre façons de garder une recette vue en reel — de la plus fragile à celle qui tient des années.
