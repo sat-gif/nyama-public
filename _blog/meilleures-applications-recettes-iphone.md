@@ -14,23 +14,28 @@ Transparence d'abord : **Nyama, en tête de cette liste, est notre application.*
 
 Tes recettes vivent sur ton téléphone, lisibles hors ligne, sans fil social ni revente de données. Gratuit pour commencer : 5 recettes ajoutées par semaine. Nyama Plus débloque tout pour 4,99 €/mois ou 34,99 €/an (prix France).
 
+<figure style="margin:34px auto; max-width:300px;">
+<img src="/assets/ecran-accueil.png" alt="L'écran d'accueil de Nyama : des recettes venues d'Instagram, de TikTok, de YouTube et de sites de cuisine convergent vers l'application." loading="lazy" style="border-radius:18px; width:100%; display:block;">
+<figcaption style="text-align:center; font-size:14px; color:var(--stone); margin-top:10px;">Les recettes convergent, quelle que soit leur source. <a href="https://apps.apple.com/app/id6794365868">Voir sur l'App Store</a>.</figcaption>
+</figure>
+
 **Les limites.** iPhone uniquement — pas d'Android, pas de version web. Et si tu cherches un catalogue d'idées, tu n'en trouveras pas : Nyama ne contient que *tes* recettes.
 
 ## 2. Marmiton — pour chercher une idée dans un catalogue français
 
-L'immense catalogue français, avec les notes, les commentaires et les photos des gens qui ont vraiment fait la recette. C'est là que tu tapes « courgette » un dimanche sans inspiration. Sa force est le volume et la communauté ; sa limite est l'inverse de la nôtre : tes propres trouvailles — le reel de mardi, la recette de ta mère — n'y ont pas leur place.
+[Marmiton](https://www.marmiton.org) est l'immense catalogue français, avec les notes, les commentaires et les photos des gens qui ont vraiment fait la recette. C'est là que tu tapes « courgette » un dimanche sans inspiration. Sa force est le volume et la communauté ; sa limite est l'inverse de la nôtre : tes propres trouvailles — le reel de mardi, la recette de ta mère — n'y ont pas leur place.
 
 ## 3. Paprika — pour importer depuis les sites et blogs
 
-La référence historique du gestionnaire de recettes. Excellent import depuis les sites web, épicerie, menus, tout fonctionne hors ligne, et son modèle en achat unique par plateforme est apprécié de longue date. Sa limite est générationnelle : Paprika est pensée pour le web des blogs, pas pour les vidéos — un reel dont la recette n'est dite qu'à l'oral lui échappe.
+[Paprika](https://www.paprikaapp.com) est la référence historique du gestionnaire de recettes. Excellent import depuis les sites web, épicerie, menus, tout fonctionne hors ligne, et son modèle en achat unique par plateforme est apprécié de longue date. Sa limite est générationnelle : Paprika est pensée pour le web des blogs, pas pour les vidéos — un reel dont la recette n'est dite qu'à l'oral lui échappe.
 
 ## 4. ReciMe — l'autre import depuis les réseaux sociaux
 
-Le concurrent le plus proche de Nyama : import depuis les réseaux sociaux, disponible sur iPhone et Android — un vrai avantage si ton foyer est mixte. Dans les avis publics de l'App Store, les reproches récurrents portent moins sur les fonctions que sur la transparence du prix au moment de l'essai. À tester en lisant bien l'écran d'abonnement.
+[ReciMe](https://recime.app) est le concurrent le plus proche de Nyama : import depuis les réseaux sociaux, disponible sur iPhone et Android — un vrai avantage si ton foyer est mixte. Dans les avis publics de l'App Store, les reproches récurrents portent moins sur les fonctions que sur la transparence du prix au moment de l'essai. À tester en lisant bien l'écran d'abonnement.
 
 ## 5. Jow — pour décider les repas et remplir le panier
 
-Le planificateur français par excellence : tu choisis tes repas de la semaine, l'application remplit directement un panier chez les enseignes de drive françaises. Redoutablement efficace pour la charge mentale du dîner. Sa logique est inverse de celle d'un carnet : tu cuisines *son* catalogue, pas tes recettes à toi.
+[Jow](https://jow.fr) est le planificateur français par excellence : tu choisis tes repas de la semaine, l'application remplit directement un panier chez les enseignes de drive françaises. Redoutablement efficace pour la charge mentale du dîner. Sa logique est inverse de celle d'un carnet : tu cuisines *son* catalogue, pas tes recettes à toi.
 
 ## 6. Samsung Food (ex-Whisk) — pour un foyer multi-plateformes
 
@@ -38,19 +43,19 @@ Planification, listes de courses, import web, et surtout disponible partout — 
 
 ## 7. Mela — pour les amoureux du design Apple
 
-Un gestionnaire de recettes iOS au design remarquable, import web soigné, mode cuisine élégant. Si ton corpus vient de blogs et que tu vis dans l'écosystème Apple, c'est un très bon choix. Comme Paprika, les vidéos sociales ne sont pas son terrain.
+[Mela](https://mela.recipes) est un gestionnaire de recettes iOS au design remarquable, import web soigné, mode cuisine élégant. Si ton corpus vient de blogs et que tu vis dans l'écosystème Apple, c'est un très bon choix. Comme Paprika, les vidéos sociales ne sont pas son terrain.
 
 ## 8. Crouton — l'artisan iOS
 
-Proche de Mela dans l'esprit : iOS, iCloud, minuteries intégrées aux étapes, import web. Une application d'artisan, régulièrement mise en avant par Apple. Mêmes limites : pas de lecture des vidéos, pas d'Android.
+[Crouton](https://crouton.app) est proche de Mela dans l'esprit : iOS, iCloud, minuteries intégrées aux étapes, import web. Une application d'artisan, régulièrement mise en avant par Apple. Mêmes limites : pas de lecture des vidéos, pas d'Android.
 
 ## 9. Frigo Magic — pour cuisiner ce qu'il y a dans le frigo
 
-L'application française du « j'ai trois ingrédients et zéro idée » : tu indiques ce qui reste, elle propose des recettes possibles. Anti-gaspillage et malin. C'est un moteur d'idées, pas un carnet — les deux se complètent plus qu'ils ne se remplacent.
+[Frigo Magic](https://frigomagic.com) est l'application française du « j'ai trois ingrédients et zéro idée » : tu indiques ce qui reste, elle propose des recettes possibles. Anti-gaspillage et malin. C'est un moteur d'idées, pas un carnet — les deux se complètent plus qu'ils ne se remplacent.
 
 ## 10. KptnCook — pour l'inspiration en petites doses
 
-Trois recettes proposées par jour, format court, photos léchées. Parfait pour casser la routine des trois mêmes plats. Sa philosophie est l'opposé d'une bibliothèque : tu reçois, tu ne collectionnes pas.
+[KptnCook](https://www.kptncook.com) propose trois recettes par jour, format court, photos léchées. Parfait pour casser la routine des trois mêmes plats. Sa philosophie est l'opposé d'une bibliothèque : tu reçois, tu ne collectionnes pas.
 
 ## Quelle application pour quel profil ?
 
@@ -66,7 +71,7 @@ Le bon test avant de t'engager, quel que soit ton choix : ajoute une recette dep
 
 ### Quelle application pour sauvegarder une recette Instagram ou TikTok ?
 
-Il faut une application capable de lire le lien partagé — y compris la bande-son quand la recette n'est dite qu'à l'oral. C'est le cœur de Nyama sur iPhone ; ReciMe est l'alternative multi-plateforme. Dans les deux cas, relis les quantités après l'import : une vidéo peut omettre une mesure.
+Il faut une application capable de lire le lien partagé — y compris la bande-son quand la recette n'est dite qu'à l'oral. C'est le cœur de Nyama sur iPhone ; ReciMe est l'alternative multi-plateforme. Dans les deux cas, relis les quantités après l'import : une vidéo peut omettre une mesure. Le détail des méthodes est dans [notre guide pour sauvegarder une recette Instagram](/blog/sauvegarder-recette-instagram/).
 
 ### Quelle application de recettes fonctionne hors ligne ?
 

@@ -38,7 +38,7 @@ Quand ça marche. La réponse arrive dans des heures ou jamais, le lien de la bi
 
 ## Méthode 4 — partager vers une application de recettes
 
-C'est la méthode pour laquelle Nyama existe, donc jugement à prendre avec cette réserve — mais le principe vaut pour toute bonne application du genre : tu utilises le partage d'Instagram pour envoyer le reel vers une application qui **lit la recette et l'écrit pour toi**.
+C'est la méthode pour laquelle [Nyama](/) existe, donc jugement à prendre avec cette réserve — mais le principe vaut pour toute bonne application du genre : tu utilises le partage d'Instagram pour envoyer le reel vers une application qui **lit la recette et l'écrit pour toi**.
 
 Concrètement, depuis le reel :
 
@@ -46,11 +46,21 @@ Concrètement, depuis le reel :
 2. Dans la liste qui s'ouvre, passe par « Partager sur… » pour atteindre la feuille de partage d'iOS, et choisis **Nyama**.
 3. Quelques secondes plus tard, la recette ressort écrite et rangée : le titre, les temps, les ingrédients d'un côté, les étapes numérotées de l'autre.
 
+<figure style="margin:34px auto; max-width:300px;">
+<img src="/assets/partage-import-poster.png" alt="La feuille de partage d'iOS ouverte sur une vidéo de recette, avec Nyama dans la liste des applications." loading="lazy" style="border-radius:18px; width:100%; display:block;">
+<figcaption style="text-align:center; font-size:14px; color:var(--stone); margin-top:10px;">Le geste : Partager, puis Nyama dans la feuille d'iOS.</figcaption>
+</figure>
+
 Ce qui fait la différence avec les trois méthodes précédentes :
 
 - **Ça lit aussi ce qui est dit à l'oral.** Quand la recette n'est écrite ni dans la légende ni à l'écran, elle est reconstituée depuis la bande-son de la vidéo. Et quand un passage n'est pas sûr, il est signalé plutôt qu'inventé — tu relis, tu corriges en deux tapes.
 - **La recette t'appartient.** Elle vit sur ton téléphone, lisible même sans réseau, même si le reel disparaît demain.
 - **Elle se retrouve.** « Poulet citron » dans la recherche, et elle est là — dans trois semaines comme dans trois ans.
+
+<figure style="margin:34px auto; max-width:300px;">
+<img src="/assets/ecran-bibliotheque.png" alt="La bibliothèque de Nyama : des livres de recettes au-dessus d'une grille de recettes portant leur provenance — Instagram, TikTok, site web — et une barre de recherche." loading="lazy" style="border-radius:18px; width:100%; display:block;">
+<figcaption style="text-align:center; font-size:14px; color:var(--stone); margin-top:10px;">Chaque recette garde sa provenance, et la recherche fouille tout.</figcaption>
+</figure>
 
 La version gratuite de Nyama permet d'ajouter 5 recettes par semaine, ce qui suffit largement pour vider ses favoris au fil de l'eau. Et le même geste marche depuis TikTok, YouTube, Facebook, Pinterest, un blog, ou la photo d'une page de livre.
 
@@ -59,7 +69,7 @@ La version gratuite de Nyama permet d'ajouter 5 recettes par semaine, ce qui suf
 - La **capture d'écran** survit à la suppression du reel, mais ne se retrouve pas.
 - La **note recopiée** survit et se retrouve, mais coûte dix minutes par recette.
 - Le **commentaire au créateur** dépend de la bonne volonté de quelqu'un d'autre.
-- Le **partage vers une application de recettes** survit, se retrouve, et prend quelques secondes.
+- Le **partage vers une application de recettes** survit, se retrouve, et prend quelques secondes. (Pour choisir laquelle : [notre comparatif des applications de recettes sur iPhone](/blog/meilleures-applications-recettes-iphone/).)
 
 Le bon moment pour t'y mettre n'est pas « un jour, quand j'aurai le temps de trier mes 200 favoris ». C'est la prochaine fois qu'un reel te donne faim : au lieu du bouton Enregistrer, essaie le bouton Partager. Une recette sauvée vaut mieux que deux cents marquées.
 
