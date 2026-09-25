@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>Nyama — toutes tes recettes, enfin réunies au même endroit</title>
 <meta name="description" content="Les recettes que tu croises sur Instagram, TikTok, YouTube ou un blog, réunies dans une seule bibliothèque sur ton iPhone. Tu partages, Nyama range.">
 <link rel="canonical" href="https://getnyama.app/">
@@ -30,411 +31,335 @@
 
 <style>
 /* ------------------------------------------------------------------
-   Nyama — jetons de design repris de constants/tokens.ts de l'app,
-   habillage inspiré du fichier Claude Design « Nyama Site Web » (kit
-   Htlm site / Pages d'application Nyama.zip). Un seul système de police
-   (celle de l'app elle-même, SF Pro / système), fond clair partout — le
-   noir n'est plus qu'un accent ponctuel (bouton App Store), jamais un
-   aplat de section.
+   Nyama — refonte du 2026-09-25 (maquette validée par Sat, façon
+   « landing d'app » : héros centré, main qui tient l'iPhone, cartes photo,
+   étapes calées sur la vraie vidéo d'import). Même principe qu'avant : une
+   seule police (celle de l'app), fond clair, le noir n'est qu'un accent
+   contenu (badge App Store). Le mode sombre suit le réglage du visiteur.
+
+   Les photos viennent de Higgsfield avec un écran VERT ; les écrans sont de
+   VRAIES captures posées dessus (jamais une interface générée).
    ------------------------------------------------------------------ */
 :root {
   --saffron: #FCAE0B;
   --saffron-pressed: #E39A00;
-  --saffron-tint: #FDF0D3;
+  --saffron-deep: #E39400;
+  --saffron-tint: #FFF1D1;
+  --tint-b: #FFE3A1;
   --ink: #1B1A17;
-  --canvas: #FDF9F3;
+  --ink-2: #55524B;
+  --ink-3: #8C877D;
+  --stone: #6D6861;
+  --page: #EFE9DF;        /* autour du cadre */
+  --frame: #FFFFFF;       /* le cadre arrondi qui porte la page */
+  --canvas: #F7F5F0;      /* bande des avis */
+  --card: #F5F2EC;
   --surface: #FFFFFF;
   --sand: #F6EFE4;
-  --stone: #6D6861;
-  /* Ne bascule JAMAIS avec le thème : pour du texte posé sur un fond qui,
-     lui non plus, ne bascule pas (le bouton App Store, l'anneau du
-     téléphone). Values identiques à --ink en clair — mais figées. */
+  /* Ne basculent JAMAIS avec le thème : texte posé sur un fond qui, lui
+     non plus, ne bascule pas (badge App Store, code du blog). */
   --ink-fixed: #1B1A17;
   --cream-fixed: #FDF9F3;
-  --hairline: rgba(27, 26, 23, .09);
+  --hairline: rgba(27, 26, 23, .10);
   --hairline-strong: rgba(27, 26, 23, .16);
   --on-tint: #7A5312;
-  --shadow-soft: 0 2px 8px rgba(27,26,23,.05), 0 12px 32px rgba(27,26,23,.07);
-  --shadow-phone: 0 8px 24px rgba(27,26,23,.10), 0 40px 90px rgba(27,26,23,.18);
-  /* Une seule famille : celle de l'app (SF Pro sur iOS, system-ui ailleurs).
-     Pas de police d'affichage à part — le poids (700) fait le travail. */
+  --on-ink: #FFFFFF;
+  --badge: #111111;
+  --nav-bg: rgba(255, 255, 255, .82);
+  --web: rgba(27, 26, 23, .13);
+  --icon-ink: #B87500;
+  --shadow: 0 1px 2px rgba(27,26,23,.04), 0 12px 32px -12px rgba(27,26,23,.14);
+  --shadow-phone: 0 30px 60px -24px rgba(27,26,23,.45);
   --font: -apple-system, "SF Pro Display", "SF Pro Text", BlinkMacSystemFont,
           system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --wrap: 1160px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --wrap: 1120px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --saffron-tint: #372E18;
-    --ink: #F4F1E9;
-    --canvas: #15130E;
-    --surface: #232019;
-    --sand: #2C2820;
+    --saffron-tint: #3A2B0E;
+    --tint-b: #5A3F0A;
+    --ink: #F2EEE6;
+    --ink-2: #C4BDB1;
+    --ink-3: #8E887D;
     --stone: #ADA69C;
-    --hairline: rgba(244, 241, 233, .10);
-    --hairline-strong: rgba(244, 241, 233, .18);
+    --page: #0D0C0B;
+    --frame: #161513;
+    --canvas: #1C1A17;
+    --card: #22201C;
+    --surface: #2A2723;
+    --sand: #22201C;
+    --hairline: rgba(255, 255, 255, .10);
+    --hairline-strong: rgba(255, 255, 255, .18);
     --on-tint: #E9C069;
-    --shadow-soft: 0 2px 8px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
-    --shadow-phone: 0 8px 24px rgba(0,0,0,.4), 0 40px 90px rgba(0,0,0,.55);
+    --on-ink: #161513;
+    --badge: #000000;
+    --nav-bg: rgba(22, 21, 19, .82);
+    --web: rgba(255, 255, 255, .14);
+    --icon-ink: #FFC247;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -12px rgba(0,0,0,.6);
+    --shadow-phone: 0 30px 60px -24px rgba(0,0,0,.8);
   }
+  .store { box-shadow: inset 0 0 0 1px rgba(255,255,255,.22); }
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
-  margin: 0;
-  background: var(--canvas);
-  color: var(--ink);
-  font-family: var(--font);
-  font-size: 17px;
-  line-height: 1.6;
-  overflow-x: hidden;
+  margin: 0; background: var(--page); color: var(--ink);
+  font-family: var(--font); font-size: 17px; line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
-img { max-width: 100%; display: block; }
+img, video { max-width: 100%; display: block; }
 a { color: inherit; }
+p { margin: 0; }
+figure { margin: 0; }
+
+/* La page vit dans un grand cadre arrondi posé sur le sable. `overflow: clip`
+   et PAS `hidden` : hidden ferait du cadre un conteneur de défilement, et la
+   barre de navigation cesserait de coller en haut. Le blog porte le même
+   cadre (voir « coquille » dans _build.mjs). */
+.frame { max-width: 1320px; margin: 16px auto; background: var(--frame); border-radius: 36px; overflow: clip; position: relative; }
 .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 32px; }
-@media (max-width: 460px) { .wrap { padding: 0 20px; } }
 
 h1, h2, h3 {
-  font-family: var(--font); font-weight: 700; letter-spacing: -.03em; line-height: 1.04; margin: 0;
-  /* Les titres sont longs et le français a des mots longs : sans ça, « enregistrée »
-     déborde du cadre sur un iPhone étroit et se fait rogner par overflow-x. */
+  font-family: var(--font); font-weight: 600; letter-spacing: -.03em; line-height: 1.06; margin: 0;
+  /* Mots longs en français : sans ça, un titre déborde sur un iPhone étroit. */
   overflow-wrap: break-word;
 }
-h1 { font-size: clamp(33px, 6.6vw, 70px); }
-h2 { font-size: clamp(28px, 4.4vw, 46px); }
-h3 { font-size: clamp(20px, 2.3vw, 25px); line-height: 1.22; }
-p { margin: 0; }
-.lead { font-size: clamp(17px, 1.9vw, 20px); color: var(--stone); line-height: 1.6; }
+h1 { font-size: clamp(38px, 5.6vw, 68px); letter-spacing: -.035em; line-height: 1.04; }
+h2 { font-size: clamp(30px, 3.6vw, 46px); letter-spacing: -.03em; line-height: 1.1; }
+h2 em, h1 em { font-style: normal; color: var(--saffron-deep); }
+h3 { font-size: clamp(18px, 2vw, 21px); line-height: 1.25; letter-spacing: -.01em; }
+.lead { font-size: clamp(17px, 1.9vw, 19px); color: var(--ink-2); line-height: 1.6; }
 
-/* Sur-titre : pastille pleine (sable), point saffron — pas de contour,
-   plus chaleureux qu'un badge « outline ». */
+/* Sur-titre : pastille sable, point saffron. */
 .eyebrow {
   display: inline-flex; align-items: center; gap: 9px; margin: 0 0 20px;
-  padding: 8px 16px 8px 12px; border-radius: 999px; background: var(--sand);
-  font-size: 12.5px; font-weight: 600; letter-spacing: .01em;
-  color: var(--ink);
+  padding: 8px 16px 8px 12px; border-radius: 999px; background: var(--card);
+  font-size: 13px; font-weight: 600; color: var(--ink);
 }
 .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 999px; background: var(--saffron); flex: none; }
-.section-head.center .eyebrow { margin-inline: auto; }
 
 /* --- Boutons --- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 9px;
   padding: 15px 26px; border-radius: 999px; font-size: 16px; font-weight: 600;
-  text-decoration: none; border: 0; cursor: pointer;
+  text-decoration: none; border: 0; cursor: pointer; font-family: inherit;
   transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease;
   white-space: nowrap; max-width: 100%;
 }
 .btn-primary { background: var(--saffron); color: #1B1A17; box-shadow: 0 6px 18px rgba(252,174,11,.34); }
 .btn-primary:hover { background: var(--saffron-pressed); transform: translateY(-1px); }
-.btn-ghost { background: var(--sand); color: var(--ink); }
+.btn-ghost { background: var(--card); color: var(--ink); }
 .btn-ghost:hover { background: var(--hairline-strong); transform: translateY(-1px); }
-.btn svg { flex: none; }
+.btn-dark { background: var(--ink); color: var(--on-ink); }
+.btn-dark:hover { transform: translateY(-1px); }
 
-/* Bouton « badge App Store » : rectangle sombre à deux lignes, comme un
-   vrai badge de téléchargement. Fond TOUJOURS sombre (--ink-fixed), même
-   en thème clair/sombre du site — sinon le bouton s'éclaircirait en même
-   temps que --ink en mode sombre et deviendrait illisible. */
-.btn-store {
-  display: inline-flex; align-items: center; gap: 12px;
-  height: 58px; padding: 0 22px; border-radius: 16px;
-  background: var(--ink-fixed); color: var(--cream-fixed); text-decoration: none;
-  box-shadow: 0 10px 26px rgba(27,26,23,.22);
-  transition: transform .15s ease, background-color .15s ease;
+/* Badges de téléchargement : fond TOUJOURS noir, quel que soit le thème. */
+.stores { display: flex; gap: 12px; flex-wrap: wrap; }
+.store {
+  position: relative; display: inline-flex; align-items: center; gap: 11px;
+  height: 56px; padding: 0 20px 0 16px; border-radius: 15px;
+  background: var(--badge); color: #fff; text-decoration: none; text-align: left;
+  transition: transform .2s var(--ease), box-shadow .2s;
 }
-.btn-store:hover { background: #000; transform: translateY(-1px); }
-.btn-store svg { flex: none; }
-.btn-store-txt { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
-.btn-store-txt small { font-size: 11px; font-weight: 400; opacity: .72; }
-.btn-store-txt b { font-size: 16.5px; font-weight: 600; letter-spacing: -.01em; }
-@media (max-width: 460px) {
-  .btn { padding: 14px 22px; font-size: 15px; }
-  .btn-store { height: 52px; padding: 0 16px; gap: 9px; }
-  .btn-store svg { width: 22px; height: 22px; }
-  .btn-store-txt small { font-size: 10px; }
-  .btn-store-txt b { font-size: 14.5px; }
+.store:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10px rgba(0,0,0,.45); }
+.store svg { flex: none; }
+.store-txt { display: flex; flex-direction: column; line-height: 1.15; }
+.store-txt small { font-size: 10.5px; opacity: .78; }
+.store-txt b { font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
+/* Google Play : présent, grisé, avec sa pastille « Bientôt » — pas un lien. */
+.store.soon { background: var(--surface); color: var(--ink-3); box-shadow: inset 0 0 0 1px var(--hairline-strong); cursor: default; }
+.store.soon:hover { transform: none; box-shadow: inset 0 0 0 1px var(--hairline-strong); }
+.pill-soon {
+  position: absolute; top: -9px; right: -10px; background: var(--saffron); color: #1B1A17;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .02em; border-radius: 999px; padding: 3px 9px;
+  box-shadow: 0 4px 10px -4px rgba(227,148,0,.7);
 }
 
 /* --- Barre de navigation --- */
-header.nav {
-  position: sticky; top: 0; z-index: 50;
-  backdrop-filter: saturate(180%) blur(16px); -webkit-backdrop-filter: saturate(180%) blur(16px);
-  background: color-mix(in srgb, var(--canvas) 84%, transparent);
-  border-bottom: 1px solid transparent; transition: border-color .2s ease;
+header.nav { position: sticky; top: 0; z-index: 50; transition: background-color .3s, box-shadow .3s; }
+header.nav.scrolled {
+  background: var(--nav-bg); box-shadow: 0 1px 0 var(--hairline);
+  backdrop-filter: saturate(1.6) blur(14px); -webkit-backdrop-filter: saturate(1.6) blur(14px);
 }
-header.nav.scrolled { border-bottom-color: var(--hairline); }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 74px; }
-.brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 76px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .brand img.mark { width: 34px; height: 34px; border-radius: 9px; }
-.brand span { font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
-.nav-links { display: flex; align-items: center; gap: 30px; }
-.nav-links a { text-decoration: none; font-size: 15px; color: var(--stone); font-weight: 500; transition: color .15s ease; }
+.brand span { font-size: 20px; font-weight: 650; letter-spacing: -.02em; }
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links a { text-decoration: none; font-size: 14.5px; color: var(--ink-2); transition: color .15s; }
 .nav-links a:hover { color: var(--ink); }
-.nav .btn { padding: 11px 20px; font-size: 15px; }
-@media (max-width: 900px) { .nav-links { display: none; } }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav .btn { padding: 11px 20px; font-size: 14.5px; }
+@media (max-width: 960px) { .nav-links { display: none; } }
 
 /* --- Choix de la langue (vignettes drapeaux) --- */
 .langs { display: flex; align-items: center; gap: 6px; }
 .langs a {
-  display: block; width: 28px; height: 20px; border-radius: 4px; overflow: hidden;
+  display: block; width: 26px; height: 19px; border-radius: 4px; overflow: hidden;
   box-shadow: 0 0 0 1px var(--hairline-strong); opacity: .55;
-  transition: opacity .15s ease, transform .15s ease, box-shadow .15s ease;
+  transition: opacity .15s ease, transform .15s ease;
 }
 .langs a:hover { opacity: 1; transform: translateY(-1px); }
 .langs a[aria-current="true"] { opacity: 1; box-shadow: 0 0 0 2px var(--saffron); }
 .langs svg { display: block; width: 100%; height: 100%; }
-.nav-right { display: flex; align-items: center; gap: 18px; }
-/* À l'étroit, le bouton du menu s'efface au profit des drapeaux : celui du
-   héros est juste en dessous, il ne manque à personne. Le `:has` est
-   volontaire — tant qu'une seule langue est publiée, le générateur retire le
-   sélecteur, la règle ne s'applique plus et le bouton reste. */
-@media (max-width: 620px) {
-  .nav-right:has(.langs) .btn { display: none; }
-  .langs a { width: 26px; height: 19px; }
-}
+/* À l'étroit, le bouton du menu s'efface au profit des drapeaux : ceux du
+   héros sont juste en dessous. */
+@media (max-width: 620px) { .nav-right:has(.langs) .btn { display: none; } }
 
 /* --- Héros --- */
-.hero { position: relative; padding: 64px 0 0; overflow: hidden; }
-/* Trame de points saffron, masquée en ellipse : la même texture que le
-   fichier de référence, en beaucoup plus discret qu'un aplat. */
-.hero-dots {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background-image: radial-gradient(rgba(252,174,11,.32) 1.6px, transparent 1.6px);
-  background-size: 24px 24px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 26%, #000 30%, transparent 78%);
-  mask-image: radial-gradient(ellipse 70% 55% at 50% 26%, #000 30%, transparent 78%);
-}
-/* Petits ingrédients qui flottent — un clin d'œil « cuisine » sans photo,
-   juste des emoji, légers et universels. Retirés sur mobile : trop de
-   bruit dans un héros déjà serré. */
-.hero-deco { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-.hero-deco span { position: absolute; font-size: 42px; line-height: 1; }
-@media (max-width: 860px) { .hero-deco { display: none; } }
-.hero-grid {
-  position: relative; z-index: 1; display: grid; grid-template-columns: 1.06fr .94fr;
-  gap: 56px; align-items: center;
-}
-.hero h1 { margin-bottom: 22px; }
-.hero h1 em { font-style: normal; color: var(--saffron); }
-.hero .lead { max-width: 30em; }
-.hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 32px; }
-.hero-note { margin-top: 18px; font-size: 14.5px; color: var(--stone); }
-.hero-phone { justify-self: center; position: relative; }
-@media (max-width: 900px) {
-  .hero { padding-top: 40px; text-align: center; }
-  .hero-grid { grid-template-columns: 1fr; gap: 44px; }
-  .hero .lead { margin-inline: auto; }
-  .hero-cta { justify-content: center; }
-}
+.hero { position: relative; text-align: center; padding-top: 36px; overflow: hidden; isolation: isolate; }
+.hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; z-index: -1; }
+.hero::before { width: 620px; height: 620px; left: 50%; top: 420px; transform: translateX(-50%); background: radial-gradient(circle, rgba(252,174,11,.30), rgba(252,174,11,0) 65%); animation: respire 7s ease-in-out infinite; }
+.hero::after { width: 420px; height: 420px; left: -120px; top: -60px; background: radial-gradient(circle, rgba(252,174,11,.14), transparent 70%); }
+@keyframes respire { 50% { transform: translateX(-50%) scale(1.12); opacity: .8; } }
+.hero > * { position: relative; }
+.hero h1 { max-width: 15ch; margin: 0 auto; }
+.hero .lead { max-width: 560px; margin: 20px auto 0; }
+.hero .stores { justify-content: center; margin-top: 30px; }
+.hero-note { margin-top: 14px; font-size: 13.5px; color: var(--ink-3); }
 
-/* Petites étiquettes blanches accrochées au téléphone — la « preuve »
-   du produit qui vient se poser sur l'image, comme un post-it. */
-.toast {
-  position: absolute; z-index: 3; display: flex; align-items: center; gap: 10px;
-  background: var(--surface); border-radius: 16px; padding: 10px 15px 10px 10px;
-  box-shadow: 0 14px 34px rgba(27,26,23,.16); white-space: nowrap;
-}
-.toast-ico { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; flex: none; }
-.toast-ico svg { width: 17px; height: 17px; }
-.toast-ico.on-brand { background: var(--saffron); color: var(--ink-fixed); }
-.toast-ico.on-sand { background: var(--sand); color: var(--ink); }
-.toast-txt { line-height: 1.25; font-size: 11px; color: var(--stone); }
-.toast-txt b { display: block; font-size: 13px; font-weight: 600; color: var(--ink); }
-.toast-a { right: -4%; top: 11%; }
-.toast-b { left: -4%; bottom: 13%; }
-@media (max-width: 900px) { .toast-a { right: 1%; top: 6%; } .toast-b { left: 1%; bottom: 8%; } }
-@media (max-width: 460px) {
-  .toast { padding: 8px 12px 8px 8px; gap: 8px; }
-  .toast-ico { width: 28px; height: 28px; }
-  .toast-ico svg { width: 14px; height: 14px; }
-  .toast-txt { font-size: 10px; }
-  .toast-txt b { font-size: 12px; }
-}
-@media (max-width: 380px) { .toast-b { display: none; } }
+.hero-visual { position: relative; height: 700px; margin-top: 44px; }
+.hand { position: absolute; left: 50%; top: 0; width: 520px; transform: translateX(-50%);
+  -webkit-mask: linear-gradient(#000 78%, transparent); mask: linear-gradient(#000 78%, transparent); }
+.hand img { width: 100%; height: auto; }
+svg.web { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+svg.web path { fill: none; stroke: var(--web); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+svg.web path.flow { stroke: var(--saffron); stroke-width: 2; stroke-dasharray: 6 180; stroke-linecap: round; animation: flux 3.6s linear infinite; opacity: .9; }
+@keyframes flux { to { stroke-dashoffset: -186; } }
+.src { position: absolute; width: 62px; height: 62px; border-radius: 50%; background: var(--surface); box-shadow: var(--shadow);
+  display: grid; place-items: center; transform: translate(-50%, -50%); animation: flotte 6s ease-in-out infinite; }
+.src::after { content: ""; position: absolute; inset: -7px; border-radius: 50%; border: 1px solid var(--hairline); }
+.src svg { width: 28px; height: 28px; }
+@keyframes flotte { 50% { transform: translate(-50%, calc(-50% - 10px)); } }
+.chip { position: absolute; display: flex; align-items: center; gap: 10px; background: var(--surface); border-radius: 16px;
+  padding: 10px 14px 10px 10px; box-shadow: var(--shadow); text-align: left; font-size: 13px; white-space: nowrap; opacity: 0; }
+.chip .ok { width: 30px; height: 30px; border-radius: 10px; background: var(--saffron); display: grid; place-items: center; color: #fff; font-weight: 800; }
+.chip b { display: block; font-size: 13.5px; }
+.chip span span { color: var(--ink-3); font-size: 12px; }
+.chip.c1 { left: calc(50% + 130px); top: 150px; animation: puce 7s var(--ease) infinite; }
+.chip.c2 { right: calc(50% + 130px); top: 360px; animation: puce 7s var(--ease) 3.5s infinite; }
+@keyframes puce { 0%, 6% { opacity: 0; transform: translateY(12px) scale(.96); } 14%, 46% { opacity: 1; transform: none; } 56%, 100% { opacity: 0; transform: translateY(-8px); } }
 
-/* --- Cadre de téléphone --- */
-.phone {
-  position: relative; width: 300px; max-width: 76vw; aspect-ratio: 1206 / 2622;
-  background: var(--ink-fixed); border-radius: 46px; padding: 9px;
-  box-shadow: var(--shadow-phone), inset 0 0 0 1.5px rgba(255,255,255,.16);
-}
-/* `display:block` sur la vidéo : sans lui, elle est traitée comme du texte et
-   laisse quelques pixels sous elle, qui laissent voir le cadre ink en bas. */
-.phone img, .phone video { width: 100%; height: 100%; object-fit: cover; border-radius: 38px; background: var(--sand); display: block; }
-.phone.lg { width: 322px; }
+/* --- Intro --- */
+.intro { display: grid; grid-template-columns: 1fr auto 1.25fr; gap: 40px; align-items: center; padding: 100px 0 56px; }
+.intro p { font-size: 15.5px; color: var(--ink-2); max-width: 340px; }
+.round { width: 48px; height: 48px; border-radius: 50%; background: var(--ink); color: var(--on-ink); display: grid; place-items: center; animation: balance 2.4s ease-in-out infinite; }
+@keyframes balance { 50% { transform: translateY(5px); } }
 
-/* Le premier pilier montrait DEUX téléphones qui se chevauchaient : la feuille
-   d'import, puis la fiche qui en sortait. La vidéo raconte désormais les deux
-   temps à elle seule — le second téléphone est devenu redondant, et il montrait
-   une AUTRE recette que celle de la vidéo, ce qui brouillait le récit.
-   Les règles `.phone-pair` ne servaient qu'à ce pilier : elles partent avec. */
+/* --- Trois cartes photo --- */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.pcard { position: relative; height: 500px; border-radius: 24px; overflow: hidden; background: var(--card); }
+.pcard .ph { position: absolute; inset: 0; transition: transform 1.2s var(--ease); }
+.pcard .ph img { width: 100%; height: 100%; object-fit: cover; }
+.pcard:hover .ph { transform: scale(1.04); }
+.pcard .ico { position: absolute; z-index: 2; right: 22px; top: 22px; width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--on-ink); display: grid; place-items: center; }
+.pcard h3 { position: absolute; z-index: 2; right: 22px; top: 74px; text-align: right; font-size: 21px; font-weight: 560; letter-spacing: -.02em; max-width: 12ch; }
+.pcard p { position: absolute; z-index: 2; left: 22px; right: 22px; bottom: 22px; font-size: 14.5px; color: var(--ink-2); line-height: 1.45; }
+.pcard.photo h3, .pcard.photo p { color: #fff; text-shadow: 0 1px 12px rgba(0,0,0,.35); }
+.pcard.photo .ico { background: #1B1A17; color: #fff; }
+.pcard.photo::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(rgba(0,0,0,.42), transparent 34%, transparent 58%, rgba(0,0,0,.55)); }
+.pcard.tint { background: linear-gradient(160deg, var(--saffron-tint), var(--tint-b)); }
+.tilt { position: absolute; left: 26px; bottom: -210px; width: 236px; transform: rotate(-7deg); transition: transform 1.2s var(--ease); }
+.pcard:hover .tilt { transform: rotate(-5deg) translateY(-12px); }
 
-/* --- Bandeau des sources --- */
-.sources { padding: 60px 0 8px; text-align: center; }
-.sources p { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--stone); font-weight: 700; margin-bottom: 24px; }
-.sources ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-.sources li {
-  background: var(--surface); box-shadow: 0 3px 12px rgba(27,26,23,.05);
-  padding: 9px 18px; border-radius: 999px; font-size: 15px; font-weight: 500; color: var(--stone);
-}
+/* Téléphone dessiné en CSS : la capture y garde ses proportions exactes. */
+.phone { position: relative; border-radius: 46px; background: #0d0d0d; padding: 9px; box-shadow: var(--shadow-phone), inset 0 0 0 2px #2a2a2a; }
+.phone .scr { position: relative; border-radius: 38px; overflow: hidden; aspect-ratio: 1320 / 2868; background: #000; }
+.phone .scr img, .phone .scr video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 
-/* --- Sections --- */
-section { padding: 92px 0; }
-.section-head { max-width: 44ch; margin-bottom: 56px; }
-.section-head.center { margin-inline: auto; text-align: center; }
-.section-head h2 { margin-bottom: 18px; }
+/* --- Étapes, calées sur la vraie vidéo d'import --- */
+.steps { padding: 130px 0 40px; }
+.steps-head { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: end; }
+.steps-head p { color: var(--ink-2); font-size: 15.5px; max-width: 380px; justify-self: end; }
+.steps-body { display: grid; grid-template-columns: minmax(0, 520px) 290px; justify-content: space-between; gap: 60px; align-items: center; margin-top: 60px; position: relative; }
+.steps-body::before { content: ""; position: absolute; right: -60px; top: 50%; width: 560px; height: 560px; transform: translateY(-50%); background: radial-gradient(circle, rgba(252,174,11,.2), transparent 65%); filter: blur(30px); }
+.step-list { display: grid; gap: 14px; position: relative; }
+.step { position: relative; background: var(--card); border-radius: 18px; padding: 22px 22px 24px; cursor: pointer; border: 1px solid transparent; transition: background .35s, border-color .35s, box-shadow .35s; }
+.step h3 { font-size: 16.5px; font-weight: 600; padding-right: 44px; }
+.step p { font-size: 14.5px; color: var(--ink-2); margin-top: 8px; }
+.step .n { position: absolute; right: 18px; top: 18px; width: 32px; height: 26px; border-radius: 999px; background: var(--surface); display: grid; place-items: center; font-size: 12px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.step .bar { position: absolute; left: 22px; right: 22px; bottom: 12px; height: 3px; border-radius: 3px; background: var(--hairline); overflow: hidden; opacity: 0; transition: opacity .3s; }
+.step .bar i { display: block; height: 100%; width: 0; background: var(--saffron); transition: width .25s linear; }
+.step.on { background: var(--surface); border-color: var(--hairline); box-shadow: var(--shadow); }
+.step.on .n { background: var(--saffron); color: #1B1A17; }
+.step.on .bar { opacity: 1; }
+.step:focus-visible { outline: 2px solid var(--saffron); outline-offset: 2px; }
+.steps-phone { position: relative; }
+.steps-phone .scr { aspect-ratio: 592 / 1280; }
+.steps-phone figcaption { text-align: center; font-size: 12.5px; color: var(--ink-3); margin-top: 14px; }
 
-/* --- Le problème (récit) --- */
-/* Plus de bloc sombre : le contraste vient du poids typographique et du
-   saffron, pas d'un aplat noir. La page reste claire d'un bout à l'autre. */
-.problem-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 60px; align-items: start; }
-.problem-grid .story h2 { font-size: clamp(32px, 4.6vw, 52px); }
-.problem-grid .story { max-width: 22ch; }
-.problem-body p { font-size: clamp(18px, 2vw, 21px); line-height: 1.62; color: var(--stone); }
-.problem-body p + p { margin-top: 22px; }
-.problem-punch {
-  margin-top: 34px; padding-top: 30px; border-top: 2px solid var(--hairline-strong);
-  font-size: clamp(22px, 2.6vw, 30px); line-height: 1.32; font-weight: 700; color: var(--ink);
-}
-.problem-punch b { color: var(--saffron); }
-@media (max-width: 880px) { .problem-grid { grid-template-columns: 1fr; gap: 26px; } .problem-grid .story { max-width: none; } }
+/* --- Fonctions --- */
+.also { padding: 130px 0 20px; }
+.also h2 { max-width: 16ch; }
+.feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
+.feat { background: var(--card); border-radius: 18px; padding: 26px; transition: transform .3s var(--ease), background .3s, box-shadow .3s; }
+.feat:hover { transform: translateY(-3px); background: var(--surface); box-shadow: var(--shadow); }
+.feat .dot { width: 44px; height: 44px; border-radius: 13px; background: var(--saffron-tint); color: var(--icon-ink); display: grid; place-items: center; }
+.feat h3 { font-size: 16.5px; font-weight: 600; margin-top: 18px; }
+.feat p { font-size: 14.5px; color: var(--ink-2); margin-top: 6px; }
+.feat p b { font-weight: 600; color: var(--on-tint); }
 
-/* --- Piliers --- */
-.pillar { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-.pillar + .pillar { margin-top: 112px; }
-.pillar.flip .pillar-media { order: -1; }
-.pillar-media { display: flex; justify-content: center; }
-.pillar-num {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; border-radius: 999px;
-  background: var(--saffron); color: var(--ink-fixed);
-  box-shadow: 0 6px 16px rgba(252,174,11,.35);
-  font-size: 18px; font-weight: 700; margin-bottom: 24px;
-}
-.pillar h3 { font-size: clamp(27px, 3.4vw, 38px); margin-bottom: 16px; }
-.pillar p { color: var(--stone); font-size: 17.5px; }
-.pillar ul { list-style: none; margin: 26px 0 0; padding: 0; }
-.pillar li { position: relative; padding-left: 30px; margin-bottom: 12px; color: var(--stone); font-size: 16px; }
-.pillar li::before {
-  content: ""; position: absolute; left: 0; top: 9px;
-  width: 8px; height: 8px; border-radius: 999px; background: var(--saffron);
-}
-@media (max-width: 900px) {
-  .pillar, .pillar.flip { grid-template-columns: 1fr; gap: 40px; }
-  .pillar.flip .pillar-media { order: 0; }
-  .pillar + .pillar { margin-top: 84px; }
-}
+/* --- Avis --- */
+.reviews { margin-top: 130px; background: var(--canvas); padding: 90px 0; }
+.reviews .wrap { display: grid; grid-template-columns: 340px 1fr; gap: 40px; align-items: start; }
+.arrows { display: flex; gap: 10px; margin-top: 30px; }
+.arrows button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--hairline); background: var(--surface); color: var(--ink); cursor: pointer; display: grid; place-items: center; transition: background .2s, color .2s; }
+.arrows button:hover { background: var(--ink); color: var(--on-ink); }
+.rev-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 4px 2px 12px; }
+.rev-track::-webkit-scrollbar { display: none; }
+.rev { flex: 0 0 320px; scroll-snap-align: start; background: var(--surface); border-radius: 18px; padding: 24px; box-shadow: 0 1px 2px rgba(0,0,0,.03); }
+.rev .who { display: flex; align-items: center; gap: 12px; }
+.rev .av { width: 38px; height: 38px; border-radius: 50%; background: var(--saffron-tint); display: grid; place-items: center; font-weight: 650; color: var(--on-tint); }
+.rev .who b { font-size: 14px; display: block; }
+.rev .st { color: var(--saffron-deep); font-size: 12px; letter-spacing: 1px; }
+.rev h3 { font-size: 15px; margin-top: 16px; font-weight: 600; letter-spacing: 0; line-height: 1.35; }
+.rev p { font-size: 14px; color: var(--ink-2); margin-top: 6px; }
+.rev-note { font-size: 12.5px; color: var(--ink-3); margin-top: 10px; }
 
-/* --- Grille de fonctions --- */
-/* Cartes blanches uniformes, la couleur ne vit que dans la pastille
-   d'icône : plus calme qu'une mosaïque de couleurs par carte. */
-.features { background: var(--sand); }
-.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.card {
-  background: var(--surface); border: 0; border-radius: 24px;
-  padding: 30px 28px; box-shadow: 0 6px 22px rgba(27,26,23,.05);
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-.card:hover { transform: translateY(-4px); box-shadow: 0 10px 26px rgba(27,26,23,.08); }
-.card .ico {
-  width: 44px; height: 44px; border-radius: 13px;
-  background: var(--saffron-tint); color: var(--on-tint);
-  display: grid; place-items: center; margin-bottom: 20px;
-}
-.card h3 { font-size: 19px; margin-bottom: 8px; }
-.card p { color: var(--stone); font-size: 15.5px; }
-@media (max-width: 940px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 620px) { .feature-grid { grid-template-columns: 1fr; } }
-
-/* --- Ce que Nyama n'est pas --- */
-.not-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 56px; max-width: 800px; margin-inline: auto; }
-.not-list div { display: flex; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--hairline); align-items: baseline; }
-.not-list span.x { color: var(--stone); font-size: 17px; line-height: 1; flex: none; }
-.not-list p { font-size: 17px; }
-.not-final { text-align: center; margin-top: 46px; font-size: clamp(23px, 3vw, 32px); font-weight: 700; line-height: 1.3; }
-.not-final b { color: var(--saffron); }
-@media (max-width: 700px) { .not-list { grid-template-columns: 1fr; gap: 0; } }
-
-/* --- FAQ --- */
-/* Cartes blanches, chevron classique — plus calme que l'accordéon
-   « + qui pivote » d'une précédente version, plus proche du fichier de
-   référence. */
-.faq { max-width: 780px; margin-inline: auto; display: flex; flex-direction: column; gap: 10px; }
-details {
-  background: var(--surface); border-radius: 20px; padding: 4px 26px;
-  box-shadow: 0 4px 16px rgba(27,26,23,.04);
-}
-summary {
-  list-style: none; cursor: pointer; padding: 20px 40px 20px 0; position: relative;
-  font-size: 18px; font-weight: 600; letter-spacing: -.01em;
-}
+/* --- Questions --- */
+.faq { padding: 120px 0 20px; display: grid; grid-template-columns: 340px 1fr; gap: 40px; }
+details { border-bottom: 1px solid var(--hairline); padding: 22px 0; }
+summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 20px; font-size: 17px; font-weight: 560; letter-spacing: -.01em; }
 summary::-webkit-details-marker { display: none; }
-summary::after {
-  content: ""; position: absolute; right: 4px; top: 50%; width: 10px; height: 10px;
-  border-right: 2px solid var(--stone); border-bottom: 2px solid var(--stone);
-  transform: translateY(-70%) rotate(45deg); transition: transform .2s ease;
-}
-details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
-details p { color: var(--stone); padding: 0 0 22px; font-size: 16px; }
-details a { color: var(--saffron); text-underline-offset: 2px; }
+summary::after { content: "+"; font-size: 22px; line-height: 1; color: var(--ink-3); transition: transform .3s var(--ease); }
+details[open] summary::after { transform: rotate(45deg); }
+details p { color: var(--ink-2); font-size: 15.5px; margin-top: 12px; max-width: 640px; }
+details p a { color: var(--saffron-deep); text-underline-offset: 2px; }
 
-/* --- En bref --- */
-/* La fiche d'identité du produit, écrite noir sur blanc. Elle existe
-   d'abord pour les moteurs — classiques comme IA : tout le reste de la
-   page raconte, elle seule AFFIRME (plateforme, sources, prix). Même
-   registre visuel que la liste « Ce que Nyama n'est pas ». */
-.brief-list { max-width: 800px; margin-inline: auto; }
-.brief-list > div {
-  display: grid; grid-template-columns: 150px 1fr; gap: 20px;
-  padding: 18px 0; border-bottom: 1px solid var(--hairline); align-items: baseline;
-}
-.brief-list dt { font-size: 15px; font-weight: 700; color: var(--ink); margin: 0; }
-.brief-list dd { font-size: 16px; color: var(--stone); margin: 0; }
-@media (max-width: 560px) {
-  .brief-list > div { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; }
-}
+/* --- En bref : la fiche que les moteurs citent --- */
+.brief { padding: 110px 0 20px; }
+.brief-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 40px 0 0; }
+.brief-list div { background: var(--card); border-radius: 18px; padding: 22px 24px; }
+.brief-list dt { font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--on-tint); }
+.brief-list dd { margin: 8px 0 0; font-size: 15px; color: var(--ink); line-height: 1.5; }
 
 /* --- Appel final --- */
-/* Panneau saffron CONTENU (pas un aplat plein écran), texturé de points,
-   avec deux ingrédients qui débordent aux coins — reprend le traitement
-   du fichier de référence pour son bloc de clôture. */
-.final { padding: 30px 0 96px; }
-.final-panel {
-  position: relative; overflow: hidden; text-align: center;
-  background: var(--saffron); border-radius: 40px; padding: 76px 32px;
-}
-.final-panel::before {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background-image: radial-gradient(rgba(27,26,23,.12) 1.6px, transparent 1.6px);
-  background-size: 24px 24px;
-}
-.final-deco { position: absolute; font-size: 42px; line-height: 1; opacity: .8; pointer-events: none; }
-.final-deco.a { left: 6%; top: 12%; transform: rotate(-16deg); }
-.final-deco.b { right: 7%; bottom: 14%; transform: rotate(14deg); }
-.final-logo {
-  position: relative; width: 64px; height: 64px; border-radius: 18px;
-  margin: 0 auto 22px; box-shadow: 0 12px 28px rgba(27,26,23,.18);
-}
-.final-panel h2 { position: relative; max-width: 16ch; margin: 0 auto 16px; color: var(--ink-fixed); }
-.final-panel .lead { position: relative; max-width: 44ch; margin: 0 auto 32px; color: rgba(27,26,23,.72); }
-.final-panel .btn-store { position: relative; margin-inline: auto; }
-@media (max-width: 600px) { .final-panel { padding: 54px 22px; border-radius: 28px; } .final-deco { font-size: 30px; } }
+.final { margin: 90px 0 0; background: var(--card); border-radius: 32px; display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; overflow: hidden; position: relative; min-height: 420px; isolation: isolate; }
+.final::before { content: ""; position: absolute; right: -80px; top: -80px; width: 520px; height: 520px; background: radial-gradient(circle, rgba(252,174,11,.35), transparent 65%); filter: blur(20px); z-index: -1; }
+.final .txt { padding: 56px; }
+.final .txt > p { font-size: 14.5px; color: var(--ink-2); }
+.final h2 { margin-top: 14px; font-size: clamp(34px, 4vw, 52px); }
+.final .stores { margin-top: 30px; }
+.final .img { position: relative; align-self: stretch; min-height: 420px; }
+.final .img img { position: absolute; right: 40px; bottom: -250px; width: 340px; height: auto; transform: rotate(-9deg); animation: flotteFin 7s ease-in-out infinite; }
+@keyframes flotteFin { 0%, 100% { transform: rotate(-9deg); } 50% { transform: translateY(-12px) rotate(-10deg); } }
 
 /* --- Pied de page --- */
-/* Sable, pas noir : trois colonnes façon fichier de référence, sans en
-   reprendre le fond sombre — un site clair d'un bout à l'autre. */
-footer.site { background: var(--sand); padding: 60px 0 40px; }
+footer.site { padding: 64px 0 36px; }
 .foot-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; align-items: start; }
 .foot-brand { display: flex; align-items: center; gap: 12px; }
 .foot-brand img { width: 40px; height: 40px; border-radius: 11px; }
-.foot-brand strong { font-size: 21px; font-weight: 700; display: block; }
+.foot-brand strong { font-size: 20px; font-weight: 650; display: block; }
 .foot-brand em { font-style: normal; font-size: 14.5px; color: var(--stone); display: block; margin-top: 4px; max-width: 28ch; }
 .foot-head { font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--stone); margin: 0 0 14px; }
 .foot-col { display: flex; flex-direction: column; gap: 11px; }
 .foot-col a { color: var(--ink); text-decoration: none; font-size: 15px; }
 .foot-col a:hover { color: var(--saffron-pressed); text-decoration: underline; text-underline-offset: 3px; }
-.foot-legal { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--hairline-strong); color: var(--stone); font-size: 13.5px; }
+.foot-legal { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--hairline); color: var(--stone); font-size: 13.5px; }
 @media (max-width: 700px) {
   .foot-grid { grid-template-columns: 1fr 1fr; }
   .foot-brand { grid-column: 1 / -1; margin-bottom: 6px; }
@@ -446,9 +371,7 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
   background: var(--surface); border-top: 1px solid var(--hairline-strong);
   box-shadow: 0 -8px 28px rgba(27,26,23,.10);
 }
-.cookies-inner {
-  padding: 20px 32px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
-}
+.cookies-inner { padding: 20px 32px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
 .cookies-inner p { flex: 1 1 380px; font-size: 14.5px; color: var(--stone); line-height: 1.5; }
 .cookies-inner a { color: var(--saffron); text-underline-offset: 2px; }
 /* Refuser/Accepter au même gabarit : un bouton géant à côté d'un lien
@@ -466,6 +389,7 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
    Ils vivent ici pour qu'il n'y ait qu'UNE feuille de style à tenir :
    _build.mjs extrait ce bloc <style> et le pose dans les pages du blog.
    ================================================================== */
+.features { background: var(--sand); }
 
 /* --- Liste des articles --- */
 .blog-head { padding: 64px 0 8px; text-align: center; }
@@ -530,17 +454,52 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
 .article-cta h2 { font-size: clamp(24px, 3vw, 32px); margin-bottom: 12px; }
 .article-cta p { color: var(--stone); margin-bottom: 26px; }
 
+/* --- Grilles : un enfant de grille ne doit jamais élargir la page --- */
+.intro > *, .steps-head > *, .steps-body > *, .faq > *, .reviews .wrap > *, .final > * { min-width: 0; }
+
+/* --- Téléphone --- */
+@media (max-width: 900px) {
+  .frame { margin: 0; border-radius: 0; }
+  .wrap { padding: 0 16px; }
+  .hero-visual { height: 540px; }
+  .hand { width: 400px; }
+  .src { width: 46px; height: 46px; }
+  .src svg { width: 21px; height: 21px; }
+  .src::after { inset: -5px; }
+  .src.far, .chip { display: none; }
+  .intro, .steps-head, .steps-body, .reviews .wrap, .faq, .final { grid-template-columns: 1fr; }
+  .intro { padding-top: 70px; gap: 22px; }
+  .round { display: none; }
+  .cards, .feat-grid, .brief-list { grid-template-columns: 1fr; }
+  .pcard { height: 440px; }
+  .steps-head p { justify-self: start; }
+  .steps-body { gap: 28px; margin-top: 36px; }
+  .steps-phone { width: 230px; margin: 0 auto; order: -1; }
+  .final { min-height: 0; }
+  .final .txt { padding: 36px 24px 8px; }
+  .final .img { min-height: 330px; }
+  .final .img img { width: 250px; right: calc(50% - 125px); bottom: -190px; }
+}
+
 /* --- Apparition au défilement --- */
-.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
 .reveal.in { opacity: 1; transform: none; }
+.d1 { transition-delay: .08s; } .d2 { transition-delay: .16s; } .d3 { transition-delay: .24s; }
+.hand.reveal { transform: translate(-50%, 120px); transition: opacity 1.2s var(--ease) .35s, transform 1.4s var(--ease) .35s; }
+.hand.reveal.in { transform: translate(-50%, var(--py, 0px)); }
+.src.reveal { transform: translate(-50%, -50%); transition: opacity .6s; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal { opacity: 1; transform: none; transition: none; }
-  .btn:hover, .card:hover { transform: none; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+  .hand.reveal { transform: translateX(-50%); }
+  .src.reveal { transform: translate(-50%, -50%); }
+  .chip { display: none; }
 }
 </style>
 </head>
 <body data-ct="site_accueil">
+<div class="frame">
 
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
@@ -549,9 +508,10 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
       <span>Nyama</span>
     </a>
     <nav class="nav-links">
-      <a href="#probleme" data-i18n="nav.probleme">Le problème</a>
       <a href="#comment" data-i18n="nav.comment">Comment ça marche</a>
       <a href="#fonctions" data-i18n="nav.fonctions">Fonctions</a>
+      <a href="#avis" data-i18n="nav.avis">Avis</a>
+      <a href="#questions" data-i18n="nav.questions">Questions</a>
       <!-- Retiré par _build.mjs tant qu'aucun article n'est publié : un lien
            « Blog » vers une page vide vaut moins que pas de lien du tout. -->
       <a href="/blog/" data-lien-blog data-i18n="nav.blog">Blog</a>
@@ -583,299 +543,162 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
           <svg viewBox="0 0 6 4" aria-hidden="true"><rect width="6" height="4" fill="#AA151B"/><rect y="1" width="6" height="2" fill="#F1BF00"/></svg>
         </a>
       </div>
-      <a class="btn btn-primary" href="https://apps.apple.com/app/id6794365868" data-appstore data-i18n="nav.cta">Télécharger</a>
+      <a class="btn btn-dark" href="https://apps.apple.com/app/id6794365868" data-appstore data-i18n="nav.cta">Télécharger</a>
     </div>
   </div>
 </header>
 
 <main id="top">
 
-  <!-- ATTENTION -------------------------------------------------------- -->
+  <!-- HÉROS --------------------------------------------------------------
+       Une vraie main (Higgsfield, écran vert) tient l'iPhone, la capture de la
+       bibliothèque y est posée au pixel ; les sources convergent vers lui. -->
   <section class="hero">
-    <div class="hero-dots" aria-hidden="true"></div>
-    <div class="hero-deco" aria-hidden="true">
-      <span style="left:4%; top:130px; transform:rotate(-16deg)">🌿</span>
-      <span style="left:8%; top:380px; transform:rotate(10deg)">🍅</span>
-      <span style="right:5%; top:100px; transform:rotate(14deg)">🧄</span>
-      <span style="right:4%; top:400px; transform:rotate(-12deg)">🍋</span>
+    <div class="wrap">
+      <p class="eyebrow reveal" data-i18n="hero.eyebrow">Ta bibliothèque de recettes</p>
+      <h1 class="reveal d1" data-i18n="hero.h1">Tu sauvegardes des recettes. Nyama te les fait <em>cuisiner.</em></h1>
+      <p class="lead reveal d2" data-i18n="hero.lead">Partage une vidéo Instagram, TikTok ou YouTube. Nyama en sort une vraie recette, ingrédients et étapes, et la range dans ta bibliothèque.</p>
+      <div class="stores reveal d3">
+        <a class="store" href="https://apps.apple.com/app/id6794365868" data-appstore>
+          <svg width="22" height="26" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+          <span class="store-txt" data-i18n="cta.appstore"><small>Télécharger sur</small><b>l'App Store</b></span>
+        </a>
+        <span class="store soon" aria-disabled="true">
+          <svg width="22" height="22" aria-hidden="true" focusable="false" fill="currentColor" viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>
+          <span class="store-txt" data-i18n="cta.play"><small>Android</small><b>Google Play</b></span>
+          <span class="pill-soon" data-i18n="cta.soon">Bientôt</span>
+        </span>
+      </div>
+      <p class="hero-note reveal d3" data-i18n="hero.note">Application iPhone. Gratuite pour commencer, sans carte bancaire.</p>
     </div>
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow" data-i18n="hero.eyebrow">Ta bibliothèque de recettes</p>
-        <h1 data-i18n="hero.h1">Cette recette, tu t'en souviens très bien.<br>Tu ne sais juste plus <em>où</em> elle est.</h1>
-        <p class="lead" data-i18n="hero.lead">
-          Tes meilleures recettes dorment dans tes favoris Instagram, tes captures d'écran et
-          tes onglets ouverts. Nyama les réunit toutes au même endroit. Le tien.
-        </p>
-        <div class="hero-cta">
-          <a class="btn-store" href="https://apps.apple.com/app/id6794365868" data-appstore>
-            <svg width="24" height="28" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-            <span class="btn-store-txt" data-i18n="cta.appstore"><small>Télécharger sur</small><b>l'App Store</b></span>
-          </a>
-          <a class="btn btn-ghost" href="#comment" data-i18n="hero.cta2">Voir comment ça marche</a>
-        </div>
-        <p class="hero-note" data-i18n="hero.note">Application iPhone. Gratuite pour commencer, sans carte bancaire.</p>
+
+    <div class="hero-visual" id="heroVisual">
+      <svg class="web" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden="true"><g id="fils"></g></svg>
+      <div class="hand reveal" id="main">
+        <picture>
+          <source srcset="/assets/accueil-main.avif" type="image/avif">
+          <img src="/assets/accueil-main.png" width="900" height="1372" alt="Une main tient un iPhone ouvert sur la bibliothèque de recettes Nyama">
+        </picture>
       </div>
-      <div class="hero-phone">
-        <div class="toast toast-a">
-          <span class="toast-ico on-brand">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          </span>
-          <span class="toast-txt" data-i18n="hero.tag"><b>Recette importée</b>depuis Instagram</span>
-        </div>
-        <div class="toast toast-b">
-          <span class="toast-ico on-sand">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2"/><path d="M9 2h6"/></svg>
-          </span>
-          <span class="toast-txt" data-i18n="hero.tag2"><b>Étape 2 sur 4</b>mains libres</span>
-        </div>
-        <div class="phone lg">
-          <img src="/assets/ecran-accueil.png" width="1206" height="2622"
-               alt="L'écran d'accueil de Nyama : des recettes venues d'Instagram, de TikTok, de YouTube et de sites de cuisine convergent vers l'application.">
-        </div>
-      </div>
+      <!-- Sources : position en % de la zone (x, y) ; data-m = position sur téléphone. -->
+      <span class="src reveal" data-x="17" data-y="18" data-m="9,14" aria-hidden="true"><svg width="28" height="28" aria-hidden="true" focusable="false" fill="url(#ig-grad)" viewBox="0 0 24 24"><defs><linearGradient id="ig-grad" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F58529"/><stop offset=".55" stop-color="#DD2A7B"/><stop offset="1" stop-color="#8134AF"/></linearGradient></defs><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></span>
+      <span class="src reveal" data-x="83" data-y="16" data-m="91,12" aria-hidden="true" style="color:var(--ink);animation-delay:-2s"><svg width="28" height="28" aria-hidden="true" focusable="false" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></span>
+      <span class="src reveal" data-x="12" data-y="42" data-m="8,50" aria-hidden="true" style="color:#FF0000;animation-delay:-4s"><svg width="28" height="28" aria-hidden="true" focusable="false" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></span>
+      <span class="src reveal" data-x="75" data-y="55" data-m="92,54" aria-hidden="true" style="color:#E60023;animation-delay:-1s"><svg width="28" height="28" aria-hidden="true" focusable="false" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg></span>
+      <span class="src far reveal" data-x="7" data-y="72" aria-hidden="true" style="color:#0866FF;animation-delay:-3s"><svg width="28" height="28" aria-hidden="true" focusable="false" fill="currentColor" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></span>
+      <span class="src far reveal" data-x="93" data-y="78" aria-hidden="true" style="color:var(--ink-2);animation-delay:-5s"><svg width="28" height="28" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <circle cx="12" cy="12" r="10" /> <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /> <path d="M2 12h20" /> </svg></span>
+      <div class="chip c1" aria-hidden="true"><span class="ok">✓</span><span><b data-i18n="hero.chip1t">Recette importée</b><span data-i18n="hero.chip1s">depuis TikTok</span></span></div>
+      <div class="chip c2" aria-hidden="true"><span class="ok">✓</span><span><b data-i18n="hero.chip2t">Pâtes carbonara</b><span data-i18n="hero.chip2s">6 ingrédients · 35 min</span></span></div>
     </div>
   </section>
 
-  <div class="sources">
-    <div class="wrap">
-      <p data-i18n="sources.label">D'où viennent tes recettes</p>
-      <ul>
-        <li>Instagram</li>
-        <li>TikTok</li>
-        <li>YouTube</li>
-        <li>Pinterest</li>
-        <li>Facebook</li>
-        <li data-i18n="sources.blogs">Blogs et sites de cuisine</li>
-        <li data-i18n="sources.livres">Photos de livres</li>
-        <li data-i18n="sources.notes">Notes et messages</li>
-      </ul>
-    </div>
+  <div class="wrap">
+    <section class="intro">
+      <p class="reveal" data-i18n="intro.p">Instagram, TikTok, YouTube, un blog, la photo d'une page de livre, le message de ta mère. Nyama lit la légende, le texte à l'écran, et même ce qui est dit dans la vidéo.</p>
+      <span class="round reveal d1" aria-hidden="true"><svg width="20" height="20" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 5v14" /> <path d="m19 12-7 7-7-7" /> </svg></span>
+      <h2 class="reveal d2" data-i18n="intro.h2">Tout ce que tu gardes, enfin <em>au même endroit.</em></h2>
+    </section>
+
+    <section class="cards">
+      <article class="pcard tint reveal">
+        <span class="ico" aria-hidden="true"><svg width="18" height="18" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></span>
+        <h3 data-i18n="card1.t">Partage. C'est rangé.</h3>
+        <div class="tilt" aria-hidden="true"><div class="phone"><div class="scr">
+          <picture><source srcset="/assets/ecran-bolognaise.avif" type="image/avif"><img src="/assets/ecran-bolognaise.jpg" alt="" loading="lazy"></picture>
+        </div></div></div>
+      </article>
+      <article class="pcard photo reveal d1">
+        <div class="ph"><picture><source srcset="/assets/cuisiniere.avif" type="image/avif"><img src="/assets/cuisiniere.jpg" alt="Une femme retrouve une recette sur son téléphone dans sa cuisine" loading="lazy"></picture></div>
+        <span class="ico" aria-hidden="true"><svg width="18" height="18" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /> </svg></span>
+        <h3 data-i18n="card2.t">Retrouvée en deux secondes</h3>
+        <p data-i18n="card2.p">Tu cherches « citron », elle est là. Par titre ou par ingrédient.</p>
+      </article>
+      <article class="pcard photo reveal d2">
+        <div class="ph"><picture><source srcset="/assets/cuisine-support.avif" type="image/avif"><img src="/assets/cuisine-support.jpg" alt="Le mode cuisine de Nyama sur un iPhone posé sur un support, au-dessus d'une planche à découper" loading="lazy"></picture></div>
+        <span class="ico" aria-hidden="true"><svg width="18" height="18" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg></span>
+        <h3 data-i18n="card3.t">L'écran suit tes mains</h3>
+        <p data-i18n="card3.p">Une étape à la fois, en grand. L'écran ne s'éteint pas pendant que tu cuisines.</p>
+      </article>
+    </section>
+
+    <!-- ÉTAPES ------------------------------------------------------------
+         La VRAIE vidéo d'import (filmée sur iPhone, voir le README) ; chaque
+         carte s'allume au moment où la vidéo arrive à son étape (data-t, en
+         secondes), un clic y fait sauter la vidéo. -->
+    <section class="steps" id="comment">
+      <div class="steps-head">
+        <h2 class="reveal" data-i18n="steps.h2">De la vidéo à la recette, en <em>quatre gestes.</em></h2>
+        <p class="reveal d1" data-i18n="steps.lead">Pas de recopie, pas de capture d'écran, pas d'onglet ouvert pour rien. Tu partages, Nyama s'occupe du reste.</p>
+      </div>
+      <div class="steps-body">
+        <div class="step-list">
+          <div class="step on reveal" data-t="0" role="button" tabindex="0"><span class="n">01</span><h3 data-i18n="s1.t">Tu tombes sur une recette</h3><p data-i18n="s1.p">Une vidéo Facebook, Instagram, TikTok ou YouTube. Celle-là, tu veux la garder.</p><span class="bar"><i></i></span></div>
+          <div class="step reveal d1" data-t="1.1" role="button" tabindex="0"><span class="n">02</span><h3 data-i18n="s2.t">Tu la partages à Nyama</h3><p data-i18n="s2.p">Le bouton « Partager », puis Nyama. Rien à recopier, rien à coller.</p><span class="bar"><i></i></span></div>
+          <div class="step reveal d2" data-t="3.2" role="button" tabindex="0"><span class="n">03</span><h3 data-i18n="s3.t">Nyama la lit pour toi</h3><p data-i18n="s3.p">La légende, le texte à l'écran, et même ce qui est dit dans la vidéo.</p><span class="bar"><i></i></span></div>
+          <div class="step reveal d3" data-t="9" role="button" tabindex="0"><span class="n">04</span><h3 data-i18n="s4.t">Tu relis, c'est rangé</h3><p data-i18n="s4.p">Les ingrédients d'un côté, les étapes de l'autre. Ce dont Nyama n'est pas sûr est signalé.</p><span class="bar"><i></i></span></div>
+        </div>
+        <figure class="steps-phone reveal d2">
+          <div class="phone"><div class="scr">
+            <!-- `muted` est la condition d'`autoplay` : aucun navigateur ne
+                 l'autorise sans. -->
+            <video id="demo" src="/assets/partage-import.mp4" poster="/assets/partage-import-poster.png"
+                   autoplay muted loop playsinline preload="metadata"
+                   aria-label="Démonstration : une recette Facebook partagée vers Nyama et rangée en quelques secondes"></video>
+          </div></div>
+          <figcaption data-i18n="steps.caption">Filmé sur un vrai iPhone.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- FONCTIONS --------------------------------------------------------- -->
+    <section class="also" id="fonctions">
+      <h2 class="reveal" data-i18n="feat.h2b">Et une semaine de repas <em>déjà décidée.</em></h2>
+      <div class="feat-grid">
+        <div class="feat reveal"><span class="dot"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="m15 11-1 9" /> <path d="m19 11-4-7" /> <path d="M2 11h20" /> <path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.7-7.4" /> <path d="M4.5 15.5h15" /> <path d="m5 11 4-7" /> <path d="m9 11 1 9" /> </svg></span><h3 data-i18n="feat.c1t">Liste de courses</h3><p data-i18n="feat.c1p">Tes recettes deviennent une liste rangée par rayon, quantités additionnées. Tu coches d'une main au supermarché.</p></div>
+        <div class="feat reveal d1"><span class="dot"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /> <path d="M8 14h.01" /> <path d="M12 14h.01" /> <path d="M16 14h.01" /> <path d="M8 18h.01" /> <path d="M12 18h.01" /> <path d="M16 18h.01" /> </svg></span><h3 data-i18n="feat.c2t">La semaine décidée</h3><p data-i18n="feat.c2p">Tu poses tes repas sur les jours qui viennent. Le mardi soir, tu n'ouvres plus le frigo en espérant une idée. Et le moment venu, le rappel sonne à l'heure du repas et ouvre la recette.</p></div>
+        <div class="feat reveal d2"><span class="dot"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /> </svg></span><h3 data-i18n="feat.c7t">Envoyer une recette</h3><p data-i18n="feat.c7p">Tu envoies un lien, elle s'ouvre sans rien installer. Si la personne l'aime, elle l'ajoute à son carnet d'un toucher.</p></div>
+        <div class="feat reveal"><span class="dot"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /> </svg></span><h3 data-i18n="feat.c8t">Ce que tu ne manges pas</h3><p data-i18n="feat.c8p">Tu déclares tes allergies et ton régime une fois. Une recette qui contient un allergène est signalée, avant que tu la cuisines.</p></div>
+        <div class="feat reveal d1"><span class="dot"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72" /> <path d="m14 7 3 3" /> <path d="M5 6v4" /> <path d="M19 14v4" /> <path d="M10 2v2" /> <path d="M7 8H3" /> <path d="M21 16h-4" /> <path d="M11 3H9" /> </svg></span><h3 data-i18n="feat.c3t">Adapter une recette</h3><p data-i18n="feat.c3p">Sans lactose, pour six au lieu de quatre, un peu plus léger. La recette se réécrit, l'originale ne bouge pas. <b>Avec Nyama Plus.</b></p></div>
+        <div class="feat reveal d2"><span class="dot"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" /> </svg></span><h3 data-i18n="feat.c4t">Les calories</h3><p data-i18n="feat.c4p">Ce que contient vraiment ton assiette, estimé pour toi. Sans calculette et sans rien recopier. <b>Avec Nyama Plus.</b></p></div>
+        <div class="feat reveal"><span class="dot"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <rect width="14" height="20" x="5" y="2" rx="2" ry="2" /> <path d="M12 18h.01" /> </svg></span><h3 data-i18n="feat.c9t">Sur ton écran d'accueil</h3><p data-i18n="feat.c9p">Un widget pose la recette du jour sur ton écran d'accueil et ton écran verrouillé. Tu la touches, elle s'ouvre.</p></div>
+        <div class="feat reveal d1"><span class="dot"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 20h.01" /> <path d="M8.5 16.429a5 5 0 0 1 7 0" /> <path d="M5 12.859a10 10 0 0 1 5.17-2.69" /> <path d="M19 12.859a10 10 0 0 0-2.007-1.523" /> <path d="M2 8.82a15 15 0 0 1 4.177-2.643" /> <path d="M22 8.82a15 15 0 0 0-11.288-3.764" /> <path d="m2 2 20 20" /> </svg></span><h3 data-i18n="feat.c5t">Hors ligne</h3><p data-i18n="feat.c5p">Tes recettes vivent sur ton téléphone. Dans une cuisine sans réseau, chez tes parents, en vacances : elles sont là.</p></div>
+        <div class="feat reveal d2"><span class="dot"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /> <path d="m9 12 2 2 4-4" /> </svg></span><h3 data-i18n="feat.c6t">Honnête sur ses erreurs</h3><p data-i18n="feat.c6p">Quand la lecture automatique n'est pas sûre d'elle, Nyama te le signale au lieu de faire semblant. Deux tapes et c'est réparé.</p></div>
+      </div>
+    </section>
   </div>
 
-  <!-- INTÉRÊT ---------------------------------------------------------- -->
-  <section id="probleme">
-    <div class="wrap problem-grid">
-      <div class="story reveal">
-        <p class="eyebrow" data-i18n="pb.eyebrow">Le vrai problème</p>
-        <h2 data-i18n="pb.h2">Il est 19 h.</h2>
+  <!-- AVIS ----------------------------------------------------------------
+       Vrais avis de l'App Store français, recopiés TELS QUELS (fautes
+       comprises) et jamais traduits : une citation traduite n'en est plus
+       une. Pas de note moyenne affichée — décision de Sat, trop peu de notes. -->
+  <section class="reviews" id="avis">
+    <div class="wrap">
+      <div class="reveal">
+        <h2 data-i18n="rev.h2">Celles et ceux qui ont arrêté de <em>chercher.</em></h2>
+        <div class="arrows">
+          <button type="button" id="prec" aria-label="Avis précédent"><svg width="18" height="18" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /> </svg></button>
+          <button type="button" id="suiv" aria-label="Avis suivant"><svg width="18" height="18" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></button>
+        </div>
       </div>
-      <div class="problem-body reveal">
-        <p data-i18n="pb.p1">
-          Mardi dernier, tu es tombé sur la recette parfaite. Trente secondes de vidéo, un plat
-          qui t'a donné faim tout de suite. Tu l'as mise en favori en te disant
-          « celle-là, je la fais ».
-        </p>
-        <p data-i18n="pb.p2">
-          Ce soir, tu fais défiler tes favoris pendant huit minutes. Tu passes aux captures
-          d'écran. Tu ouvres trois onglets. Elle est quelque part, tu le sais.
-          Tu ne la retrouves pas.
-        </p>
-        <p data-i18n="pb.p3">Tu commandes.</p>
-        <p class="problem-punch" data-i18n="pb.punch">
-          Le problème n'a jamais été de <b>trouver</b> des recettes.<br>
-          Le problème, c'est de les <b>retrouver</b>.
-        </p>
+      <div>
+        <div class="rev-track" id="avisPiste">
+          <article class="rev reveal"><div class="who"><span class="av">I</span><div><b>Ida_002</b><span class="st" aria-label="5 étoiles sur 5">★★★★★</span></div></div><h3 lang="fr">Je ne me suis pas rendue compte à quel point j'en avais besoin !!</h3><p lang="fr">C'était chronophage de faire des screens de recettes que je voyais sur les réseaux ou dans des livres de cuisine ; cette appli me simplifie carrément la vie !</p></article>
+          <article class="rev reveal d1"><div class="who"><span class="av">R</span><div><b>RachJo78</b><span class="st" aria-label="5 étoiles sur 5">★★★★★</span></div></div><h3 lang="fr">Trop pratique</h3><p lang="fr">J'aime beaucoup l'application, moi qui avait plusieurs albums sur différentes appli, elle me facilite vraiment pour retrouver toutes mes recettes au même endroit.</p></article>
+          <article class="rev reveal d2"><div class="who"><span class="av">A</span><div><b>Ange236</b><span class="st" aria-label="5 étoiles sur 5">★★★★★</span></div></div><h3 lang="fr">Superbe application</h3><p lang="fr">Je peux enfin centraliser et organiser toutes les recettes que je vois sur les réseaux sociaux, les fonctionnalités de planning des repas et de liste de courses sont un vrai plus.</p></article>
+          <article class="rev reveal d3"><div class="who"><span class="av">M</span><div><b>Meyoonix</b><span class="st" aria-label="5 étoiles sur 5">★★★★★</span></div></div><h3 lang="fr">Incroyable</h3><p lang="fr">Super application, très efficace et simple à comprendre ! Un plaisir à utiliser comme application 😆 !</p></article>
+        </div>
+        <p class="rev-note" data-i18n="rev.note">Avis publiés sur l'App Store français, reproduits tels quels.</p>
       </div>
     </div>
   </section>
 
-  <!-- DÉSIR ------------------------------------------------------------ -->
-  <section id="comment">
-    <div class="wrap">
-      <div class="section-head center reveal">
-        <p class="eyebrow" data-i18n="how.eyebrow">Comment ça marche</p>
-        <h2 data-i18n="how.h2">Trois gestes, et tu ne perds plus rien</h2>
-        <p class="lead" data-i18n="how.lead">Capturer, organiser, cuisiner. Tout le reste de Nyama existe pour servir ces trois-là.</p>
-      </div>
-
-      <div class="pillar reveal">
-        <div class="pillar-copy">
-          <span class="pillar-num">1</span>
-          <h3 data-i18n="p1.h3">Partage. C'est rangé.</h3>
-          <p data-i18n="p1.p1">
-            Une vidéo TikTok, un post Instagram, un blog interminable, la photo d'une page de
-            livre de cuisine, un message que ta mère t'a envoyé. Tu partages vers Nyama, et la
-            recette en ressort propre : les ingrédients d'un côté, les étapes de l'autre.
-          </p>
-          <p style="margin-top:16px" data-i18n="p1.p2">Tu n'as rien recopié. Ça prend quelques secondes.</p>
-          <ul>
-            <li data-i18n="p1.li1">Depuis le bouton « Partager » de n'importe quelle application</li>
-            <li data-i18n="p1.li2">Une photo d'un livre ou d'une fiche : le texte est lu pour toi</li>
-            <li data-i18n="p1.li3">Un lien collé, un texte collé, ou à la main si tu préfères</li>
-            <li data-i18n="p1.li4">Tu relis, tu corriges ce qui te chante, tu enregistres</li>
-          </ul>
-        </div>
-        <div class="pillar-media">
-          <div class="phone">
-            <!-- Un VRAI partage, filmé sur un iPhone : la vidéo de recette, la
-                 feuille iOS avec Nyama dedans, puis la recette qui en ressort
-                 rangée. Une image fixe ne pouvait pas montrer le geste, qui est
-                 justement l'argument.
-                 `muted` est obligatoire pour que `autoplay` soit autorisé par les
-                 navigateurs ; `playsinline` empêche iOS de passer en plein écran.
-                 Le fichier n'a de toute façon aucune piste audio. -->
-            <video src="/assets/partage-import.mp4"
-                   poster="/assets/partage-import-poster.png"
-                   autoplay muted loop playsinline preload="metadata"
-                   aria-label="Un partage depuis une vidéo de recette vers Nyama : la feuille de partage d'iOS s'ouvre, Nyama y figure, puis la recette apparaît rangée — titre, temps, ingrédients et étapes numérotées."></video>
-          </div>
-        </div>
-      </div>
-
-      <div class="pillar flip reveal">
-        <div class="pillar-copy">
-          <span class="pillar-num">2</span>
-          <h3 data-i18n="p2.h3">Dans trois ans, elle sera encore là.</h3>
-          <p data-i18n="p2.p1">
-            Chaque recette rejoint ta bibliothèque, avec ses étiquettes et ses livres de recettes.
-            Tu cherches « poulet citron », tu la trouves. Pas de fil d'actualité, pas
-            d'algorithme, pas les recettes des autres.
-          </p>
-          <p style="margin-top:16px" data-i18n="p2.p2">Que les tiennes. Rangées comme toi tu ranges.</p>
-          <ul>
-            <li data-i18n="p2.li1">Une recherche qui fouille les titres comme les ingrédients</li>
-            <li data-i18n="p2.li2">Des livres de recettes : « les rapides », « pour recevoir », « ce que les enfants mangent »</li>
-            <li data-i18n="p2.li3">Des filtres par moment du repas, par temps, par envie</li>
-            <li data-i18n="p2.li4">Tes recettes restent sur ton téléphone, lisibles même sans réseau</li>
-          </ul>
-        </div>
-        <div class="pillar-media">
-          <div class="phone">
-            <img src="/assets/ecran-bibliotheque.png" loading="lazy"
-                 alt="La bibliothèque « Tes recettes » de Nyama : une rangée de livres de recettes — « Le dimanche midi », « Ça prend 15 minutes », « Recettes de maman » — au-dessus d'une grille de recettes portant leur provenance, Instagram, TikTok ou site web, et une barre de recherche.">
-          </div>
-        </div>
-      </div>
-
-      <div class="pillar reveal">
-        <div class="pillar-copy">
-          <span class="pillar-num">3</span>
-          <h3 data-i18n="p3.h3">Les mains dans la farine, l'écran qui suit.</h3>
-          <p data-i18n="p3.p1">
-            Le mode cuisine affiche une étape à la fois, en grand, et l'écran ne s'éteint pas au
-            mauvais moment. Tu coches les ingrédients au fur et à mesure. Tu ne cherches plus où
-            tu en étais.
-          </p>
-          <p style="margin-top:16px" data-i18n="p3.p2">Cuisiner redevient le bon moment, pas la course d'obstacles.</p>
-          <ul>
-            <li data-i18n="p3.li1">Une étape par écran, en grands caractères</li>
-            <li data-i18n="p3.li2">Les ingrédients de l'étape sous les yeux</li>
-            <li data-i18n="p3.li3">L'écran reste allumé pendant toute la cuisson</li>
-            <li data-i18n="p3.li4">Les quantités s'ajustent au nombre de personnes</li>
-          </ul>
-        </div>
-        <div class="pillar-media">
-          <div class="phone">
-            <img src="/assets/ecran-cuisson.png" loading="lazy"
-                 alt="Le mode cuisine de Nyama : « étape 1 sur 4 », l'étape en cours en grand avec ses ingrédients, les suivantes en dessous.">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Fonctions secondaires -------------------------------------------- -->
-  <section class="features" id="fonctions">
-    <div class="wrap">
-      <div class="section-head center reveal">
-        <p class="eyebrow" data-i18n="feat.eyebrow">Et puis</p>
-        <h2 data-i18n="feat.h2">Ce qui transforme une bibliothèque en repas</h2>
-        <p class="lead" data-i18n="feat.lead">Une recette bien rangée, c'est bien. Une semaine de repas décidée, c'est mieux.</p>
-      </div>
-      <div class="feature-grid reveal">
-
-        <div class="card">
-          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
-          <h3 data-i18n="feat.c1t">Liste de courses</h3>
-          <p data-i18n="feat.c1p">Tes recettes deviennent une liste rangée par rayon, quantités additionnées. Tu coches d'une main au supermarché.</p>
-        </div>
-
-        <div class="card">
-          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
-          <h3 data-i18n="feat.c2t">La semaine décidée</h3>
-          <p data-i18n="feat.c2p">Tu poses tes repas sur les jours qui viennent. Le mardi soir, tu n'ouvres plus le frigo en espérant une idée. Et le moment venu, le rappel sonne à l'heure du repas et ouvre la recette.</p>
-        </div>
-
-        <div class="card">
-          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4Z"/></svg></div>
-          <h3 data-i18n="feat.c7t">Envoyer une recette</h3>
-          <p data-i18n="feat.c7p">Tu envoies un lien, elle s'ouvre sans rien installer. Si la personne l'aime, elle l'ajoute à son carnet d'un toucher.</p>
-        </div>
-
-        <div class="card">
-          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="M12 8v4M12 16h.01"/></svg></div>
-          <h3 data-i18n="feat.c8t">Ce que tu ne manges pas</h3>
-          <p data-i18n="feat.c8p">Tu déclares tes allergies et ton régime une fois. Une recette qui contient un allergène est signalée, avant que tu la cuisines.</p>
-        </div>
-
-        <div class="card">
-          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.2"/></svg></div>
-          <h3 data-i18n="feat.c3t">Adapter une recette</h3>
-          <p data-i18n="feat.c3p">Sans lactose, pour six au lieu de quatre, un peu plus léger. La recette se réécrit, l'originale ne bouge pas. <b>Avec Nyama Plus.</b></p>
-        </div>
-
-        <div class="card">
-          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2.5-7 5 14L17 12h4"/></svg></div>
-          <h3 data-i18n="feat.c4t">Les calories</h3>
-          <p data-i18n="feat.c4p">Ce que contient vraiment ton assiette, estimé pour toi. Sans calculette et sans rien recopier. <b>Avec Nyama Plus.</b></p>
-        </div>
-
-        <div class="card">
-          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
-          <h3 data-i18n="feat.c9t">Sur ton écran d'accueil</h3>
-          <p data-i18n="feat.c9p">Un widget pose la recette du jour sur ton écran d'accueil et ton écran verrouillé. Tu la touches, elle s'ouvre.</p>
-        </div>
-
-        <div class="card">
-          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M12 18h.01"/></svg></div>
-          <h3 data-i18n="feat.c5t">Hors ligne</h3>
-          <p data-i18n="feat.c5p">Tes recettes vivent sur ton téléphone. Dans une cuisine sans réseau, chez tes parents, en vacances : elles sont là.</p>
-        </div>
-
-        <div class="card">
-          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-          <h3 data-i18n="feat.c6t">Honnête sur ses erreurs</h3>
-          <p data-i18n="feat.c6p">Quand la lecture automatique n'est pas sûre d'elle, Nyama te le signale au lieu de faire semblant. Deux tapes et c'est réparé.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Positionnement --------------------------------------------------- -->
-  <section>
-    <div class="wrap">
-      <div class="section-head center reveal">
-        <p class="eyebrow" data-i18n="not.eyebrow">Pour être clair</p>
-        <h2 data-i18n="not.h2">Ce que Nyama n'est pas</h2>
-      </div>
-      <div class="not-list reveal">
-        <div><span class="x">✕</span><p data-i18n="not.1">Un réseau social de plus</p></div>
-        <div><span class="x">✕</span><p data-i18n="not.2">Un site de recettes</p></div>
-        <div><span class="x">✕</span><p data-i18n="not.3">Un algorithme qui décide de ton dîner</p></div>
-        <div><span class="x">✕</span><p data-i18n="not.4">Un fil où l'on publie ses plats</p></div>
-        <div><span class="x">✕</span><p data-i18n="not.5">Un endroit où l'on te vend des ingrédients</p></div>
-        <div><span class="x">✕</span><p data-i18n="not.6">Une application qui revend tes données</p></div>
-      </div>
-      <p class="not-final reveal" data-i18n="not.final">
-        Nyama est une <b>bibliothèque personnelle</b>.<br>
-        Elle ne regarde que toi.
-      </p>
-    </div>
-  </section>
-
-  <!-- FAQ --------------------------------------------------------------
-       Porte le fond `sand` depuis le retrait du bloc Prix : sans lui, trois
-       sections `canvas` s'enchaînaient et la page perdait son rythme. -->
-  <section class="features">
-    <div class="wrap">
-      <div class="section-head center reveal">
-        <p class="eyebrow" data-i18n="faq.eyebrow">Questions</p>
-        <h2 data-i18n="faq.h2">Ce qu'on nous demande</h2>
-      </div>
-      <div class="faq reveal">
-        <details>
+  <div class="wrap">
+    <!-- QUESTIONS -----------------------------------------------------------
+         Structure <summary> puis <p> : _build.mjs en extrait la FAQ JSON-LD. -->
+    <section class="faq" id="questions">
+      <h2 class="reveal" data-i18n="faq.h2">Ce qu'on nous <em>demande.</em></h2>
+      <div class="reveal d1">
+        <details open>
           <summary data-i18n="faq.q1">Ça marche avec toutes mes sources ?</summary>
           <p data-i18n="faq.a1">Instagram, TikTok, YouTube et ses Shorts, Facebook, Pinterest, les sites et blogs de cuisine, la photo d'une page de livre, un texte collé, une note ou un message : Nyama lit ce qui est écrit et le range. Et quand la recette n'est écrite nulle part, qu'elle n'existe qu'à l'oral dans la vidéo, Nyama l'écoute et la reconstitue. S'il n'est pas sûr de lui, il te le signale plutôt que d'inventer.</p>
         </details>
@@ -893,27 +716,23 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
         </details>
         <details>
           <summary data-i18n="faq.q5">C'est disponible sur Android ?</summary>
-          <p data-i18n="faq.a5">Pas encore. Nyama commence sur iPhone. Android viendra si assez de monde le demande.</p>
+          <p data-i18n="faq.a5">Pas encore. Nyama commence sur iPhone ; la version Android est en préparation.</p>
         </details>
         <details>
           <summary data-i18n="faq.q6">Que se passe-t-il si j'arrête Nyama Plus ?</summary>
           <p data-i18n="faq.a6">Tu gardes toutes tes recettes. Tu retombes simplement sur la réserve gratuite pour ce que tu ajoutes ensuite : 5 recettes par semaine, rechargées chaque lundi. Rien n'est effacé.</p>
         </details>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- EN BREF -----------------------------------------------------------
-       La fiche d'identité : la seule section qui affirme des faits nus
-       (plateforme, sources, prix) au lieu de les raconter. C'est elle que
-       les moteurs — Google comme les IA — peuvent citer sans se tromper. -->
-  <section id="en-bref">
-    <div class="wrap">
-      <div class="section-head center reveal">
-        <p class="eyebrow" data-i18n="brief.eyebrow">En bref</p>
-        <h2 data-i18n="brief.h2">Nyama, la fiche</h2>
-      </div>
-      <dl class="brief-list reveal">
+    <!-- EN BREF -----------------------------------------------------------
+         La fiche d'identité : la seule section qui affirme des faits nus
+         (plateforme, sources, prix) au lieu de les raconter. C'est elle que
+         les moteurs — Google comme les IA — peuvent citer sans se tromper. -->
+    <section class="brief" id="en-bref">
+      <p class="eyebrow reveal" data-i18n="brief.eyebrow">En bref</p>
+      <h2 class="reveal d1" data-i18n="brief.h2">Nyama, la fiche</h2>
+      <dl class="brief-list reveal d2">
         <div>
           <dt data-i18n="brief.r1t">Ce que c'est</dt>
           <dd data-i18n="brief.r1d">Une application iPhone qui importe une recette depuis un lien, une vidéo ou une photo, et la range dans ta bibliothèque : les ingrédients d'un côté, les étapes de l'autre.</dd>
@@ -939,28 +758,33 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
           <dd data-i18n="brief.r6d">Winstell — support@getnyama.app.</dd>
         </div>
       </dl>
-    </div>
-  </section>
+    </section>
 
-  <!-- ACTION ----------------------------------------------------------- -->
-  <section class="final" id="telecharger">
-    <div class="wrap">
-      <div class="final-panel reveal">
-        <span class="final-deco a" aria-hidden="true">🌿</span>
-        <span class="final-deco b" aria-hidden="true">🍋</span>
-        <img class="final-logo" src="/assets/icone.png" alt="">
-        <h2 data-i18n="cta.h2">Ce soir, tu sais où elle est.</h2>
-        <p class="lead" data-i18n="cta.lead">
-          Range ta première recette en deux minutes. Celle que tu avais mise de côté et jamais
-          refaite : commence par elle.
-        </p>
-        <a class="btn-store" href="https://apps.apple.com/app/id6794365868" data-appstore>
-          <svg width="24" height="28" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-          <span class="btn-store-txt" data-i18n="cta.appstore"><small>Télécharger sur</small><b>l'App Store</b></span>
-        </a>
+    <!-- APPEL FINAL ------------------------------------------------------- -->
+    <section class="final reveal" id="telecharger">
+      <div class="txt">
+        <p data-i18n="cta.kicker">Celle que tu as sauvegardée et jamais refaite ?</p>
+        <h2 data-i18n="cta.h2">Ce soir, tu sais <em>où elle est.</em></h2>
+        <div class="stores">
+          <a class="store" href="https://apps.apple.com/app/id6794365868" data-appstore>
+            <svg width="22" height="26" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+            <span class="store-txt" data-i18n="cta.appstore"><small>Télécharger sur</small><b>l'App Store</b></span>
+          </a>
+          <span class="store soon" aria-disabled="true">
+            <svg width="22" height="22" aria-hidden="true" focusable="false" fill="currentColor" viewBox="0 0 24 24"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>
+            <span class="store-txt" data-i18n="cta.play"><small>Android</small><b>Google Play</b></span>
+            <span class="pill-soon" data-i18n="cta.soon">Bientôt</span>
+          </span>
+        </div>
       </div>
-    </div>
-  </section>
+      <div class="img">
+        <picture>
+          <source srcset="/assets/final-main.avif" type="image/avif">
+          <img src="/assets/final-main.png" width="560" height="974" alt="Une main tient un iPhone ouvert sur les livres de recettes Nyama" loading="lazy">
+        </picture>
+      </div>
+    </section>
+  </div>
 
 </main>
 
@@ -976,9 +800,9 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
       </div>
       <div class="foot-col">
         <p class="foot-head" data-i18n="foot.head.nyama">Nyama</p>
-        <a href="/#probleme" data-i18n="nav.probleme">Le problème</a>
         <a href="/#comment" data-i18n="nav.comment">Comment ça marche</a>
         <a href="/#fonctions" data-i18n="nav.fonctions">Fonctions</a>
+        <a href="/#avis" data-i18n="nav.avis">Avis</a>
         <!-- Retiré par _build.mjs tant qu'aucun article n'est publié, comme
              le lien du menu principal. -->
         <a href="/blog/" data-lien-blog data-i18n="nav.blog">Blog</a>
@@ -1004,7 +828,6 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
       App Store est une marque déposée d'Apple Inc.
     </p>
   </div>
-
   <!-- Bandeau de consentement (Meta Pixel + Google Ads/Analytics).
        Vit ici, DANS le pied de page, pour que _build.mjs — qui réutilise le
        pied de page généré tel quel sur les pages du blog — l'embarque
@@ -1084,17 +907,62 @@ footer.site { background: var(--sand); padding: 60px 0 40px; }
   })();
   </script>
 </footer>
+</div>
 
 <script>
-// Filet de bordure sous la barre de navigation dès qu'on défile.
+// Voile sous la barre de navigation dès qu'on défile.
 const nav = document.getElementById('nav');
-addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), { passive: true });
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20), { passive: true });
 
 // Apparition progressive des blocs.
 const io = new IntersectionObserver((entries) => {
   for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-}, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}, { threshold: .12 });
+document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+// Héros : place les sources et trace leurs fils vers le téléphone (repère
+// 1000 × 700 étiré sur la zone ; le trait garde son épaisseur).
+const petit = matchMedia('(max-width: 900px)').matches;
+const fils = document.getElementById('fils');
+document.querySelectorAll('.src').forEach((s, i) => {
+  let [x, y] = [+s.dataset.x, +s.dataset.y];
+  if (petit) { if (!s.dataset.m) return; [x, y] = s.dataset.m.split(',').map(Number); }
+  s.style.left = x + '%'; s.style.top = y + '%';
+  s.style.transitionDelay = (0.9 + i * 0.12) + 's';
+  const X = x * 10, Y = y * 7, PX = 500 + (x < 50 ? -1 : 1) * (petit ? 200 : 78), PY = 266 + (y - 38) * 2.2;
+  const mx = (X + PX) / 2, d = `M${X},${Y} C${mx},${Y} ${mx},${PY} ${PX},${PY}`;
+  fils.insertAdjacentHTML('beforeend', `<path d="${d}"/><path class="flow" d="${d}" style="animation-delay:${-i * 0.6}s"/>`);
+});
+
+// Légère parallaxe de la main.
+const main = document.getElementById('main');
+addEventListener('scroll', () => main.style.setProperty('--py', (-Math.min(scrollY, 700) * 0.12) + 'px'), { passive: true });
+
+// Étapes : les cartes suivent la vraie vidéo ; un clic (ou Entrée) y saute.
+const etapes = [...document.querySelectorAll('.step')];
+const demo = document.getElementById('demo');
+const T = etapes.map((e) => +e.dataset.t);
+demo.addEventListener('timeupdate', () => {
+  const t = demo.currentTime, fin = demo.duration || 15.5;
+  let k = T.length - 1; while (k > 0 && t < T[k]) k--;
+  etapes.forEach((e, i) => {
+    e.classList.toggle('on', i === k);
+    const bout = i < T.length - 1 ? T[i + 1] : fin;
+    e.querySelector('.bar i').style.width = (i === k ? Math.min(100, (t - T[i]) / (bout - T[i]) * 100) : 0) + '%';
+  });
+});
+etapes.forEach((e, i) => {
+  const aller = () => { demo.currentTime = T[i] + 0.05; demo.play().catch(() => {}); };
+  e.addEventListener('click', aller);
+  e.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); aller(); } });
+});
+// Hors de l'écran, la vidéo se met en pause : pas de décodage pour rien.
+new IntersectionObserver(([e]) => { e.isIntersecting ? demo.play().catch(() => {}) : demo.pause(); }, { threshold: .25 }).observe(demo);
+
+// Avis : flèches.
+const piste = document.getElementById('avisPiste');
+document.getElementById('prec').onclick = () => piste.scrollBy({ left: -336, behavior: 'smooth' });
+document.getElementById('suiv').onclick = () => piste.scrollBy({ left: 336, behavior: 'smooth' });
 
 document.getElementById('an').textContent = new Date().getFullYear();
 </script>
