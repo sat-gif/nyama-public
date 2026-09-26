@@ -101,7 +101,7 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
-  margin: 0; background: var(--page); color: var(--ink);
+  margin: 0; background: var(--frame); color: var(--ink);
   font-family: var(--font); font-size: 17px; line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
@@ -110,11 +110,13 @@ a { color: inherit; }
 p { margin: 0; }
 figure { margin: 0; }
 
-/* La page vit dans un grand cadre arrondi posé sur le sable. `overflow: clip`
-   et PAS `hidden` : hidden ferait du cadre un conteneur de défilement, et la
-   barre de navigation cesserait de coller en haut. Le blog porte le même
-   cadre (voir « coquille » dans _build.mjs). */
-.frame { max-width: 1320px; margin: 16px auto; background: var(--frame); border-radius: 36px; overflow: clip; position: relative; }
+/* La page occupe TOUTE la largeur (Sat, 26/09 : le cadre arrondi sur fond
+   sable laissait deux bandes beiges sur un grand écran, la page paraissait
+   coupée). Seul le contenu reste centré, dans .wrap. `overflow: clip` et PAS
+   `hidden` : hidden ferait du conteneur une zone de défilement, et la barre de
+   navigation cesserait de coller en haut. Le blog porte le même conteneur
+   (voir « coquille » dans _build.mjs). */
+.frame { background: var(--frame); overflow: clip; position: relative; }
 .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 32px; }
 
 h1, h2, h3 {
@@ -216,7 +218,9 @@ header.nav.scrolled {
 .hero .stores { justify-content: center; margin-top: 30px; }
 .hero-note { margin-top: 14px; font-size: 13.5px; color: var(--ink-3); }
 
-.hero-visual { position: relative; height: 700px; margin-top: 44px; }
+/* Bornée : sur un très grand écran, les bulles (placées en %) resteraient
+   autour du téléphone au lieu de filer vers les bords. */
+.hero-visual { position: relative; height: 700px; max-width: 1320px; margin: 44px auto 0; }
 .hand { position: absolute; left: 50%; top: 0; width: 520px; transform: translateX(-50%);
   -webkit-mask: linear-gradient(#000 78%, transparent); mask: linear-gradient(#000 78%, transparent); }
 .hand img { width: 100%; height: auto; }
@@ -454,7 +458,6 @@ footer.site { padding: 64px 0 36px; }
 
 /* --- Téléphone --- */
 @media (max-width: 900px) {
-  .frame { margin: 0; border-radius: 0; }
   .wrap { padding: 0 16px; }
   .hero-visual { height: 540px; }
   .hand { width: 400px; }
