@@ -167,6 +167,25 @@ td .sub { display: block; font-size: 12px; color: var(--muted); }
 .gate form { display: flex; gap: 10px; flex-wrap: wrap; }
 .who-bar { display: flex; gap: 10px; align-items: center; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
 .linkbtn { background: none; border: 0; padding: 0; color: var(--muted); text-decoration: underline; font: inherit; cursor: pointer; }
+.modes { align-self: flex-start; }
+.field .lbl { font-family: var(--font-body); font-size: 13px; white-space: nowrap; }
+.bsum { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.bsum > div { background: var(--bg); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.bsum .n { font: 800 26px/1.1 var(--font-display); }
+.bsum a { color: inherit; }
+table.brand { min-width: 640px; }
+table.brand td { vertical-align: middle; }
+table.brand td.num { white-space: nowrap; }
+table.brand td.acts { white-space: nowrap; text-align: right; }
+table.brand td.acts button { padding: 6px 10px; font-size: 13px; }
+table.brand .h a { color: inherit; font-family: var(--font-mono); font-weight: 500; }
+table.brand tr.own td { color: var(--muted); }
+.flag { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--warn-soft); color: var(--warn); white-space: nowrap; }
+.flag.rep { background: var(--ok-soft); color: var(--ok); }
+.flag.own { background: var(--info-soft); color: var(--info); }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.filters button { padding: 6px 12px; font-size: 13px; }
+.filters button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); }
 </style>
 </head>
 <body>
@@ -174,7 +193,7 @@ td .sub { display: block; font-size: 12px; color: var(--muted); }
   <header class="top">
     <span class="eyebrow">Nyama · programme créateurs · TikTok et Instagram</span>
     <h1>Scoreur créateurs</h1>
-    <p>Choisis la plateforme et tape le pseudo d'un créateur, ou colle le lien de son profil. L'outil lit ses 20 dernières vidéos et ses commentaires, puis applique les critères du brief : vues des 5 pires vidéos, régularité, communauté, niche, audience en France. Il donne un verdict et le prix maximum à proposer.</p>
+    <p>Choisis la plateforme et tape le pseudo d'un créateur, ou colle le lien de son profil. L'outil lit ses 20 dernières vidéos et ses commentaires, puis applique les critères du brief : vues des 5 pires vidéos, régularité, communauté, niche, audience en France. Il donne un verdict et le prix maximum à proposer. L'onglet « Une marque » liste les créateurs qui parlent d'une marque concurrente, pour les scorer ensuite.</p>
   </header>
 
   <section class="gate" id="gate" hidden>
@@ -188,6 +207,21 @@ td .sub { display: block; font-size: 12px; color: var(--muted); }
 
   <div id="app" hidden>
     <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="seg modes" role="radiogroup" aria-label="Recherche">
+        <label for="modeCreateur"><input type="radio" name="mode" id="modeCreateur" value="createur" checked><span>Un créateur</span></label>
+        <label for="modeMarque"><input type="radio" name="mode" id="modeMarque" value="marque"><span>Une marque</span></label>
+      </div>
+      <form class="search" id="brandForm" autocomplete="off" hidden>
+        <label class="field" for="brandName">
+          <span class="lbl">Marque</span>
+          <input id="brandName" placeholder="Goomy, Jow, Osta…" spellcheck="false" autocapitalize="off">
+        </label>
+        <label class="field" for="brandIg">
+          <span>@</span>
+          <input id="brandIg" placeholder="son Instagram (goomy.app)" spellcheck="false" autocapitalize="off">
+        </label>
+        <button class="primary" id="brandBtn" type="submit">Chercher ses créateurs</button>
+      </form>
       <form class="search" id="searchForm" autocomplete="off">
         <div class="seg" role="radiogroup" aria-label="Plateforme">
           <label for="pfTiktok"><input type="radio" name="platform" id="pfTiktok" value="tiktok" checked><span>TikTok</span></label>
@@ -206,11 +240,17 @@ td .sub { display: block; font-size: 12px; color: var(--muted); }
 
   <div id="notice" hidden></div>
   <div class="progress" id="progress" hidden></div>
+  <section id="brandResult" hidden></section>
   <section id="result" hidden></section>
 
   <section class="history" id="historySec" hidden>
     <h2>Profils déjà analysés</h2>
     <div class="hlist" id="historyList"><div class="empty">Chargement de l'historique…</div></div>
+  </section>
+
+  <section class="history" id="brandHistorySec" hidden>
+    <h2>Marques déjà étudiées</h2>
+    <div class="hlist" id="brandHistoryList"><div class="empty">Chargement…</div></div>
   </section>
 </div>
 
@@ -465,6 +505,7 @@ const CORE = (() => {
   let docs = new Map();
   let current = null, lastRendered = null, busy = false;
   let iaNote = null;
+  let mode = "createur", brands = new Map(), currentBrand = null, brandFilter = "tous";
 
   const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
   const pill = (status, lg) => el("span", "pill " + status + (lg ? " lg" : ""), LABEL[status] || status);
@@ -505,12 +546,14 @@ const CORE = (() => {
     const r = await api("check", {}, c);
     code = c; label = r.label;
     store.set("scoreur-code", c);
-    $("gate").hidden = true; $("app").hidden = false; $("historySec").hidden = false;
+    $("gate").hidden = true; $("app").hidden = false;
     $("whoLabel").textContent = "Connecté : " + label + (r.ia ? "" : " · lecture par l'IA pas encore branchée");
-    await refreshHistory();
+    setMode(mode);
+    await Promise.all([refreshHistory(), refreshBrands()]);
   }
   function showGate(msg) {
-    code = null; $("app").hidden = true; $("historySec").hidden = true; $("result").hidden = true; $("gate").hidden = false;
+    code = null; $("app").hidden = true; $("historySec").hidden = true; $("brandHistorySec").hidden = true;
+    $("result").hidden = true; $("brandResult").hidden = true; $("gate").hidden = false;
     if (msg) notice("bad", "Accès refusé", msg); else clearNotice();
   }
   $("gateForm").addEventListener("submit", async e => {
@@ -540,6 +583,7 @@ const CORE = (() => {
       current = keyOf(r.profil.platform, r.profil.handle);
       render(r.profil);
       await refreshHistory();
+      if (mode === "marque") { if (currentBrand) renderBrand(brands.get(currentBrand)); $("result").scrollIntoView({ behavior: "smooth", block: "start" }); }
     } catch (err) { handleError(err); }
     finally { progress(null); busy = false; $("goBtn").disabled = false; }
   }
@@ -707,8 +751,151 @@ const CORE = (() => {
     });
   }
 
+
+  // ---------- Par marque ----------
+  const BRAND_FILTERS = [["tous", "Tous"], ["recurrents", "2 posts ou plus"], ["pub", "Pub déclarée"]];
+  const brandLabel = m => m.nom + (m.instagram ? " · @" + m.instagram.handle : "");
+
+  function setMode(m) {
+    mode = m;
+    const brand = m === "marque";
+    $("searchForm").hidden = brand; $("brandForm").hidden = !brand;
+    $("historySec").hidden = brand || !code; $("brandHistorySec").hidden = !brand || !code;
+    if (!brand) $("brandResult").hidden = true;
+    else if (currentBrand && brands.has(currentBrand)) renderBrand(brands.get(currentBrand));
+    if (brand) $("costHint").textContent = "Environ 11 crédits Scrape Creators par marque : les tags Instagram des 12 derniers mois (donne son @Instagram), les vidéos TikTok des 6 derniers mois qui la citent, et ses pubs Meta en France. Le score d'un créateur coûte ensuite 6 crédits, l'e-mail 1 à 10.";
+    else updateCost();
+  }
+  ["modeCreateur", "modeMarque"].forEach(id => $(id).addEventListener("change", () => setMode($("modeMarque").checked ? "marque" : "createur")));
+
+  async function refreshBrands() {
+    try {
+      const r = await api("marques", {});
+      brands = new Map((r.marques || []).map(m => [m.key, m]));
+      renderBrandHistory();
+    } catch (err) { if (err && err.error === "code") handleError(err); }
+  }
+
+  $("brandForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    if (busy) return;
+    const nom = $("brandName").value.trim();
+    if (!nom) { notice("bad", "Nom manquant", "Tape le nom de la marque, tel qu'on le dit dans les vidéos (il sert de mot-clé sur TikTok)."); return; }
+    const ig = $("brandIg").value.trim().replace(/^@/, "");
+    busy = true; $("brandBtn").disabled = true; clearNotice();
+    progress("Lecture des tags Instagram, des vidéos TikTok et des pubs Meta : 30 à 60 secondes.");
+    try {
+      const r = await api("marque", { nom, instagram: ig || null });
+      brands.set(r.marque.key, r.marque); currentBrand = r.marque.key; brandFilter = "tous";
+      renderBrand(r.marque); renderBrandHistory();
+    } catch (err) { handleError(err); }
+    finally { progress(null); busy = false; $("brandBtn").disabled = false; }
+  });
+
+  function renderBrand(m) {
+    if (!m) return;
+    const r = $("brandResult"); r.hidden = false; r.replaceChildren(); r.className = "result";
+    const top = el("div", "section");
+    const who = el("div", "who");
+    who.append(el("span", "eyebrow", "Qui parle de la marque"), el("h2", null, brandLabel(m)));
+    who.append(el("span", "meta", "Recherche du " + dateFr(m.scannedAt) + (m.by ? " · " + m.by : "")));
+    top.append(who);
+
+    const createurs = m.createurs || [];
+    const ext = createurs.filter(c => !c.compteMarque);
+    const sum = el("div", "bsum");
+    const box = (n, t, sub, href) => {
+      const d = el("div"); const big = el("span", "n", n);
+      if (href) { const a = el("a"); a.href = href; a.target = "_blank"; a.rel = "noopener"; a.append(big); d.append(a); } else d.append(big);
+      d.append(el("span", null, t)); if (sub) d.append(el("span", "hint", sub)); return d;
+    };
+    sum.append(box(String(ext.length), "créateurs hors marque", ext.filter(c => c.posts >= 2).length + " en ont parlé 2 fois ou plus"));
+    if (m.instagram) sum.append(box(String(m.instagram.posts), "tags Instagram sur 12 mois", (m.instagram.anciens ? m.instagram.anciens + " plus anciens ignorés · " : "") + fmt(m.instagram.abonnes) + " abonnés"));
+    else sum.append(box("—", "Instagram non lu", "donne l'@Instagram de la marque"));
+    if (m.tiktok) sum.append(box(String(m.tiktok.retenus), "vidéos TikTok qui la citent", "sur " + m.tiktok.lus + " trouvées pour « " + m.tiktok.motcle + " », 6 derniers mois"));
+    const me = m.meta;
+    if (me && me.trouvee) sum.append(box(fmt(me.total), "pubs Meta en France", me.actives + " actives sur les " + me.lues + " lues" + (me.plusAncienneActive ? " · la plus ancienne tourne depuis le " + dateFr(me.plusAncienneActive) : "") + (me.partenaires && me.partenaires.length ? " · en partenariat avec " + me.partenaires.map(p => p.nom).join(", ") : " · aucune en partenariat avec un créateur"), me.lien));
+    else sum.append(box("—", "pubs Meta", m.instagram ? "page Meta introuvable pour cet Instagram" : "donne l'@Instagram de la marque"));
+    top.append(sum);
+    (m.erreurs || []).forEach(x => top.append(el("div", "notice bad", x)));
+    top.append(el("div", "hint", "Un créateur qui en parle plusieurs fois a sans doute été repayé : c'est le signe que la marque y gagne. Les comptes au nom de la marque sont grisés (sa propre flotte)."));
+    r.append(top);
+
+    const sec = el("div", "section");
+    const fl = el("div", "filters");
+    BRAND_FILTERS.forEach(([k, t]) => {
+      const b = el("button", "ghost", t); b.type = "button"; b.setAttribute("aria-pressed", String(brandFilter === k));
+      b.addEventListener("click", () => { brandFilter = k; renderBrand(m); });
+      fl.append(b);
+    });
+    sec.append(fl);
+    const rows = createurs.filter(c => brandFilter === "tous" || (brandFilter === "recurrents" ? c.posts >= 2 : c.pub > 0));
+    if (!rows.length) { sec.append(el("div", "empty", "Aucun créateur avec ce filtre.")); r.append(sec); return; }
+    const tw = el("div", "tablewrap"); const t = el("table", "brand");
+    const hr = el("tr"); ["Créateur", "Posts", "Période", "Vues TikTok", "Signal", "Score", ""].forEach(x => hr.append(el("th", null, x)));
+    t.append(hr);
+    rows.forEach(c => {
+      const tr = el("tr", c.compteMarque ? "own" : null);
+      const h = el("td", "h"); const a = el("a", null, "@" + c.handle); a.href = profileUrl(c); a.target = "_blank"; a.rel = "noopener"; h.append(a);
+      h.append(el("span", "sub", platformName(c.platform)));
+      tr.append(h);
+      const pc = el("td", "num", String(c.posts)); tr.append(pc);
+      tr.append(el("td", "num muted", c.premier ? (dateFr(c.premier) === dateFr(c.dernier) ? dateFr(c.dernier) : dateFr(c.premier) + " → " + dateFr(c.dernier)) : "—"));
+      tr.append(el("td", "num", c.vuesMoy != null ? fmt(c.vuesMoy) + " moy." : "—"));
+      const sg = el("td");
+      if (c.compteMarque) sg.append(el("span", "flag own", "compte de la marque"));
+      else {
+        if (c.posts >= 2) sg.append(el("span", "flag rep", "récurrent"));
+        if (c.pub) { if (sg.children.length) sg.append(document.createTextNode(" ")); sg.append(el("span", "flag", "pub ×" + c.pub)); }
+      }
+      if (c.emails && c.emails.length) sg.append(el("span", "sub", c.emails.join(", ")));
+      else if (c.emails) sg.append(el("span", "sub", "pas d'e-mail public"));
+      tr.append(sg);
+      const known = docs.get(keyOf(c.platform, c.handle));
+      const sc = el("td", "status"); if (known) { sc.append(pill(known.verdict || "averifier")); sc.append(el("span", "sub", known.prixMax ? known.prixMax + " € max" : "pas de forfait")); } else sc.append(el("span", "muted", "—"));
+      tr.append(sc);
+      const ac = el("td", "acts");
+      const sb = el("button", "ghost", known ? "Voir" : "Scorer"); sb.type = "button";
+      sb.addEventListener("click", () => {
+        if (known) { current = keyOf(c.platform, c.handle); render(known); $("result").scrollIntoView({ behavior: "smooth", block: "start" }); }
+        else analyse(c.platform, c.handle);
+      });
+      ac.append(sb);
+      if (!c.emails) {
+        const eb = el("button", "ghost", "E-mail"); eb.type = "button"; eb.style.marginLeft = "6px";
+        eb.addEventListener("click", async () => {
+          eb.disabled = true; eb.textContent = "…";
+          try { const res = await api("email", { platform: c.platform, handle: c.handle, marque: m.key }); c.emails = res.emails || []; renderBrand(m); }
+          catch (err) { handleError(err); eb.disabled = false; eb.textContent = "E-mail"; }
+        });
+        ac.append(eb);
+      }
+      tr.append(ac);
+      t.append(tr);
+    });
+    tw.append(t); sec.append(tw);
+    r.append(sec);
+  }
+
+  function renderBrandHistory() {
+    const list = $("brandHistoryList"); list.replaceChildren();
+    const items = [...brands.values()].sort((a, b) => String(b.scannedAt).localeCompare(String(a.scannedAt)));
+    if (!items.length) { list.append(el("div", "empty", "Les marques étudiées s'affichent ici, pour toute l'équipe. Commence par Goomy (Instagram : goomy.app).")); return; }
+    items.forEach(m => {
+      const b = el("button", "hrow"); b.type = "button";
+      b.append(el("span", "h", brandLabel(m)));
+      const ext = (m.createurs || []).filter(c => !c.compteMarque);
+      b.append(el("span", "tag pf", ext.length + " créateurs"));
+      b.append(el("span", "x num muted", ext.filter(c => c.posts >= 2).length + " récurrents"));
+      b.append(el("span", "d", dateFr(m.scannedAt) + (m.by ? " · " + m.by : "")));
+      b.addEventListener("click", () => { currentBrand = m.key; brandFilter = "tous"; $("brandName").value = m.nom; $("brandIg").value = m.instagram ? m.instagram.handle : ""; renderBrand(m); $("brandResult").scrollIntoView({ behavior: "smooth", block: "start" }); });
+      list.append(b);
+    });
+  }
+
   const selectedPlatform = () => ($("pfInstagram").checked ? "instagram" : "tiktok");
   function updateCost() {
+    if (mode === "marque") return;
     $("costHint").textContent = selectedPlatform() === "instagram"
       ? "Environ 6 crédits Scrape Creators par analyse. Instagram ne donne pas les pays de l'audience : demande la capture au créateur."
       : "Environ 6 crédits Scrape Creators par analyse. La vérification de l'audience coûte 26 crédits de plus, à lancer seulement pour les profils prometteurs.";
